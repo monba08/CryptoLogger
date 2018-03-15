@@ -12,18 +12,16 @@ public class Accounts {
 
     //Dit zal later geïmplementeerd worden in een GUI.
     public void createNewAccount(){
+        Coin coin = new Coin();
         Scanner reader = new Scanner(System.in);
         System.out.println("Enter your name: ");
         String name = reader.next();
         System.out.println("Enter a password for your account: ");
         String password = reader.next();
-        System.out.println("Which crypto-coin would you like to add? ");
-        String coin = reader.next();
-        System.out.println("Type in the current value of this coin: ");
-        int value = reader.nextInt();
+        //Parameters die we misschien zullen doorgeven.
         nameUser = name;
-        coinType=coin;
-        valueCoin=value;
+        coinType=coin.setNameCoin();
+        valueCoin=coin.setValueCoin();
         reader.close();
     }
 
