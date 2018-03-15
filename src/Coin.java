@@ -1,17 +1,18 @@
+import java.sql.SQLOutput;
 import java.util.Scanner;
 
 public class Coin {
     private String nameCoin;
-    private int valueCoin;
-    private int quantityCoin;
-    private int currentValue;
-    private int newValueCoin;
+    private int valueCoin;   //Waarschijnlijk overbodig
+    private int quantityCoin;//Waarschijnlijk overbodig
+    private int currentValue;//Waarschijnlijk overbodig
+    private int newValueCoin;//Waarschijnlijk overbodig
 
     public String setNameCoin(){
         Scanner reader = new Scanner(System.in);
         System.out.println("Which crypto-coin would you like to add? ");
         String coin = reader.next();
-        nameCoin=coin;
+        nameCoin=coin; //Waarschijnlijk overbodig
         return coin;
     }
     public int setValueCoin(){
@@ -26,7 +27,10 @@ public class Coin {
         int quantity = reader.nextInt();
         return quantity;
     }
-    public void setCurrentValueCoin(){
-
+    public int setCurrentValueCoin(){
+        Scanner reader = new Scanner(System.in);
+        System.out.println("Set the value of "+nameCoin+" for today");
+        int currentValue=reader.nextInt();
+        return currentValue;
     }
 }

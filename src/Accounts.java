@@ -19,6 +19,7 @@ public class Accounts {
         String name = reader.next();
         System.out.println("Enter a password for your account: ");
         String password = reader.next();
+
         //Parameters die we zullen doorgeven.
         nameUser = name;
         coinType=coin.setNameCoin();
