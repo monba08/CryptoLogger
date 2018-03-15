@@ -33,4 +33,5 @@ public class Coin {
         int currentValue=reader.nextInt();
         return currentValue;
     }
+    //test
 }
