@@ -11,6 +11,7 @@ public class Coin {
         Scanner reader = new Scanner(System.in);
         System.out.println("Which crypto-coin would you like to add? ");
         String coin = reader.next();
+        nameCoin=coin;
         return coin;
     }
     public int setValueCoin(){
@@ -19,8 +20,11 @@ public class Coin {
         int value = reader.nextInt();
         return value;
     }
-    public void setQuantityCoin(){
-
+    public int setQuantityCoin(){
+        Scanner reader = new Scanner(System.in);
+        System.out.println("How much do you want to own from "+nameCoin+"?");
+        int quantity = reader.nextInt();
+        return quantity;
     }
     public void setCurrentValueCoin(){
 

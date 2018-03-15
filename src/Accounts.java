@@ -10,6 +10,7 @@ public class Accounts {
     private int quantityCoin;
     private int date;
 
+
     //Dit zal later geïmplementeerd worden in een GUI.
     public void createNewAccount(){
         Coin coin = new Coin();
@@ -18,10 +19,11 @@ public class Accounts {
         String name = reader.next();
         System.out.println("Enter a password for your account: ");
         String password = reader.next();
-        //Parameters die we misschien zullen doorgeven.
+        //Parameters die we zullen doorgeven.
         nameUser = name;
         coinType=coin.setNameCoin();
         valueCoin=coin.setValueCoin();
+        quantityCoin=coin.setQuantityCoin();
         reader.close();
     }
 
@@ -29,8 +31,11 @@ public class Accounts {
 
     }
 
-    public void checkUser()
+    public void checkUser(String naam)
     {
+        this.nameUser=naam;
+
+
 
     }
 }
