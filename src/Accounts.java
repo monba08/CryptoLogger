@@ -10,7 +10,7 @@ public class Accounts {
     private int quantityCoin;
     private int date;
 
-
+    //Dit zal later geïmplementeerd worden in een GUI.
     public void createNewAccount(){
         Scanner reader = new Scanner(System.in);
         System.out.println("Enter your name: ");
