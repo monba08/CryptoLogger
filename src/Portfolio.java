@@ -6,15 +6,15 @@ import java.util.*;
 public class Portfolio {
     private float saldo;
     private int UserID;
-    private static ArrayList<String> Accounts = new ArrayList<String>();
-    File inputFile = new File("Accounts.txt");
-    int i=0;
-    Scanner lineReader = new Scanner(inputFile);
-    Scanner wordReader = null;
-    String currentLine;
-    String word;
+    private static ArrayList<String> Accounts = new ArrayList<>();
 
     public Portfolio() throws FileNotFoundException {
+        File inputFile = new File("Accounts.txt");
+        int i=0;
+        Scanner lineReader = new Scanner(inputFile);
+        Scanner wordReader = null;
+        String currentLine;
+        String word;
         while (lineReader.hasNextLine()) {       //Checken op EOF.
             currentLine = lineReader.nextLine(); //Lezen van de volgende lijn in de textfile.
             wordReader = new Scanner(currentLine);
