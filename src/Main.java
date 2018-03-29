@@ -16,7 +16,7 @@ public class Main {
         Accounts account = new Accounts();
         account.createNewAccount();
         String filename = "C:\\Users\\mouhc\\Google Drive\\Desktop\\School\\Uni3\\Semester 6\\Software Design\\CryptoTrack\\Test.xls";
-        File inputWorkBook = new File(filename);
+        /*File inputWorkBook = new File(filename);
         Workbook w;
         try {
             w = Workbook.getWorkbook(inputWorkBook);
@@ -39,8 +39,8 @@ public class Main {
 
         } catch (BiffException e) {
             e.printStackTrace();
-        }
-
+        }*/
+        Portfolio portfolio = new Portfolio();
 
     }
 }
