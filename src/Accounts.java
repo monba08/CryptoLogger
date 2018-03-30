@@ -43,9 +43,9 @@ public class Accounts {
         bw.write(Integer.toString(valueCoin));
         bw.write(" ");
         bw.write(Integer.toString(quantityCoin));
-        //bw.newLine();
+        bw.newLine();
         bw.close();
-
+;
     }
 
     public void logIn(String Name){
