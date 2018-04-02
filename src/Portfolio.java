@@ -34,7 +34,7 @@ public class Portfolio {
         String surename = Account.get(1);
         String fullname= name+" "+surename;
         System.out.println("De volledige naam van de persoon is: "+fullname);
-
+        //Account.clear();
         return fullname;
     }
 
@@ -49,6 +49,7 @@ public class Portfolio {
         Scanner wordReader = null;
         String currentLine;
         String word;
+        Account.clear();
         while (lineReader.hasNextLine()) {       //Checken op EOF.
             currentLine = lineReader.nextLine(); //Lezen van de volgende lijn in de textfile.
             wordReader = new Scanner(currentLine);
@@ -83,7 +84,7 @@ public class Portfolio {
                         System.out.println("Dit is woord 5: " + word);
                         System.out.println("Dit is accounts: " + Account);
                     }
-               // }
+                    // }
                 //else
                 /*{
                     System.out.println("Dit is accounts: " + Account);
@@ -97,9 +98,12 @@ public class Portfolio {
 
             }
             i = 0;
+
         }
         lineReader.close();
         wordReader.close();
+
+
     }
 
     public void getWeekValues(){
