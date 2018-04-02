@@ -33,7 +33,7 @@ public class Portfolio {
         String name = Account.get(0);
         String surename = Account.get(1);
         String fullname= name+" "+surename;
-        System.out.println("De naam van de persoon is: "+fullname);
+        System.out.println("De volledige naam van de persoon is: "+fullname);
 
         return fullname;
     }
@@ -44,7 +44,7 @@ public class Portfolio {
 
     public void readFromFile(File fileName) throws FileNotFoundException {
         //File inputFile = new File("Accounts.txt");
-        int i=0;
+        int i = 0;
         Scanner lineReader = new Scanner(fileName);
         Scanner wordReader = null;
         String currentLine;
@@ -52,35 +52,48 @@ public class Portfolio {
         while (lineReader.hasNextLine()) {       //Checken op EOF.
             currentLine = lineReader.nextLine(); //Lezen van de volgende lijn in de textfile.
             wordReader = new Scanner(currentLine);
-            while(wordReader.hasNext()) {
+            while (wordReader.hasNext()) {
                 word = wordReader.next();
-                i = i+1;
-                if (i==1) {
-                    Account.add(word);
-                    System.out.println("Dit is woord 1: "+word);
-                    System.out.println("Dit is accounts: "+Account);
+                i = i + 1;
+                int Arraysize = Account.size();
+                //if (Arraysize > 2) {
+                    if (i == 1) {
+                        Account.add(word);
+                        System.out.println("Voornaam van de persoon: " + word);
+                        //System.out.println("Dit is accounts: " + Account);
 
-                }
-                if (i==2) {
-                    Account.add(word);
-                    System.out.println("Dit is woord 2: "+word);
-                    System.out.println("Dit is accounts: "+Account);
-                }
-                if (i==3) {
-                    Account.add(word);
-                    System.out.println("Dit is woord 3: "+word);
-                    System.out.println("Dit is accounts: "+Account);
-                }
-                if (i==4) {
-                    Account.add(word);
-                    System.out.println("Dit is woord 4: "+word);
-                    System.out.println("Dit is accounts: "+Account);
-                }
-                if (i==5){
-                    Account.add(word);
-                    System.out.println("Dit is woord 5: "+word);
-                    System.out.println("Dit is accounts: "+Account);
-                }
+                    }
+                    if (i == 2) {
+                        Account.add(word);
+                        System.out.println("Achternaam van de persoon: " + word);
+                        //System.out.println("Dit is accounts: " + Account);
+                    }
+                    if (i == 3) {
+                        Account.add(word);
+                        System.out.println("Dit is woord 3: " + word);
+                        //System.out.println("Dit is accounts: " + Account);
+                    }
+                    if (i == 4) {
+                        Account.add(word);
+                        System.out.println("Dit is woord 4: " + word);
+                        //System.out.println("Dit is accounts: " + Account);
+                    }
+                    if (i == 5) {
+                        Account.add(word);
+                        System.out.println("Dit is woord 5: " + word);
+                        System.out.println("Dit is accounts: " + Account);
+                    }
+               // }
+                //else
+                /*{
+                    System.out.println("Dit is accounts: " + Account);
+                }*/
+                /*ListIterator <String> gegevensIterator = Account.listIterator();
+                while(gegevensIterator.hasNext()){
+                    System.out.print(i + " ");
+                    System.out.println(gegevensIterator.next());
+                    i++;
+                }*/
 
             }
             i = 0;

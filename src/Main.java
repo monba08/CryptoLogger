@@ -11,23 +11,30 @@ import java.util.Scanner;
 public class Main {
     //private Accounts Account;
 
-    public static void main(String[] args)  throws IOException {
 
+    public static void main(String[] args)  throws IOException {
+        String coinType="";
+
+         int valueCoin=0;
+         int quantityCoin=0;
+            Scanner scan = new Scanner(System.in);
             System.out.println("Welcome to CryptoLogger!");
             Accounts account = new Accounts();
             Portfolio portfolio = new Portfolio();
             File inputFile = new File("Accounts.txt");
             ExistingUser user = new ExistingUser();
+            Coin coin = new Coin(valueCoin, quantityCoin,coinType);
             try {
                 boolean exit =false;
-                Scanner scan = new Scanner(System.in);
+
                 while (!exit) {
                     // Print menu
                     System.out.println("\nMenu:\n\n"
                             + "Option 1 - Create a new account              \n"
                             + "Option 2 - Access Portfolio                  \n"
                             + "Option 3 - Remove coin                       \n"
-                            + "Option 4 - Exit                              \n");
+                            + "Option 4 - Set current                       \n"
+                            + "Option 5 - Exit                              \n");
                     int option = scan.nextInt();
                     switch (option)
                     {
@@ -41,20 +48,22 @@ public class Main {
                         case 3:
                             user.removeCoin(inputFile); // Aanroep voor het verwijderen van een coin in de arraylist
                             break;
+                        case 4:
+                            coin.setCurrentValueCoin();
+                            break;
                         case 5:
                             exit=true;
+                            break;
                         default:
                             System.out.println("Option doesn't exist, please try again.");
                             break;
                     }
+
                 }
+                //scan.close();
             }catch (IOException e) {
         e.printStackTrace();
     }
-
-
-
-
     }
 }
 
