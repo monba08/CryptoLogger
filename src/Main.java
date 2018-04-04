@@ -21,7 +21,7 @@ public class Main {
             System.out.println("Welcome to CryptoLogger!");
             Accounts account = new Accounts();
             Portfolio portfolio = new Portfolio();
-            File inputFile = new File("Accounts.txt");
+            File inputFile = new File("User.txt");
             ExistingUser user = new ExistingUser();
             Coin coin = new Coin(valueCoin, quantityCoin,coinType);
             try {
@@ -33,8 +33,10 @@ public class Main {
                             + "Option 1 - Create a new account              \n"
                             + "Option 2 - Access Portfolio                  \n"
                             + "Option 3 - Remove coin                       \n"
-                            + "Option 4 - Set current                       \n"
-                            + "Option 5 - Exit                              \n");
+                            + "Option 4 - Set current value                 \n"
+                            + "Option 5 - Add new Coin                      \n"
+                            + "Option 6 - Log In                            \n"
+                            + "Option 7 - Exit                              \n");
                     int option = scan.nextInt();
                     switch (option)
                     {
@@ -52,6 +54,12 @@ public class Main {
                             coin.setCurrentValueCoin();
                             break;
                         case 5:
+                            user.NewCoin();
+                            break;
+                        case 6:
+                            account.logIn();
+                            break;
+                        case 7:
                             exit=true;
                             break;
                         default:

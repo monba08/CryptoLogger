@@ -82,8 +82,18 @@ public class Portfolio {
                     if (i == 5) {
                         Account.add(word);
                         System.out.println("Dit is woord 5: " + word);
-                        System.out.println("Dit is accounts: " + Account);
+                        System.out.println("Dit is accounts tot index 5: " + Account);
                     }
+                    if (i == 6) {
+                    Account.add(word);
+                    }
+                    if (i == 7) {
+                    Account.add(word);
+                    }
+                    if (i == 8) {
+                    Account.add(word);
+                    System.out.println("Dit is accounts tot index 8: " + Account);
+                }
                     // }
                 //else
                 /*{

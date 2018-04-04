@@ -49,7 +49,7 @@ public class ExistingUser {
 
     }
 
-    public void NewCoin() {
+    public void NewCoin() throws IOException {
         Scanner reader = new Scanner(System.in);
         Coin coin = new Coin(valueCoin, quantityCoin,coinName);
         System.out.println("Which crypto-coin would you like to add? ");
@@ -70,6 +70,28 @@ public class ExistingUser {
             quantityString=reader.next();*/
         quantityCoin = Integer.parseInt(quantityString);
         coin.setQuantityCoin(quantityCoin);
+        portfolio.Account.add(5,coinName);
+        portfolio.Account.add(6,valueString);
+        portfolio.Account.add(7,quantityString);
+
+        /*File fout = new File("Accounts.txt");
+        FileOutputStream fos = new FileOutputStream(fout,true); //Append parameter, zodat oude data niet verdwijnt. Boolean argument
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));*/
+        FileWriter writer = new FileWriter("User.txt");
+        BufferedWriter output = new BufferedWriter(writer);
+        int j = 0;
+        System.out.println("Size = " + portfolio.Account.size());
+        for (String str : portfolio.Account) {
+            //out.println(str);
+            output.write(str);
+            output.write(" ");
+            j++;
+            if (j == 8) {
+                output.newLine();
+            }
+        }
+        output.close();
+        writer.close();
     }
 
     public void removeCoin(File fileName) throws IOException {

@@ -66,25 +66,25 @@ public class Coin {
         System.out.println("Aangepaste versie ArrayList: " + portfolio.Account);
         // Bij Meerdere accounts gebruik dit: int i=3; i=i+5; in een lus.
 
-        FileWriter writer = new FileWriter("Accounts.txt");
+        FileWriter writer = new FileWriter("User.txt");
         BufferedWriter output = new BufferedWriter(writer);
         int j = 0;
-        System.out.println("Size= " + portfolio.Account.size());
+        System.out.println("Size = " + portfolio.Account.size());
         for (String str : portfolio.Account) {
                 //out.println(str);
                 output.write(str);
                 output.write(" ");
                 j++;
-                if (j == 5) {
+                if (j == 5 || j==8) {
                     output.newLine();
                 }
             }
         output.close();
         writer.close();
-        portfolio.Account.clear();
+        //portfolio.Account.clear();
 
         //return currentValue;
     }
 }
-    //test
+
 

@@ -1,5 +1,7 @@
 import java.io.*;
 import java.lang.*;
+import java.util.ArrayList;
+import java.util.ListIterator;
 import java.util.Scanner;
 
 
@@ -10,6 +12,8 @@ public class Accounts {
     private int valueCoin;
     private int quantityCoin;
     private int date;
+    Portfolio portfolio;
+    private static ArrayList<InformationUser> info = new ArrayList<>();
 
 
     //Dit zal later geïmplementeerd worden in een GUI.
@@ -67,8 +71,86 @@ public class Accounts {
             bw.close();
     }
 
-    public void logIn(String Name){
+    public void logIn() throws IOException {
+        Scanner scan = new Scanner (new File("Accounts.txt"));
+        Scanner keyboard = new Scanner (System.in);
+        String user = scan.next();
+        String pass = scan.next(); // looks at selected file in scan
 
+        System.out.println("Type in your username and password please:");
+        String inpUser = keyboard.nextLine();
+        String inpPass = keyboard.nextLine(); // gets input from user
+
+        if (inpUser.equals(user) && inpPass.equals(pass)) {
+            System.out.print("Wilkommen");
+            InformationUser current;
+            String currentLine;
+            String name;
+            String surname;
+            String coin;
+            int coinValue;
+            int quantity;
+            Scanner lineReader=null;
+            Scanner wordReader=null;
+            File inputFile=new File("Accounts.txt");
+            try {
+                lineReader = new Scanner(inputFile);	//Proberen of lijn gelezen kan worden.
+            }
+            catch(FileNotFoundException e) {
+                System.out.println("File not found!");
+            }
+            while (lineReader.hasNextLine()) {       //Checken op EOF.
+                currentLine = lineReader.nextLine(); //Lezen van de volgende lijn in de textfile.
+                wordReader = new Scanner(currentLine);
+                name = wordReader.next();
+                surname = wordReader.next();
+                coin = wordReader.next();
+                coinValue= Integer.parseInt(wordReader.next());
+                quantity = Integer.parseInt(wordReader.next());
+                info.add(new InformationUser(name,surname,coin,coinValue,quantity));
+                for(InformationUser str: info)
+                {
+                    System.out.println("Info: "+str);
+                }
+            }
+            lineReader.close();
+            wordReader.close();
+
+            ListIterator<InformationUser> gegevens = info.listIterator();
+            //ArrayList<String> gegevens=new ArrayList<>();
+            //Scanner scan2 = new Scanner (new File("Accounts.txt"));
+            while(gegevens.hasNext()){
+                    current=gegevens.next();
+                    if(inpUser.equals(current.getVoornaam()))
+                    {
+                        //current=gegevens.previous();
+                        System.out.println("\nCurrent: "+current);
+                        FileWriter writer = new FileWriter("User.txt");
+                        Writer output=new BufferedWriter(writer);
+                        output.write(String.valueOf(current));
+                        output.close();
+                    }
+                    //System.out.println("Ik weet ni man: " +scan.next());
+                    //System.out.println("Dit is gegevens: "+gegevens);
+                    //i++;
+             }
+
+            //System.out.println("Gegevens: "+gegevens.toString());
+                /*while(scan.hasNext()){
+                    current = scan.next();
+                    System.out.println("Curent line"+current);
+                    if(inpUser.equals(current)){
+                        System.out.println(current);
+                        FileWriter writer = new FileWriter("User.txt");
+                        Writer output=new BufferedWriter(writer);
+                        output.write(String.valueOf(current));
+                        output.close();
+
+                    }
+                }*/
+            } else {
+            System.out.print("your error message");
+        }
     }
 
     public void checkUser(String naam)
