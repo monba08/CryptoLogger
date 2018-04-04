@@ -31,11 +31,11 @@ public class Main {
                     // Print menu
                     System.out.println("\nMenu:\n\n"
                             + "Option 1 - Create a new account              \n"
-                            + "Option 2 - Access Portfolio                  \n"
-                            + "Option 3 - Remove coin                       \n"
-                            + "Option 4 - Set current value                 \n"
-                            + "Option 5 - Add new Coin                      \n"
-                            + "Option 6 - Log In                            \n"
+                            + "Option 2 - Log In                            \n"
+                            + "Option 3 - Access portfolio                  \n"
+                            + "Option 4 - Remove coin                       \n"
+                            + "Option 5 - Set current value                 \n"
+                            + "Option 6 - Add new Coin                      \n"
                             + "Option 7 - Exit                              \n");
                     int option = scan.nextInt();
                     switch (option)
@@ -44,20 +44,20 @@ public class Main {
                             account.createNewAccount();
                             break;
                         case 2:
+                            account.logIn();
+                            break;
+                        case 3:
                             portfolio.readFromFile(inputFile);
                             portfolio.getName();
                             break;
-                        case 3:
+                        case 4:
                             user.removeCoin(inputFile); // Aanroep voor het verwijderen van een coin in de arraylist
                             break;
-                        case 4:
+                        case 5:
                             coin.setCurrentValueCoin();
                             break;
-                        case 5:
-                            user.NewCoin();
-                            break;
                         case 6:
-                            account.logIn();
+                            user.NewCoin();
                             break;
                         case 7:
                             exit=true;
