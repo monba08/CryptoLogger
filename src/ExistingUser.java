@@ -70,9 +70,9 @@ public class ExistingUser {
             quantityString=reader.next();*/
         quantityCoin = Integer.parseInt(quantityString);
         coin.setQuantityCoin(quantityCoin);
-        portfolio.Account.add(5,coinName);
-        portfolio.Account.add(6,valueString);
-        portfolio.Account.add(7,quantityString);
+        portfolio.Account.add(2,coinName);
+        portfolio.Account.add(3,valueString);
+        portfolio.Account.add(4,quantityString);
 
         /*File fout = new File("Accounts.txt");
         FileOutputStream fos = new FileOutputStream(fout,true); //Append parameter, zodat oude data niet verdwijnt. Boolean argument
@@ -92,6 +92,8 @@ public class ExistingUser {
         }
         output.close();
         writer.close();
+        Accounts acc=new Accounts();
+        acc.updateDatabase("Mouhcine");
     }
 
     public void removeCoin(File fileName) throws IOException {
@@ -134,14 +136,19 @@ public class ExistingUser {
             }
             //Pas dit aan m.b.v ListIterator
         FileWriter writer = new FileWriter("Accounts.txt");
+        FileWriter writer2 = new FileWriter("User.txt");
         Writer output=new BufferedWriter(writer);
+        Writer output2=new BufferedWriter(writer2);
         int size=portfolio.Account.size();
         for (int j=0;j<size;j++)
         {
             output.write(portfolio.Account.get(j).toString());
             output.write(" ");
+            output2.write(portfolio.Account.get(j).toString());
+            output2.write(" ");
         }
         output.close();
+        output2.close();
        /* for(String s: portfolio.Account)
         {
             s.split(" ");

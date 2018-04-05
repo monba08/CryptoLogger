@@ -59,7 +59,7 @@ public class Coin {
     public void setCurrentValueCoin() throws IOException {
 
         Scanner reader = new Scanner(System.in);
-        System.out.println("Set the value of " + nameCoin + " for today");
+        System.out.println("Set the value of your coin for today");
         int currentValue = reader.nextInt();
         portfolio.Account.set(3, Integer.toString(currentValue));
 
@@ -81,6 +81,8 @@ public class Coin {
             }
         output.close();
         writer.close();
+        Accounts acc=new Accounts();
+        acc.updateDatabase("Mouhcine",Integer.toString(currentValue));
         //portfolio.Account.clear();
 
         //return currentValue;

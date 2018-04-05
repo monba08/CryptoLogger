@@ -70,6 +70,47 @@ public class Accounts {
             bw.newLine();
             bw.close();
     }
+    public void updateDatabase(String Username, String NewValue) throws IOException {
+        String line;
+        //File fin = new File("User.txt");
+        //FileInputStream fis = new FileInputStream(fin);
+        BufferedReader file = new BufferedReader(new FileReader("User.txt"));
+        StringBuffer inputBuffer = new StringBuffer();
+
+        while ((line = file.readLine()) != null) {
+            inputBuffer.append(line);
+            System.out.println("Dit is line: "+line);
+            inputBuffer.append('\n');
+        }
+        String inputStr = inputBuffer.toString();
+        System.out.println("Dit is INPUTSTR: "+inputStr);
+        file.close();
+
+        Scanner scan = new Scanner (new File("Accounts.txt"));
+        String AccountsLine = scan.nextLine();
+        System.out.println("Dit is accountsline: "+AccountsLine);
+        if (AccountsLine.contains(Username)) {
+            System.out.println("Yes it contains this word.");
+            AccountsLine.replace("255","999");
+
+        }
+        System.out.println("----------------------------------\n"  + inputStr);
+        FileOutputStream fileOut = new FileOutputStream("Accounts.txt");
+        fileOut.write(inputStr.getBytes());
+        fileOut.close();
+
+        /*FileWriter fstream = new FileWriter("Accounts.txt");
+        BufferedWriter out = new BufferedWriter(fstream);
+        while((line=in.readLine())!=null)
+        {
+            if(line.contains(Username))
+            out.write(line);
+            out.newLine();
+        }
+        out.close();
+*/
+
+    }
 
     public void logIn() throws IOException {
         Scanner scan = new Scanner (new File("Accounts.txt"));
@@ -130,24 +171,7 @@ public class Accounts {
                         output.write(String.valueOf(current));
                         output.close();
                     }
-                    //System.out.println("Ik weet ni man: " +scan.next());
-                    //System.out.println("Dit is gegevens: "+gegevens);
-                    //i++;
              }
-
-            //System.out.println("Gegevens: "+gegevens.toString());
-                /*while(scan.hasNext()){
-                    current = scan.next();
-                    System.out.println("Curent line"+current);
-                    if(inpUser.equals(current)){
-                        System.out.println(current);
-                        FileWriter writer = new FileWriter("User.txt");
-                        Writer output=new BufferedWriter(writer);
-                        output.write(String.valueOf(current));
-                        output.close();
-
-                    }
-                }*/
             } else {
             System.out.print("your error message");
         }
@@ -156,8 +180,5 @@ public class Accounts {
     public void checkUser(String naam)
     {
         this.nameUser=naam;
-
-
-
     }
 }
