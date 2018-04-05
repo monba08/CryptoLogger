@@ -93,7 +93,7 @@ public class ExistingUser {
         output.close();
         writer.close();
         Accounts acc=new Accounts();
-        acc.updateDatabase("Mouhcine");
+        //acc.updateDatabase("Mouhcine");
     }
 
     public void removeCoin(File fileName) throws IOException {
