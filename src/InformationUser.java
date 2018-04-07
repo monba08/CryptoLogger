@@ -15,7 +15,7 @@ public class InformationUser {
     }
 
     public String toString(){
-        return this.familienaam + " " + this.voornaam + " " +this.coin+ " " +this.coinValue+ " "+this.quantityCoin ;
+        return this.voornaam + " " + this.familienaam + " " +this.coin+ " " +this.coinValue+ " "+this.quantityCoin ;
     }
 
     public String getFamilienaam(){

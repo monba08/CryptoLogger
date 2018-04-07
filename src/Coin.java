@@ -82,7 +82,7 @@ public class Coin {
         output.close();
         writer.close();
         Accounts acc=new Accounts();
-        acc.updateDatabase("Mouhcine",Integer.toString(currentValue));
+        acc.updateDatabase("Monba",Integer.toString(currentValue));
         //portfolio.Account.clear();
 
         //return currentValue;

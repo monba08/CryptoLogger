@@ -79,24 +79,57 @@ public class Accounts {
 
         while ((line = file.readLine()) != null) {
             inputBuffer.append(line);
-            System.out.println("Dit is line: "+line);
+            System.out.println("Dit is line: " + line);
             inputBuffer.append('\n');
         }
         String inputStr = inputBuffer.toString();
-        System.out.println("Dit is INPUTSTR: "+inputStr);
+        System.out.println("Dit is INPUTSTR: " + inputStr);
         file.close();
 
-        Scanner scan = new Scanner (new File("Accounts.txt"));
+        BufferedReader file2 = new BufferedReader(new FileReader("Accounts.txt"));
+        StringBuffer inputBuffer2 = new StringBuffer();
+        String line2;
+        while ((line2 = file2.readLine()) != null) {
+            inputBuffer2.append(line2);
+            System.out.println("Dit is line: " + line2);
+            inputBuffer2.append('\n');
+        }
+        String inputStr2 = inputBuffer2.toString();
+        System.out.println("Dit is INPUTSTR2Man: " + inputStr2);
+        file2.close();
+
+        String currentLine2;
+        Scanner wordReader = null;
+        String word;
+        Scanner lineReader = new Scanner("Accounts.txt");
+        while (lineReader.hasNextLine()) {       //Checken op EOF.
+            currentLine2 = lineReader.nextLine();
+            wordReader = new Scanner(currentLine2);
+            while (wordReader.hasNext()) {
+                word = wordReader.next();
+                if (word.contains(Username)) {
+                System.out.println("I'm here");
+                    System.out.println("Dit is currentLine2: "+currentLine2);
+                inputStr2.replaceAll(currentLine2, inputStr);
+            }
+        }
+    }
+        lineReader.close();
+        wordReader.close();
+        System.out.println("InputSTR2MetReplacement: "+inputStr2);
+
+        /*Scanner scan = new Scanner (new File("Accounts.txt"));
         String AccountsLine = scan.nextLine();
         System.out.println("Dit is accountsline: "+AccountsLine);
         if (AccountsLine.contains(Username)) {
             System.out.println("Yes it contains this word.");
             AccountsLine.replace("255","999");
 
-        }
-        System.out.println("----------------------------------\n"  + inputStr);
+        }*/
+
+        System.out.println("----------------------------------\n"  + inputStr2);
         FileOutputStream fileOut = new FileOutputStream("Accounts.txt");
-        fileOut.write(inputStr.getBytes());
+        fileOut.write(inputStr2.getBytes());
         fileOut.close();
 
         /*FileWriter fstream = new FileWriter("Accounts.txt");
@@ -113,16 +146,29 @@ public class Accounts {
     }
 
     public void logIn() throws IOException {
-        Scanner scan = new Scanner (new File("Accounts.txt"));
-        Scanner keyboard = new Scanner (System.in);
-        String user = scan.next();
-        String pass = scan.next(); // looks at selected file in scan
+        boolean login = false;
+        Scanner scan = new Scanner(new File("Accounts.txt"));
+
+        Scanner keyboard = new Scanner(System.in);
+        // looks at selected file in scan
 
         System.out.println("Type in your username and password please:");
         String inpUser = keyboard.nextLine();
         String inpPass = keyboard.nextLine(); // gets input from user
-
+        while (scan.hasNextLine()) {
+            String user = scan.next();
+            String pass = scan.next();
         if (inpUser.equals(user) && inpPass.equals(pass)) {
+            login = true;
+        } else {
+            scan.nextLine();
+            if (inpUser.equals(user) && inpPass.equals(pass)) {
+                login = true;
+            }
+        }
+       }
+        if(login)
+        {
             System.out.print("Wilkommen");
             InformationUser current;
             String currentLine;
@@ -151,7 +197,7 @@ public class Accounts {
                 info.add(new InformationUser(name,surname,coin,coinValue,quantity));
                 for(InformationUser str: info)
                 {
-                    System.out.println("Info: "+str);
+                    System.out.println("\nInfo: "+str);
                 }
             }
             lineReader.close();
@@ -173,6 +219,7 @@ public class Accounts {
                     }
              }
             } else {
+            scan.nextLine();
             System.out.print("your error message");
         }
     }
