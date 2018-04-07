@@ -26,8 +26,8 @@ public class cryptoGui {
     private JTextField nValue;
     private JTextField nQuantity;
     private JButton doneButton1;
-    private Accounts account;
-    private InformationUser user;
+    public Accounts account;
+    public InformationUser user;
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("cryptoGui");
@@ -40,6 +40,7 @@ public class cryptoGui {
             }
 
     public cryptoGui() {
+        account = new Accounts();
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -48,7 +49,6 @@ public class cryptoGui {
                 inlogScherm.setVisible(false);
                 portfolio.setVisible(false);
                 newCoin.setVisible(false);
-
                 // hier gebeurt de eigenlijke login check.
                 String naam = nameField.getText(); //dit is waar de naam wordt opgeslagen
                 String pass = pasField.getText(); //dit is waar de passwoord wordt opgeslagen.
@@ -82,18 +82,20 @@ public class cryptoGui {
                 //String coin = rCoin.getText(); //coin bij registratie (kan later aangevuld worden)
                 //int value = Integer.parseInt(rValue.getText()); //de waarde van 1 coin!!
                 //int quantity = Integer.parseInt(rQuantity.getText()); //de hoeveelheid van de coin
+                user = new InformationUser(rName.getText(),rPass.getText(),rCoin.getText(),Integer.parseInt(rValue.getText()),Integer.parseInt(rQuantity.getText()));
                 user.setVoornaam(rName.getText());
                 user.setPass(rPass.getText());
                 user.setCoin(rCoin.getText());
                 user.setCoinValue(Integer.parseInt(rValue.getText()));
                 user.setQuantityCoin(Integer.parseInt(rQuantity.getText()));
 
+
                 try {
                     account.createNewAccount(user.getVoornaam(),user.getPassword(),user.getCoin(),user.getCoinValue(),user.getQuantityCoin());
                 } catch (IOException e1) {
-                    e1.printStackTrace();
-                }
-            }
+                    System.out.println("Het is niet gelukt!");
+               }
+           }
         });
         loginButton1.addActionListener(new ActionListener() {
             @Override
@@ -104,6 +106,11 @@ public class cryptoGui {
                 portfolio.setVisible(true);
                 newCoin.setVisible(false);
                 //als er op newCoin wordt gedrukt ----> zie hier onder
+                try {
+                    account.logIn();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
             }
         });
         addNewCoinButton.addActionListener(new ActionListener() {
@@ -134,9 +141,43 @@ public class cryptoGui {
 
             }
         });
+        rName.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String input = rName.getText();
+                user.setVoornaam(input);
+            }
+        });
+        rPass.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String input = rPass.getText();
+                user.setPass(input);
+            }
+        });
+        rCoin.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String input = rCoin.getText();
+                user.setCoin(input);
+            }
+        });
+        rValue.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String input = rValue.getText();
+                int intput= Integer.parseInt(input);
+                user.setCoinValue(intput);
+            }
+        });
+        rQuantity.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String input = rQuantity.getText();
+                int intput=Integer.parseInt(input);
+                user.setCoinValue(intput);
+                System.out.println(intput);
+            }
+        });
     };
-
-    private void createUIComponents() { //bruh geen idee wrm dees hier is.........
-        // TODO: place custom component creation code here
-    }
 }
