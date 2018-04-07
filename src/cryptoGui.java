@@ -32,7 +32,7 @@ public class cryptoGui {
         frame.setSize(400,400);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
-        frame.setVisible(true); //r
+        frame.setVisible(true);
     }
 
     public cryptoGui() {
