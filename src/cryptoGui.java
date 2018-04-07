@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class cryptoGui {
     private JPanel Verzameling;
@@ -25,6 +26,8 @@ public class cryptoGui {
     private JTextField nValue;
     private JTextField nQuantity;
     private JButton doneButton1;
+    private Accounts account;
+    private InformationUser user;
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("cryptoGui");
@@ -33,7 +36,8 @@ public class cryptoGui {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
-    }
+        new cryptoGui();
+            }
 
     public cryptoGui() {
         loginButton.addActionListener(new ActionListener() {
@@ -73,11 +77,22 @@ public class cryptoGui {
                 portfolio.setVisible(false);
                 newCoin.setVisible(false);
                 //de eigenlijke verwerking van de gegevens die worden ingegeven.
-                String registNaam = rName.getText(); //naam bij registratie
-                String registPass = rPass.getText(); //pass voor inlog
-                String coin = rCoin.getText(); //coin bij registratie (kan later aangevuld worden)
-                int value = Integer.parseInt(rValue.getText()); //de waarde van 1 coin!!
-                int quantity = Integer.parseInt(rQuantity.getText()); //de hoeveelheid van de coin
+                //String registNaam = rName.getText(); //naam bij registratie
+                //String registPass = rPass.getText(); //pass voor inlog
+                //String coin = rCoin.getText(); //coin bij registratie (kan later aangevuld worden)
+                //int value = Integer.parseInt(rValue.getText()); //de waarde van 1 coin!!
+                //int quantity = Integer.parseInt(rQuantity.getText()); //de hoeveelheid van de coin
+                user.setVoornaam(rName.getText());
+                user.setPass(rPass.getText());
+                user.setCoin(rCoin.getText());
+                user.setCoinValue(Integer.parseInt(rValue.getText()));
+                user.setQuantityCoin(Integer.parseInt(rQuantity.getText()));
+
+                try {
+                    account.createNewAccount(user.getVoornaam(),user.getPassword(),user.getCoin(),user.getCoinValue(),user.getQuantityCoin());
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
             }
         });
         loginButton1.addActionListener(new ActionListener() {

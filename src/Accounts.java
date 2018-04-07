@@ -7,42 +7,40 @@ import java.util.Scanner;
 
 public class Accounts {
 
-    private String coinType;
     private String nameUser;
-    private int valueCoin;
-    private int quantityCoin;
     private int date;
     Portfolio portfolio;
     private static ArrayList<InformationUser> info = new ArrayList<>();
+    InformationUser user;
 
 
     //Dit zal later geïmplementeerd worden in een GUI.
-    public void createNewAccount() throws IOException {
-        Scanner reader = new Scanner(System.in);
-        System.out.println("Enter your name: ");
-        String name = reader.next();
-        System.out.println("Enter your surname: ");
-        String surname = reader.next();
+    public void createNewAccount(String registNaam,String registPass,String coinNaam, int valueC, int quantityCoin) throws IOException {
+        //Scanner reader = new Scanner(System.in);
+        //System.out.println("Enter your name: ");
+        String name = registNaam;
+        //System.out.println("Enter your surname: ");
+        String pass =registPass;
 
-        Coin coin = new Coin(valueCoin, quantityCoin,coinType);
-        System.out.println("Which crypto-coin would you like to add? ");
+        Coin coin = new Coin(valueC, quantityCoin,coinNaam);
+        /*System.out.println("Which crypto-coin would you like to add? ");
         if(reader.hasNext())
             coinType=reader.next();
-        //coinType=reader.next();
-        coin.setNameCoin(coinType);
+        coinType=reader.next();*/
+        coin.setNameCoin(coinNaam);
 
-        System.out.println("Type in the current value of this coin: ");
-        String valueString =reader.next();
-        /*if(reader.hasNext())
-            valueString=reader.next();*/
-        valueCoin=Integer.parseInt(valueString);
-        coin.setValueCoin(valueCoin);
+        //System.out.println("Type in the current value of this coin: ");
+        /*String valueString;
+        if(reader.hasNext())
+            valueString=reader.next();
+        valueCoin=Integer.parseInt(valueString);*/
+        coin.setValueCoin(valueC);
 
-        System.out.println("How much do you want to own from "+coinType+"?");
-        String quantityString = reader.next();
+        //System.out.println("How much do you want to own from "+coinNaam+"?");
+        /*String quantityString = reader.next();
         /*if(reader.hasNext())
-            quantityString=reader.next();*/
-        quantityCoin = Integer.parseInt(quantityString);
+            quantityString=reader.next();
+        quantityCoin = Integer.parseInt(quantityString);*/
         coin.setQuantityCoin(quantityCoin);
 
 
@@ -51,22 +49,22 @@ public class Accounts {
         /*coinType=coin.setNameCoin();
         valueCoin=coin.setValueCoin();
         quantityCoin=coin.setQuantityCoin();*/
-        reader.nextLine();
-        reader.close();
+        /*reader.nextLine();
+        reader.close();*/
 
         File fout = new File("Accounts.txt");
         FileOutputStream fos = new FileOutputStream(fout,true); //Append parameter, zodat oude data niet verdwijnt. Boolean argument
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
 
-            bw.write(name);
+            bw.write(registNaam);
             bw.write(" ");
-            bw.write(surname);
+            bw.write(registPass);
             bw.write(" ");
-            bw.write(coinType);
+            bw.write(coinNaam);
             bw.write(" ");
-            bw.write(valueString);
+            bw.write(Integer.toString(valueC));
             bw.write(" ");
-            bw.write(quantityString);
+            bw.write(Integer.toString(quantityCoin));
             bw.newLine();
             bw.close();
     }
@@ -194,7 +192,8 @@ public class Accounts {
                 coin = wordReader.next();
                 coinValue= Integer.parseInt(wordReader.next());
                 quantity = Integer.parseInt(wordReader.next());
-                info.add(new InformationUser(name,surname,coin,coinValue,quantity));
+                info.add(new InformationUser(user.getVoornaam(),user.getPassword(),user.getCoin(),user.getCoinValue(),user.getQuantityCoin()));
+                /*name,surname,coin,coinValue,quantity*/
                 for(InformationUser str: info)
                 {
                     System.out.println("\nInfo: "+str);

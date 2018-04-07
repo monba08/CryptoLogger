@@ -1,12 +1,11 @@
 
-
+/*
 import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
     //private Accounts Account;
-
 
     public static void main(String[] args)  throws IOException {
         String coinType="";
@@ -37,7 +36,7 @@ public class Main {
                     switch (option)
                     {
                         case 1:
-                            account.createNewAccount();
+                            //account.createNewAccount();
                             break;
                         case 2:
                             account.logIn();
