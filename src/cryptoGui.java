@@ -26,6 +26,10 @@ public class cryptoGui {
     private JTextField nValue;
     private JTextField nQuantity;
     private JButton doneButton1;
+    private JPanel setDailyValue;
+    private JButton doneButton2;
+    private JTextField dCurrentValue;
+    private JButton addDailyValueCoinButton;
     public Accounts account;
     public InformationUser user;
 
@@ -77,18 +81,7 @@ public class cryptoGui {
                 portfolio.setVisible(false);
                 newCoin.setVisible(false);
                 //de eigenlijke verwerking van de gegevens die worden ingegeven.
-                //String registNaam = rName.getText(); //naam bij registratie
-                //String registPass = rPass.getText(); //pass voor inlog
-                //String coin = rCoin.getText(); //coin bij registratie (kan later aangevuld worden)
-                //int value = Integer.parseInt(rValue.getText()); //de waarde van 1 coin!!
-                //int quantity = Integer.parseInt(rQuantity.getText()); //de hoeveelheid van de coin
-                user = new InformationUser(rName.getText(),rPass.getText(),rCoin.getText(),Integer.parseInt(rValue.getText()),Integer.parseInt(rQuantity.getText()));
-                user.setVoornaam(rName.getText());
-                user.setPass(rPass.getText());
-                user.setCoin(rCoin.getText());
-                user.setCoinValue(Integer.parseInt(rValue.getText()));
-                user.setQuantityCoin(Integer.parseInt(rQuantity.getText()));
-
+                user = new InformationUser(rName.getText(),rPass.getText(),rCoin.getText(),Integer.parseInt(rValue.getText()),Integer.parseInt(rQuantity.getText())); //de naam, passwoord, coin, waarde en hoeveelheid worden hier doorgegeven
 
                 try {
                     account.createNewAccount(user.getVoornaam(),user.getPassword(),user.getCoin(),user.getCoinValue(),user.getQuantityCoin());
@@ -106,11 +99,6 @@ public class cryptoGui {
                 portfolio.setVisible(true);
                 newCoin.setVisible(false);
                 //als er op newCoin wordt gedrukt ----> zie hier onder
-                try {
-                    account.logIn();
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                }
             }
         });
         addNewCoinButton.addActionListener(new ActionListener() {
@@ -141,42 +129,33 @@ public class cryptoGui {
 
             }
         });
-        rName.addActionListener(new ActionListener() {
+
+        doneButton2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String input = rName.getText();
-                user.setVoornaam(input);
+                registerScherm.setVisible(false);
+                loginScherm.setVisible(false);
+                inlogScherm.setVisible(false);
+                portfolio.setVisible(true);
+                newCoin.setVisible(false);
+                setDailyValue.setVisible(false);
             }
         });
-        rPass.addActionListener(new ActionListener() {
+        dCurrentValue.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String input = rPass.getText();
-                user.setPass(input);
+                int currentValue = Integer.parseInt(dCurrentValue.getText());
             }
         });
-        rCoin.addActionListener(new ActionListener() {
+        addDailyValueCoinButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String input = rCoin.getText();
-                user.setCoin(input);
-            }
-        });
-        rValue.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String input = rValue.getText();
-                int intput= Integer.parseInt(input);
-                user.setCoinValue(intput);
-            }
-        });
-        rQuantity.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String input = rQuantity.getText();
-                int intput=Integer.parseInt(input);
-                user.setCoinValue(intput);
-                System.out.println(intput);
+                registerScherm.setVisible(false);
+                loginScherm.setVisible(false);
+                inlogScherm.setVisible(false);
+                portfolio.setVisible(false);
+                newCoin.setVisible(false);
+                setDailyValue.setVisible(true);
             }
         });
     };
