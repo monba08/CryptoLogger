@@ -1,5 +1,4 @@
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.*;
 
@@ -42,10 +41,60 @@ public class Portfolio {
 
     }
 
-    public void readFromFile(File fileName) throws FileNotFoundException {
+    public void readFromFile() throws IOException {
         //File inputFile = new File("Accounts.txt");
-        int i = 0;
-        Scanner lineReader = new Scanner(fileName);
+        Account.clear();
+        BufferedReader fileIn2 = new BufferedReader(new FileReader("User.txt"));
+        String line=fileIn2.readLine();
+        String parts[]=line.split(" ");
+        String fileName = parts[0]+".txt";
+        fileIn2.close();
+
+        System.out.println("Dit is de naam: "+fileName);
+        BufferedReader fileIn3= new BufferedReader(new FileReader(fileName));
+        String line2=fileIn3.readLine();
+        String parts2[]=line2.split(" ");
+        fileIn3.close();
+
+        int lengte=parts.length;
+        System.out.println("Dit is de lengte: "+lengte);
+        if(parts2.length==2 && !(parts.length>=5))
+        {
+            Account.add(parts2[0]);
+            Account.add(parts2[1]);
+        }
+        else if(parts2.length == 5)
+        {
+            Account.add(parts2[0]);
+            Account.add(parts2[1]);
+            Account.add(parts2[2]);
+            Account.add(parts2[3]);
+            Account.add(parts2[4]);
+        }
+        else if(parts2.length>=8) //Hier misschien nog zien of we meer dan twee coins zullen toevoegen
+        {
+            System.out.println("We zitten hier");
+            for (int j=0;j<lengte;j++)
+            {
+                Account.add(parts2[j]);
+            }
+            /*Account.add(parts2[0]);
+            Account.add(parts2[1]);
+            Account.add(parts2[2]);
+            Account.add(parts2[3]);
+            Account.add(parts2[4]);
+            Account.add(parts2[5]);
+            Account.add(parts2[6]);
+            Account.add(parts2[7]);*/
+        }
+
+
+
+        System.out.println("Dit is accounts tot: " + Account);
+        //fileIn3.close();
+
+
+        /*Scanner lineReader = new Scanner(fileName);
         Scanner wordReader = null;
         String currentLine;
         String word;
@@ -56,62 +105,50 @@ public class Portfolio {
             while (wordReader.hasNext()) {
                 word = wordReader.next();
                 i = i + 1;
-                int Arraysize = Account.size();
-                //if (Arraysize > 2) {
-                    if (i == 1) {
-                        Account.add(word);
-                        System.out.println("Voornaam van de persoon: " + word);
-                        //System.out.println("Dit is accounts: " + Account);
+                if (i == 1) {
+                    Account.add(word);
+                    System.out.println("Voornaam van de persoonbruh: " + word);
+                    //System.out.println("Dit is accounts: " + Account);
 
-                    }
-                    if (i == 2) {
-                        Account.add(word);
-                        System.out.println("Achternaam van de persoon: " + word);
-                        //System.out.println("Dit is accounts: " + Account);
-                    }
-                    if (i == 3) {
-                        Account.add(word);
-                        System.out.println("Dit is woord 3: " + word);
-                        //System.out.println("Dit is accounts: " + Account);
-                    }
-                    if (i == 4) {
-                        Account.add(word);
-                        System.out.println("Dit is woord 4: " + word);
-                        //System.out.println("Dit is accounts: " + Account);
-                    }
-                    if (i == 5) {
-                        Account.add(word);
-                        System.out.println("Dit is woord 5: " + word);
-                        System.out.println("Dit is accounts tot index 5: " + Account);
-                    }
-                    if (i == 6) {
+                }
+                if (i == 2) {
                     Account.add(word);
-                    }
-                    if (i == 7) {
+                    System.out.println("Achternaam van de persoon: " + word);
+                    //System.out.println("Dit is accounts: " + Account);
+                }
+                if (i == 3) {
                     Account.add(word);
-                    }
-                    if (i == 8) {
+                    System.out.println("Dit is woord 3: " + word);
+                    //System.out.println("Dit is accounts: " + Account);
+                }
+                if (i == 4) {
+                    Account.add(word);
+                    System.out.println("Dit is woord 4: " + word);
+                    //System.out.println("Dit is accounts: " + Account);
+                }
+                if (i == 5) {
+                    Account.add(word);
+                    System.out.println("Dit is woord 5: " + word);
+                    System.out.println("Dit is accounts tot index 5: " + Account);
+                }
+                if (i == 6) {
+                    Account.add(word);
+                }
+                if (i == 7) {
+                    Account.add(word);
+                }
+                if (i == 8) {
                     Account.add(word);
                     System.out.println("Dit is accounts tot index 8: " + Account);
                 }
-                    // }
-                //else
-                /*{
-                    System.out.println("Dit is accounts: " + Account);
-                }*/
-                /*ListIterator <String> gegevensIterator = Account.listIterator();
-                while(gegevensIterator.hasNext()){
-                    System.out.print(i + " ");
-                    System.out.println(gegevensIterator.next());
-                    i++;
-                }*/
+
 
             }
             i = 0;
 
         }
         lineReader.close();
-        wordReader.close();
+        wordReader.close();*/
 
 
     }

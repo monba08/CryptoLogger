@@ -7,72 +7,81 @@ import java.util.Scanner;
 
 public class Accounts {
 
-    private String nameUser;
+    private String coinType;
+    InformationUser nameUser;
+    private int valueCoin;
+    private int quantityCoin;
     private int date;
     Portfolio portfolio;
     private static ArrayList<InformationUser> info = new ArrayList<>();
-    InformationUser user;
+    public String userN;
+    public static ArrayList<String> loginArray = new ArrayList<>();
 
 
     //Dit zal later geïmplementeerd worden in een GUI.
-    public void createNewAccount(String registNaam,String registPass,String coinNaam, int valueC, int quantityCoin) throws IOException {
-        //Scanner reader = new Scanner(System.in);
-        //System.out.println("Enter your name: ");
-        String name = registNaam;
-        //System.out.println("Enter your surname: ");
-        String pass =registPass;
+    public void createNewAccount(/*String registNaam,String registPass,String coinNaam, int valueC, int quantityCoin*/) throws IOException {
+        Scanner reader = new Scanner(System.in);
+        System.out.println("Enter your name: ");
+        //String name = registNaam;
+        String name = reader.next();
+        System.out.println("Enter a password: ");
+        //String pass =registPass;
+        String pass = reader.next();
 
-        Coin coin = new Coin(valueC, quantityCoin,coinNaam);
-        /*System.out.println("Which crypto-coin would you like to add? ");
-        if(reader.hasNext())
-            coinType=reader.next();
-        coinType=reader.next();*/
-        coin.setNameCoin(coinNaam);
-
-        //System.out.println("Type in the current value of this coin: ");
-        /*String valueString;
-        if(reader.hasNext())
-            valueString=reader.next();
-        valueCoin=Integer.parseInt(valueString);*/
-        coin.setValueCoin(valueC);
-
-        //System.out.println("How much do you want to own from "+coinNaam+"?");
-        /*String quantityString = reader.next();
+        Coin coin = new Coin(valueCoin, quantityCoin, coinType);
+        System.out.println("Which crypto-coin would you like to add? ");
         /*if(reader.hasNext())
-            quantityString=reader.next();
-        quantityCoin = Integer.parseInt(quantityString);*/
+            coinType=reader.next();*/
+        coinType = reader.next();
+        coin.setNameCoin(coinType);
+        //coin.setNameCoin(coinNaam);
+
+        System.out.println("Type in the current value of this coin: ");
+        String valueString = reader.next();
+        ;
+        /*if(reader.hasNext())
+            valueString=reader.next();*/
+        valueCoin = Integer.parseInt(valueString);
+        coin.setValueCoin(valueCoin);
+
+        System.out.println("How much do you want to own from " + coinType + "?");
+        String quantityString = reader.next();
+        /*if(reader.hasNext())
+            quantityString=reader.next();*/
+        quantityCoin = Integer.parseInt(quantityString);
         coin.setQuantityCoin(quantityCoin);
 
 
         //Parameters die we zullen doorgeven.
-        nameUser = name;
+        //nameUser = name;
         /*coinType=coin.setNameCoin();
         valueCoin=coin.setValueCoin();
         quantityCoin=coin.setQuantityCoin();*/
         /*reader.nextLine();
         reader.close();*/
-
-        File fout = new File("Accounts.txt");
-        FileOutputStream fos = new FileOutputStream(fout,true); //Append parameter, zodat oude data niet verdwijnt. Boolean argument
+        String userFile = name + ".txt";
+        File fout = new File(userFile);
+        FileOutputStream fos = new FileOutputStream(fout, true); //Append parameter, zodat oude data niet verdwijnt. Boolean argument
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
 
-            bw.write(registNaam);
-            bw.write(" ");
-            bw.write(registPass);
-            bw.write(" ");
-            bw.write(coinNaam);
-            bw.write(" ");
-            bw.write(Integer.toString(valueC));
-            bw.write(" ");
-            bw.write(Integer.toString(quantityCoin));
-            bw.newLine();
-            bw.close();
+        bw.write(name);
+        bw.write(" ");
+        bw.write(pass);
+        bw.write(" ");
+        bw.write(coinType);
+        bw.write(" ");
+        bw.write(valueString);
+        bw.write(" ");
+        bw.write(quantityString);
+        bw.newLine();
+        bw.close();
+        fos.close();
     }
+
     public void updateDatabase(String Username, String NewValue) throws IOException {
         String line;
-        //File fin = new File("User.txt");
-        //FileInputStream fis = new FileInputStream(fin);
-        BufferedReader file = new BufferedReader(new FileReader("User.txt"));
+        String userFile = Username + ".txt";
+        BufferedReader file = new BufferedReader(new FileReader(userFile));//User.txt
         StringBuffer inputBuffer = new StringBuffer();
 
         while ((line = file.readLine()) != null) {
@@ -106,78 +115,89 @@ public class Accounts {
             while (wordReader.hasNext()) {
                 word = wordReader.next();
                 if (word.contains(Username)) {
-                System.out.println("I'm here");
-                    System.out.println("Dit is currentLine2: "+currentLine2);
-                inputStr2.replaceAll(currentLine2, inputStr);
+                    System.out.println("I'm here");
+                    System.out.println("Dit is currentLine2: " + currentLine2);
+                    inputStr2.replaceAll(currentLine2, inputStr);
+                }
             }
         }
-    }
         lineReader.close();
         wordReader.close();
-        System.out.println("InputSTR2MetReplacement: "+inputStr2);
+        System.out.println("InputSTR2MetReplacement: " + inputStr2);
 
-        /*Scanner scan = new Scanner (new File("Accounts.txt"));
-        String AccountsLine = scan.nextLine();
-        System.out.println("Dit is accountsline: "+AccountsLine);
-        if (AccountsLine.contains(Username)) {
-            System.out.println("Yes it contains this word.");
-            AccountsLine.replace("255","999");
-
-        }*/
-
-        System.out.println("----------------------------------\n"  + inputStr2);
+        System.out.println("----------------------------------\n" + inputStr2);
         FileOutputStream fileOut = new FileOutputStream("Accounts.txt");
         fileOut.write(inputStr2.getBytes());
         fileOut.close();
 
-        /*FileWriter fstream = new FileWriter("Accounts.txt");
-        BufferedWriter out = new BufferedWriter(fstream);
-        while((line=in.readLine())!=null)
-        {
-            if(line.contains(Username))
-            out.write(line);
-            out.newLine();
-        }
-        out.close();
-*/
 
     }
 
-    public void logIn() throws IOException {
+    public void logIn(String gebruiker, String wachtwoord) throws IOException {
         boolean login = false;
-        Scanner scan = new Scanner(new File("Accounts.txt"));
 
-        Scanner keyboard = new Scanner(System.in);
+       /* Scanner keyboard = new Scanner(System.in);
         // looks at selected file in scan
 
-        System.out.println("Type in your username and password please:");
-        String inpUser = keyboard.nextLine();
-        String inpPass = keyboard.nextLine(); // gets input from user
-        while (scan.hasNextLine()) {
-            String user = scan.next();
-            String pass = scan.next();
-        if (inpUser.equals(user) && inpPass.equals(pass)) {
-            login = true;
-        } else {
-            scan.nextLine();
-            if (inpUser.equals(user) && inpPass.equals(pass)) {
+        System.out.println("Type in your username:");
+        inpUser = keyboard.nextLine();
+        System.out.println("Type in your password:");
+        String inpPass = keyboard.nextLine(); // gets input from user.*/
+
+        String userFile1 = gebruiker + ".txt";
+        //System.out.println(userFile1);
+
+        BufferedReader fileIn = new BufferedReader(new FileReader(userFile1));
+        String line = fileIn.readLine();
+        String parts[] = line.split(" ");
+        String user = parts[0];
+        int gr = parts.length;
+        System.out.println("Grootte is: " + gr);
+        if (gebruiker.equals(user)) {
+            String pass = parts[1];
+            if (wachtwoord.equals(pass)) {
                 login = true;
             }
+
         }
-       }
-        if(login)
-        {
-            System.out.print("Wilkommen");
+        //scan2.close();
+        //keyboard.close();
+        if (login) {
+            System.out.print("Wilkommen\n");
+
+            if (parts.length==2 && !(parts.length>=5))
+            {
+                loginArray.add(parts[0]);
+                loginArray.add(parts[1]);
+            }else if(parts.length==5){
+                loginArray.add(parts[0]);
+                loginArray.add(parts[1]);
+                loginArray.add(parts[2]);
+                loginArray.add(parts[3]);
+                loginArray.add(parts[4]);
+            }
+            else if (parts.length >= 8) {
+                for(int j=0;j<parts.length;j++) {
+                    loginArray.add(parts[j]);
+                    //loginArray.add(parts[j+1]);
+                    //loginArray.add(parts[j+2]);
+                }
+            }
+
+            /*
             InformationUser current;
             String currentLine;
             String name;
-            String surname;
+            String password;
             String coin;
-            int coinValue;
-            int quantity;
+            String coinValue;
+            String quantity;
+            String secondCoin;
+            String secondCoinValue;
+            String secondQuantity;
             Scanner lineReader=null;
             Scanner wordReader=null;
-            File inputFile=new File("Accounts.txt");
+            File inputFile=new File(userFile1);
             try {
                 lineReader = new Scanner(inputFile);	//Proberen of lijn gelezen kan worden.
             }
@@ -187,44 +207,81 @@ public class Accounts {
             while (lineReader.hasNextLine()) {       //Checken op EOF.
                 currentLine = lineReader.nextLine(); //Lezen van de volgende lijn in de textfile.
                 wordReader = new Scanner(currentLine);
-                name = wordReader.next();
-                surname = wordReader.next();
-                coin = wordReader.next();
-                coinValue= Integer.parseInt(wordReader.next());
-                quantity = Integer.parseInt(wordReader.next());
-                info.add(new InformationUser(user.getVoornaam(),user.getPassword(),user.getCoin(),user.getCoinValue(),user.getQuantityCoin()));
-                /*name,surname,coin,coinValue,quantity*/
-                for(InformationUser str: info)
+
+
+                    name = wordReader.next();
+                    password = wordReader.next();
+                    coin = wordReader.next();
+                    coinValue= wordReader.next();
+                    quantity = wordReader.next();
+                    secondCoin=wordReader.next();
+                    secondCoinValue= wordReader.next();
+                    secondQuantity = wordReader.next();
+                    //info.add(new InformationUser(name,password,coin,coinValue,quantity,secondCoin,secondCoinValue,secondQuantity));
+                    loginArray.add(name);
+                    loginArray.add(password);
+                    loginArray.add(coin);
+                    loginArray.add(coinValue);
+                    loginArray.add(quantity);
+
+                    if(!wordReader.next().isEmpty())
+                    {
+                        System.out.println("Het is niet leeg");
+                        coin = wordReader.next();
+                        secondCoinValue= wordReader.next();
+                        secondQuantity = wordReader.next();
+                        loginArray.add(coin);
+                        loginArray.add(secondCoinValue);
+                        loginArray.add(secondQuantity);
+                    }
+
+                //info.add(new InformationUser(user.getVoornaam(),user.getPassword(),user.getCoin(),user.getCoinValue(),user.getQuantityCoin()));
+*/
+            for (String st : loginArray) {
+                System.out.println("LoginArray: " + st);
+            }
+                /*for(InformationUser str: info)
                 {
                     System.out.println("\nInfo: "+str);
-                }
+                }*/
+
+            /*nameUser=info.get(0);
+            userN=nameUser.getVoornaam();
+            System.out.println("DIt is nameUser: "+userN);*/
+            //lineReader.close();
+            //wordReader.close();
+
+            //ListIterator<InformationUser> gegevens = info.listIterator();
+            ListIterator<String> gegevens = loginArray.listIterator();
+            String current2;
+            String currentUser=loginArray.get(0);
+            System.out.println("Currentuser:"+currentUser);
+            //String gegevensCurrent=gegevens.next();
+            //System.out.println("gegevensCurrent: "+gegevensCurrent);
+            //if (gebruiker.equals(currentUser))//gebruiker.equals(current2.getVoornaam())
+            FileWriter writer = new FileWriter("User.txt");
+            Writer output = new BufferedWriter(writer);
+                //{
+                    while (gegevens.hasNext()) {
+                        current2 = gegevens.next();
+                    System.out.println("\nCurrent: " + current2);
+                    output.write(String.valueOf(current2));
+                    output.write(" ");
+
+              //  }
             }
-            lineReader.close();
-            wordReader.close();
-
-            ListIterator<InformationUser> gegevens = info.listIterator();
-            //ArrayList<String> gegevens=new ArrayList<>();
-            //Scanner scan2 = new Scanner (new File("Accounts.txt"));
-            while(gegevens.hasNext()){
-                    current=gegevens.next();
-                    if(inpUser.equals(current.getVoornaam()))
-                    {
-                        //current=gegevens.previous();
-                        System.out.println("\nCurrent: "+current);
-                        FileWriter writer = new FileWriter("User.txt");
-                        Writer output=new BufferedWriter(writer);
-                        output.write(String.valueOf(current));
-                        output.close();
-                    }
-             }
-            } else {
-            scan.nextLine();
-            System.out.print("your error message");
+            output.close();
         }
-    }
+     else
+        {
+            //scan2.nextLine();
+            System.out.print("User doesn't exist");
+        }
 
-    public void checkUser(String naam)
+    }
+    public String checkUser()
     {
-        this.nameUser=naam;
+        System.out.println("Dit is de user: "+userN);
+        return userN;
     }
 }

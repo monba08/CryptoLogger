@@ -4,18 +4,24 @@ public class InformationUser {
     String coin;
     int coinValue;
     int quantityCoin;
+    String coin2;
+    int coinValue2;
+    int quantityCoin2;
 
-    public InformationUser(/*String voornaam, String password, String coin, int coinValue, int quantityCoin*/String voornaam, String password, String coin, int coinValue, int quantityCoin){
+    public InformationUser(String voornaam, String password, String coin, int coinValue, int quantityCoin,String coin2, int coinValue2, int quantityCoin2){
         this.password = password;
         this.voornaam = voornaam;
         this.coin= coin;
         this.coinValue= coinValue;
         this.quantityCoin= quantityCoin;
+        this.coin2= coin2;
+        this.coinValue2= coinValue2;
+        this.quantityCoin2= quantityCoin2;
 
     }
 
     public String toString(){
-        return this.voornaam + " " + this.password + " " +this.coin+ " " +this.coinValue+ " "+this.quantityCoin ;
+        return this.voornaam + " " + this.password + " " +this.coin+ " " +this.coinValue+ " "+this.quantityCoin+" " +this.coin2+ " " +this.coinValue2+ " "+this.quantityCoin2 ;
     }
 
     public String getPassword(){

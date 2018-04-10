@@ -20,69 +20,77 @@ public class Coin {
     }
 
     public void setNameCoin(String coin) {
-        // Scanner reader = new Scanner(System.in);
-        //System.out.println("Which crypto-coin would you like to add? ");
-        // String coin = reader.next();
 
         nameCoin = coin; //Waarschijnlijk overbodig
 
-        //return coin;
     }
 
     public void setValueCoin(int value) {
-        /*Scanner reader = new Scanner(System.in);
-        System.out.println("Type in the current value of this coin: ");
-        int value = 0;
-        if(reader.hasNextInt())
-        {
-            value = reader.nextInt();
-        }*/
+
         valueCoin = value;
 
-        //return value;
     }
 
     public void setQuantityCoin(int quantity) {
-        /*Scanner reader = new Scanner(System.in);
-        System.out.println("How much do you want to own from "+nameCoin+"?");
-        int quantity = 0;
-        //reader.nextLine();
-        if(reader.hasNextInt())
-        {
-            quantity = reader.nextInt();
-        }*/
-        quantityCoin = quantity;
 
-        //return quantity;
+        quantityCoin = quantity;
     }
 
     public void setCurrentValueCoin() throws IOException {
 
         Scanner reader = new Scanner(System.in);
+        System.out.println("If you have multiple coins, which one would you like to change the value of?");
+        String whichCoin=reader.nextLine();
         System.out.println("Set the value of your coin for today");
         int currentValue = reader.nextInt();
-        portfolio.Account.set(3, Integer.toString(currentValue));
+        String userName=portfolio.Account.get(0);
+        System.out.println("De naam van de gebruiker is: "+userName);
+
+        int changeValueCoin = 0;
+        int grootteArrayList = portfolio.Account.size();
+        for (int j = 2; j < grootteArrayList; j += 3) {
+            if (portfolio.Account.get(j).contains(whichCoin)) {
+                changeValueCoin = j;
+            }
+        }
+        System.out.println("Te veranderen coin is op index: "+changeValueCoin);
+
+            portfolio.Account.set(changeValueCoin+1,Integer.toString(currentValue));
+
+
+        /*
+        if(portfolio.Account.get(2).contains(whichCoin)) {
+            portfolio.Account.set(3, Integer.toString(currentValue));
+        }else if(portfolio.Account.get(5).contains(whichCoin)) {
+            portfolio.Account.set(6, Integer.toString(currentValue));
+        }*/
 
         System.out.println("Aangepaste versie ArrayList: " + portfolio.Account);
         // Bij Meerdere accounts gebruik dit: int i=3; i=i+5; in een lus.
 
-        FileWriter writer = new FileWriter("User.txt");
+        FileWriter writer = new FileWriter(userName+".txt");
+        FileWriter writer2=new FileWriter("User.txt");
         BufferedWriter output = new BufferedWriter(writer);
+        BufferedWriter output2 = new BufferedWriter(writer2);
         int j = 0;
         System.out.println("Size = " + portfolio.Account.size());
         for (String str : portfolio.Account) {
                 //out.println(str);
                 output.write(str);
                 output.write(" ");
+                output2.write(str);
+                output2.write(" ");
                 j++;
-                if (j == 5 || j==8) {
+                /*if (j == 5 || j==8) {
                     output.newLine();
-                }
+                }*/
             }
         output.close();
         writer.close();
-        Accounts acc=new Accounts();
-        acc.updateDatabase("Monba",Integer.toString(currentValue));
+        output2.close();
+        writer2.close();
+        //Accounts acc=new Accounts();
+        //acc.updateDatabase(userName,Integer.toString(currentValue));
         //portfolio.Account.clear();
 
         //return currentValue;

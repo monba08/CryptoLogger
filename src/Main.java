@@ -1,5 +1,4 @@
 
-/*
 import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
@@ -7,21 +6,20 @@ import java.util.Scanner;
 public class Main {
     //private Accounts Account;
 
-    public static void main(String[] args)  throws IOException {
+    public static void  main(String[] args) {
         String coinType="";
-
-         int valueCoin=0;
-         int quantityCoin=0;
-            Scanner scan = new Scanner(System.in);
+        int valueCoin=0;
+        int quantityCoin=0;
+        try {
             System.out.println("Welcome to CryptoLogger!");
             Accounts account = new Accounts();
             Portfolio portfolio = new Portfolio();
-            File inputFile = new File("User.txt");
+            //File inputFile = new File("User.txt");
             ExistingUser user = new ExistingUser();
             Coin coin = new Coin(valueCoin, quantityCoin,coinType);
-            try {
-                boolean exit =false;
-
+            boolean exit =false;
+            Scanner scan = new Scanner(System.in);
+            int option;
                 while (!exit) {
                     // Print menu
                     System.out.println("\nMenu:\n\n"
@@ -32,21 +30,30 @@ public class Main {
                             + "Option 5 - Set current value                 \n"
                             + "Option 6 - Add new Coin                      \n"
                             + "Option 7 - Exit                              \n");
-                    int option = scan.nextInt();
+                    option= scan.nextInt();
+                    //File inputFile = new File(userLoggedIn+".txt");
                     switch (option)
                     {
+
                         case 1:
-                            //account.createNewAccount();
+                            account.createNewAccount();
                             break;
                         case 2:
-                            account.logIn();
+                        Scanner keyboard = new Scanner(System.in);
+                            // looks at selected file in scan
+
+                            System.out.println("Type in your username:");
+                            String inpUser = keyboard.nextLine();
+                            System.out.println("Type in your password:");
+                            String inpPass = keyboard.nextLine();
+                            account.logIn(inpUser,inpPass);
                             break;
                         case 3:
-                            portfolio.readFromFile(inputFile);
-                            portfolio.getName();
+                            portfolio.readFromFile();
+                            //portfolio.getName();
                             break;
                         case 4:
-                            user.removeCoin(inputFile); // Aanroep voor het verwijderen van een coin in de arraylist
+                            user.removeCoin(); // Aanroep voor het verwijderen van een coin in de arraylist
                             break;
                         case 5:
                             coin.setCurrentValueCoin();
@@ -63,10 +70,10 @@ public class Main {
                     }
 
                 }
-                //scan.close();
             }catch (IOException e) {
-        e.printStackTrace();
-    }
+            e.printStackTrace();
+        }
+
     }
 }
 
