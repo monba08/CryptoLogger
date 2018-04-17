@@ -1,16 +1,23 @@
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Scanner;
+
 public class InformationUser {
     String password;
     String voornaam;
     String coin;
     int coinValue;
     int quantityCoin;
+    ArrayList namen;
 
-    public InformationUser(/*String voornaam, String password, String coin, int coinValue, int quantityCoin*/String voornaam, String password, String coin, int coinValue, int quantityCoin){
+
+    public InformationUser(String voornaam, String password, String coin, int coinValue, int quantityCoin){
         this.password = password;
         this.voornaam = voornaam;
         this.coin= coin;
         this.coinValue= coinValue;
         this.quantityCoin= quantityCoin;
+        this.namen = new ArrayList();
 
     }
 
@@ -53,6 +60,35 @@ public class InformationUser {
     }
     public void setQuantityCoin(int quantity){
         this.quantityCoin=quantity;
+    }
+    public void addPerson(String name){
+        namen.add(name);
+    }
+    public boolean checkName(String name){
+        if (namen.contains(name))
+            return true;
+        else
+            return false;
+    }
+    public void fillList(String fileName) throws FileNotFoundException {
+        File file = new File(fileName);
+        Scanner input = new Scanner(file);
+        while(input.hasNextLine()){
+            namen.add(input.nextLine());
+        }
+
+    }
+    public void appendToList(String name){
+        BufferedWriter bw = null;
+
+        try{
+            bw = new BufferedWriter(new FileWriter("D:\\Semester 4\\Software\\cryptoprogram\\CryptoLogger\\list.txt",true))
+            bw.write(name);
+            bw.newLine();
+            bw.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
 
