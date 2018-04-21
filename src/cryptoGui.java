@@ -40,7 +40,6 @@ public class cryptoGui {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
-        new cryptoGui();
             }
 
     public cryptoGui() {
@@ -81,16 +80,18 @@ public class cryptoGui {
                 portfolio.setVisible(false);
                 newCoin.setVisible(false);
                 //de eigenlijke verwerking van de gegevens die worden ingegeven.
-                //user = new InformationUser(rName.getText(),rPass.getText(),rCoin.getText(),Integer.parseInt(rValue.getText()),Integer.parseInt(rQuantity.getText())); //de naam, passwoord, coin, waarde en hoeveelheid worden hier doorgegeven
 
-                /*try {
+                user = new InformationUser(rName.getText(),rPass.getText(),rCoin.getText(),Integer.parseInt(rValue.getText()),Integer.parseInt(rQuantity.getText())); //de naam, passwoord, coin, waarde en hoeveelheid worden hier doorgegeven
+                if(user.checkName(rName.getText())==true){
+                    user.addPerson(rName.getText());
+                try {
                     account.createNewAccount(user.getVoornaam(),user.getPassword(),user.getCoin(),user.getCoinValue(),user.getQuantityCoin());
                 } catch (IOException e1) {
                     System.out.println("Het is niet gelukt!");
-               }*/
-           }
+               }}
+            }
         });
-        loginButton1.addActionListener(new ActionListener() { //dit is de listener om in te loggen.
+        loginButton1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 registerScherm.setVisible(false);
@@ -98,8 +99,7 @@ public class cryptoGui {
                 inlogScherm.setVisible(false);
                 portfolio.setVisible(true);
                 newCoin.setVisible(false);
-
-                //check inlog informatie
+                //als er op newCoin wordt gedrukt ----> zie hier onder
             }
         });
         addNewCoinButton.addActionListener(new ActionListener() {
