@@ -90,7 +90,7 @@ public class cryptoGui {
                }*/
            }
         });
-        loginButton1.addActionListener(new ActionListener() {
+        loginButton1.addActionListener(new ActionListener() { //dit is de listener om in te loggen.
             @Override
             public void actionPerformed(ActionEvent e) {
                 registerScherm.setVisible(false);
@@ -98,7 +98,8 @@ public class cryptoGui {
                 inlogScherm.setVisible(false);
                 portfolio.setVisible(true);
                 newCoin.setVisible(false);
-                //als er op newCoin wordt gedrukt ----> zie hier onder
+
+                //check inlog informatie
             }
         });
         addNewCoinButton.addActionListener(new ActionListener() {
