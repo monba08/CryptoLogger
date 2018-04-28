@@ -3,27 +3,24 @@ import java.util.ArrayList;
 import java.util.*;
 
 public class Portfolio {
-    private float saldo;
-    private int UserID;
     public static ArrayList<String> Account = new ArrayList<>();
 
     public Portfolio() throws FileNotFoundException {
 
     }
-    public float getQuantityCoin(){
+    public String getQuantityCoin(){
 
-        return saldo;
+        return Account.get(4);
     }
     public String getCoinName()
     {
-        String coinName="";
+        String coinName=Account.get(2);
         return coinName;
     }
 
-    public int getCoinValue()
+    public String getCoinValue()
     {
-        int coinValue=0;
-
+        String coinValue = Account.get(3);
         return coinValue;
     }
 
@@ -36,6 +33,12 @@ public class Portfolio {
         //Account.clear();
         return fullname;
     }
+
+//    public void printArrayList(){
+//        for(String str: Account){
+//            return str;
+//        }
+//    }
 
     public void plotGraph(){
 

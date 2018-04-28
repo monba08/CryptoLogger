@@ -8,15 +8,11 @@ public class InformationUser {
     String coin;
     int coinValue;
     int quantityCoin;
-    ArrayList namen;
+    public ArrayList<String> namen;
 
 
-    public InformationUser(String voornaam, String password, String coin, int coinValue, int quantityCoin){
-        this.password = password;
+    public InformationUser(){
         this.voornaam = voornaam;
-        this.coin= coin;
-        this.coinValue= coinValue;
-        this.quantityCoin= quantityCoin;
         this.namen = new ArrayList();
 
     }
@@ -76,19 +72,10 @@ public class InformationUser {
         while(input.hasNextLine()){
             namen.add(input.nextLine());
         }
-
+        input.close();
     }
     public void appendToList(String name){
-        BufferedWriter bw = null;
-
-        try{
-            bw = new BufferedWriter(new FileWriter("D:\\Semester 4\\Software\\cryptoprogram\\CryptoLogger\\list.txt",true))
-            bw.write(name);
-            bw.newLine();
-            bw.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+       namen.add(name);
     }
 }
 

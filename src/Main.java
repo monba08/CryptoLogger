@@ -1,5 +1,4 @@
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -36,7 +35,7 @@ public class Main {
                     {
 
                         case 1:
-                            account.createNewAccount();
+                            account.createNewAccount("satish","satish","btc",50,50);
                             break;
                         case 2:
                         Scanner keyboard = new Scanner(System.in);
@@ -59,7 +58,7 @@ public class Main {
                             coin.setCurrentValueCoin();
                             break;
                         case 6:
-                            user.NewCoin();
+                            //user.newCoin();
                             break;
                         case 7:
                             exit=true;

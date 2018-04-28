@@ -48,31 +48,30 @@ public class ExistingUser {
 
     }
 
-    public void NewCoin() throws IOException {
-        Scanner reader = new Scanner(System.in);
-        Coin coin = new Coin(valueCoin, quantityCoin, coinName);
-        System.out.println("Which crypto-coin would you like to add? ");
-        if (reader.hasNext())
-            coinName = reader.next();
-        coin.setNameCoin(coinName);
+    public void newCoin(String naamCoin, int value, int quantity) throws IOException {
+        //Scanner reader = new Scanner(System.in);
+        Coin coin = new Coin(value,quantity,naamCoin);
+        //System.out.println("Which crypto-coin would you like to add? ");
+        //if (reader.hasNext())
+          //  coinName = reader.next();
+        coin.setNameCoin(naamCoin);
 
-        System.out.println("Type in the current value of this coin: ");
-        String valueString = reader.next();
-        valueCoin = Integer.parseInt(valueString);
-        coin.setValueCoin(valueCoin);
+        //System.out.println("Type in the current value of this coin: ");
+        //String valueString = reader.next();
+        coin.setValueCoin(value);
 
-        System.out.println("How much do you want to own from " + coinName + "?");
-        String quantityString = reader.next();
+        //System.out.println("How much do you want to own from " + coinName + "?");
+        //String quantityString = reader.next();
 
-        quantityCoin = Integer.parseInt(quantityString);
-        coin.setQuantityCoin(quantityCoin);
+        //quantityCoin = Integer.parseInt(quantityString);
+        coin.setQuantityCoin(quantity);
         /*for(int i=0;i<portfolio.Account.size();i++)
         {
 
         }*/
-        portfolio.Account.add(coinName);
-        portfolio.Account.add(valueString);
-        portfolio.Account.add(quantityString);
+        portfolio.Account.add(naamCoin);
+        portfolio.Account.add(Integer.toString(value));
+        portfolio.Account.add(Integer.toString(quantity));
 
         /*File fout = new File("Accounts.txt");
         FileOutputStream fos = new FileOutputStream(fout,true); //Append parameter, zodat oude data niet verdwijnt. Boolean argument

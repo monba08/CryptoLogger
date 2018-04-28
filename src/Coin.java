@@ -36,24 +36,24 @@ public class Coin {
         quantityCoin = quantity;
     }
 
-    public void setCurrentValueCoin() throws IOException {
+    public void setCurrentValueCoin(String name,int value) throws IOException {
 
-        Scanner reader = new Scanner(System.in);
-        System.out.println("If you have multiple coins, which one would you like to change the value of?");
-        String whichCoin=reader.nextLine();
-        System.out.println("Set the value of your coin for today");
-        int currentValue = reader.nextInt();
+        //Scanner reader = new Scanner(System.in);
+        //System.out.println("If you have multiple coins, which one would you like to change the value of?");
+        //String whichCoin=reader.nextLine();
+        //System.out.println("Set the value of your coin for today");
+        //int currentValue = reader.nextInt();
         String userName=portfolio.Account.get(0);
-        System.out.println("De naam van de gebruiker is: "+userName);
+        //System.out.println("De naam van de gebruiker is: "+userName);
 
-        int changeValueCoin = 0;
+        int changeValueCoin = value;
         int grootteArrayList = portfolio.Account.size();
         for (int j = 2; j < grootteArrayList; j += 3) {
-            if (portfolio.Account.get(j).contains(whichCoin)) {
+            if (portfolio.Account.get(j).contains(name)) {
                 changeValueCoin = j;
             }
         }
-        System.out.println("Te veranderen coin is op index: "+changeValueCoin);
+        //System.out.println("Te veranderen coin is op index: "+changeValueCoin);
 
             portfolio.Account.set(changeValueCoin+1,Integer.toString(currentValue));
 

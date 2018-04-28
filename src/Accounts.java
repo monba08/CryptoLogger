@@ -19,36 +19,35 @@ public class Accounts {
 
 
     //Dit zal later geïmplementeerd worden in een GUI.
-    public void createNewAccount(/*String registNaam,String registPass,String coinNaam, int valueC, int quantityCoin*/) throws IOException {
+    public void createNewAccount(String registNaam,String registPass,String coinNaam, int valueC, int quantityCoin) throws IOException {
         Scanner reader = new Scanner(System.in);
-        System.out.println("Enter your name: ");
-        //String name = registNaam;
-        String name = reader.next();
-        System.out.println("Enter a password: ");
-        //String pass =registPass;
-        String pass = reader.next();
+       // System.out.println("Enter your name: ");
+        String name = registNaam;
+        //String name = reader.next();
+        //System.out.println("Enter a password: ");
+        String pass =registPass;
+        //String pass = reader.next();
 
         Coin coin = new Coin(valueCoin, quantityCoin, coinType);
-        System.out.println("Which crypto-coin would you like to add? ");
+        //System.out.println("Which crypto-coin would you like to add? ");
         /*if(reader.hasNext())
             coinType=reader.next();*/
-        coinType = reader.next();
-        coin.setNameCoin(coinType);
-        //coin.setNameCoin(coinNaam);
+        //coinType = reader.next();
+        //coin.setNameCoin(coinType);
+        coin.setNameCoin(coinNaam);
 
-        System.out.println("Type in the current value of this coin: ");
-        String valueString = reader.next();
+        //System.out.println("Type in the current value of this coin: ");
+        //String valueString = reader.next();
         ;
         /*if(reader.hasNext())
             valueString=reader.next();*/
-        valueCoin = Integer.parseInt(valueString);
-        coin.setValueCoin(valueCoin);
+        valueCoin = valueC;
+        //coin.setValueCoin(valueCoin);
 
-        System.out.println("How much do you want to own from " + coinType + "?");
-        String quantityString = reader.next();
+        //System.out.println("How much do you want to own from " + coinType + "?");
+        //String quantityString = reader.next();
         /*if(reader.hasNext())
             quantityString=reader.next();*/
-        quantityCoin = Integer.parseInt(quantityString);
         coin.setQuantityCoin(quantityCoin);
 
 
@@ -68,11 +67,11 @@ public class Accounts {
         bw.write(" ");
         bw.write(pass);
         bw.write(" ");
-        bw.write(coinType);
+        bw.write(coinNaam);
         bw.write(" ");
-        bw.write(valueString);
+        bw.write(Integer.toString(valueC));
         bw.write(" ");
-        bw.write(quantityString);
+        bw.write(Integer.toString(quantityCoin));
         bw.newLine();
         bw.close();
         fos.close();
@@ -133,7 +132,7 @@ public class Accounts {
 
     }
 
-    public void logIn(String gebruiker, String wachtwoord) throws IOException {
+    public boolean logIn(String gebruiker, String wachtwoord) throws IOException {
         boolean login = false;
 
        /* Scanner keyboard = new Scanner(System.in);
@@ -271,11 +270,13 @@ public class Accounts {
               //  }
             }
             output.close();
+            return true;
         }
      else
         {
             //scan2.nextLine();
             System.out.print("User doesn't exist");
+            return false;
         }
 
     }

@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class cryptoGui {
@@ -30,8 +31,17 @@ public class cryptoGui {
     private JButton doneButton2;
     private JTextField dCurrentValue;
     private JButton addDailyValueCoinButton;
+    private JLabel naamVeld;
+    private JLabel coinVeld;
+    private JLabel valueVeld;
+    private JLabel quantityVeld;
+    private JButton updatePortfolioButton;
+    private JTextField nameCoin;
     public Accounts account;
-    public InformationUser user;
+    public static InformationUser user;
+    public Portfolio port;
+    public ExistingUser eu;
+    public Coin coin;
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("cryptoGui");
@@ -40,7 +50,14 @@ public class cryptoGui {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
-            }
+        user = new InformationUser();
+        try {
+            user.fillList("list.txt"); //er is hier iets mis ma
+            //weet ni wa er mis is
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 
     public cryptoGui() {
         account = new Accounts();
@@ -52,11 +69,6 @@ public class cryptoGui {
                 inlogScherm.setVisible(false);
                 portfolio.setVisible(false);
                 newCoin.setVisible(false);
-                // hier gebeurt de eigenlijke login check.
-                String naam = nameField.getText(); //dit is waar de naam wordt opgeslagen
-                String pass = pasField.getText(); //dit is waar de passwoord wordt opgeslagen.
-
-                //hier komt de verwijzing nr de code of de code zelf ik ben niet zeker.
             }
         });
         registerButton.addActionListener(new ActionListener() {
@@ -73,33 +85,80 @@ public class cryptoGui {
         doneButton.addActionListener(new ActionListener() { //als de DONE knop bij registratie wordt ingeduwd
             @Override
             public void actionPerformed(ActionEvent e) {
-                //hier komt de code voor de verwerking van de gegevens naar de bestanden.
-                registerScherm.setVisible(false);
-                loginScherm.setVisible(true);
-                inlogScherm.setVisible(false);
-                portfolio.setVisible(false);
-                newCoin.setVisible(false);
-                //de eigenlijke verwerking van de gegevens die worden ingegeven.
 
-                user = new InformationUser(rName.getText(),rPass.getText(),rCoin.getText(),Integer.parseInt(rValue.getText()),Integer.parseInt(rQuantity.getText())); //de naam, passwoord, coin, waarde en hoeveelheid worden hier doorgegeven
-                if(user.checkName(rName.getText())==true){
+                user = new InformationUser(); //de naam worden hier doorgegeven
+                if (user.checkName(rName.getText()) == false) {
                     user.addPerson(rName.getText());
-                try {
-                    account.createNewAccount(user.getVoornaam(),user.getPassword(),user.getCoin(),user.getCoinValue(),user.getQuantityCoin());
-                } catch (IOException e1) {
-                    System.out.println("Het is niet gelukt!");
-               }}
+                    registerScherm.setVisible(false);
+                    loginScherm.setVisible(true);
+                    inlogScherm.setVisible(false);
+                    portfolio.setVisible(false);
+                    newCoin.setVisible(false);
+                    try {
+                        account.createNewAccount(rName.getText(),rPass.getText(),rCoin.getText(),Integer.parseInt(rValue.getText()),Integer.parseInt(rQuantity.getText()));
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    }
+
+                } //else
+                //toon in een text area da het mislukt is gij ging da chekke
             }
         });
         loginButton1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                registerScherm.setVisible(false);
-                loginScherm.setVisible(false);
-                inlogScherm.setVisible(false);
-                portfolio.setVisible(true);
-                newCoin.setVisible(false);
+                try {
+                    port = new Portfolio();
+                } catch (FileNotFoundException e1) {
+                    e1.printStackTrace();
+                }
                 //als er op newCoin wordt gedrukt ----> zie hier onder
+                String naam = nameField.getText(); //dit is waar de naam wordt opgeslagen
+                String pass = pasField.getText(); //dit is waar de passwoord wordt opgeslagen.
+                System.out.println(naam);
+                //hier moet dus een manier bestaan om alle data van deze gebruiker te extracten uit de juiste files.
+                //if persoon bestaat, laad juiste bestanden
+                    try {
+                        if(account.logIn(naam,pass)==true) {
+                            registerScherm.setVisible(false);
+                            loginScherm.setVisible(false);
+                            inlogScherm.setVisible(false);
+                            portfolio.setVisible(true);
+                            newCoin.setVisible(false);
+                            try {
+                                port.readFromFile();
+                            } catch (IOException e1) {
+                                e1.printStackTrace();
+                            }
+                            if(port.Account.size() == 5)
+                            {
+                                naamVeld.setText("Naam: "+port.Account.get(0));
+                                coinVeld.setText("Coin: "+port.Account.get(2));// haal dit uit de portfolio uit de arraylist doe dit ook voor quantity en waarde
+                                valueVeld.setText("Waarde: "+port.Account.get(3));
+                                quantityVeld.setText("Hoeveelheid: "+port.Account.get(4));
+                            }
+                            else if(port.Account.size()>=8) //Hier misschien nog zien of we meer dan twee coins zullen toevoegen
+                            {
+                                naamVeld.setText("Naam: "+port.Account.get(0));
+                                coinVeld.setText("Coin: "+port.Account.get(2));// haal dit uit de portfolio uit de arraylist doe dit ook voor quantity en waarde
+                                valueVeld.setText("Waarde: "+port.Account.get(3));
+                                quantityVeld.setText("Hoeveelheid: "+port.Account.get(4));
+
+                                for (int j=5;j<port.Account.size();j++)
+                                {
+                                    coinVeld.setText("Coin: "+port.Account.get(j));// haal dit uit de portfolio uit de arraylist doe dit ook voor quantity en waarde
+                                    valueVeld.setText("Waarde: "+port.Account.get(j));
+                                    quantityVeld.setText("Hoeveelheid: "+port.Account.get(j));
+                                }
+                        }
+                    }
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    }
+                    //else
+                    //toon in een text area da het mislukt is
+
+
             }
         });
         addNewCoinButton.addActionListener(new ActionListener() {
@@ -115,6 +174,7 @@ public class cryptoGui {
         doneButton1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                eu = new ExistingUser();
                 registerScherm.setVisible(false);
                 loginScherm.setVisible(false);
                 inlogScherm.setVisible(false);
@@ -124,10 +184,14 @@ public class cryptoGui {
 
                 //hier worden de nieuwe gegevens opgeslagen van de coin
 
-                String newCoin = nName.getText();
+                String nameCoin = nName.getText();
                 int newValue = Integer.parseInt(nValue.getText());
                 int newQuantity= Integer.parseInt(nQuantity.getText());
-
+                try {
+                    eu.newCoin(nameCoin,newValue,newQuantity);
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
             }
         });
 
@@ -157,6 +221,48 @@ public class cryptoGui {
                 portfolio.setVisible(false);
                 newCoin.setVisible(false);
                 setDailyValue.setVisible(true);
+            }
+        });
+        updatePortfolioButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    port.readFromFile();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+                if(port.Account.size() == 5)
+                {
+                    naamVeld.setText("Naam: "+port.Account.get(0));
+                    coinVeld.setText("Coin: "+port.Account.get(2));// haal dit uit de portfolio uit de arraylist doe dit ook voor quantity en waarde
+                    valueVeld.setText("Waarde: "+port.Account.get(3));
+                    quantityVeld.setText("Hoeveelheid: "+port.Account.get(4));
+                }
+                else if(port.Account.size()>=8) //Hier misschien nog zien of we meer dan twee coins zullen toevoegen
+                {
+                    naamVeld.setText("Naam: "+port.Account.get(0));
+                    coinVeld.setText("Coin: "+port.Account.get(2));// haal dit uit de portfolio uit de arraylist doe dit ook voor quantity en waarde
+                    valueVeld.setText("Waarde: "+port.Account.get(3));
+                    quantityVeld.setText("Hoeveelheid: "+port.Account.get(4));
+
+                    for (int j=5;j<port.Account.size();j++)
+                    {
+                        coinVeld.setText("Coin: "+port.Account.get(j));// haal dit uit de portfolio uit de arraylist doe dit ook voor quantity en waarde
+                        valueVeld.setText("Waarde: "+port.Account.get(j));
+                        quantityVeld.setText("Hoeveelheid: "+port.Account.get(j));
+                    }
+                }
+            }
+        });
+        doneButton2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                coin =new Coin(0,0,"");
+                try {
+                    coin.setCurrentValueCoin(nameCoin.getText(),Integer.parseInt(dCurrentValue.getText()));
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
             }
         });
     };
