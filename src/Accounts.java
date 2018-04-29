@@ -134,17 +134,7 @@ public class Accounts {
 
     public boolean logIn(String gebruiker, String wachtwoord) throws IOException {
         boolean login = false;
-
-       /* Scanner keyboard = new Scanner(System.in);
-        // looks at selected file in scan
-
-        System.out.println("Type in your username:");
-        inpUser = keyboard.nextLine();
-        System.out.println("Type in your password:");
-        String inpPass = keyboard.nextLine(); // gets input from user.*/
-
         String userFile1 = gebruiker + ".txt";
-        //System.out.println(userFile1);
 
         BufferedReader fileIn = new BufferedReader(new FileReader(userFile1));
         String line = fileIn.readLine();
@@ -157,7 +147,6 @@ public class Accounts {
             if (wachtwoord.equals(pass)) {
                 login = true;
             }
-
         }
         //scan2.close();
         //keyboard.close();
@@ -183,81 +172,15 @@ public class Accounts {
                 }
             }
 
-            /*
-            InformationUser current;
-            String currentLine;
-            String name;
-            String password;
-            String coin;
-            String coinValue;
-            String quantity;
-            String secondCoin;
-            String secondCoinValue;
-            String secondQuantity;
-            Scanner lineReader=null;
-            Scanner wordReader=null;
-            File inputFile=new File(userFile1);
-            try {
-                lineReader = new Scanner(inputFile);	//Proberen of lijn gelezen kan worden.
-            }
-            catch(FileNotFoundException e) {
-                System.out.println("File not found!");
-            }
-            while (lineReader.hasNextLine()) {       //Checken op EOF.
-                currentLine = lineReader.nextLine(); //Lezen van de volgende lijn in de textfile.
-                wordReader = new Scanner(currentLine);
 
-
-                    name = wordReader.next();
-                    password = wordReader.next();
-                    coin = wordReader.next();
-                    coinValue= wordReader.next();
-                    quantity = wordReader.next();
-                    secondCoin=wordReader.next();
-                    secondCoinValue= wordReader.next();
-                    secondQuantity = wordReader.next();
-                    //info.add(new InformationUser(name,password,coin,coinValue,quantity,secondCoin,secondCoinValue,secondQuantity));
-                    loginArray.add(name);
-                    loginArray.add(password);
-                    loginArray.add(coin);
-                    loginArray.add(coinValue);
-                    loginArray.add(quantity);
-
-                    if(!wordReader.next().isEmpty())
-                    {
-                        System.out.println("Het is niet leeg");
-                        coin = wordReader.next();
-                        secondCoinValue= wordReader.next();
-                        secondQuantity = wordReader.next();
-                        loginArray.add(coin);
-                        loginArray.add(secondCoinValue);
-                        loginArray.add(secondQuantity);
-                    }
-
-                //info.add(new InformationUser(user.getVoornaam(),user.getPassword(),user.getCoin(),user.getCoinValue(),user.getQuantityCoin()));
-*/
             for (String st : loginArray) {
                 System.out.println("LoginArray: " + st);
             }
-                /*for(InformationUser str: info)
-                {
-                    System.out.println("\nInfo: "+str);
-                }*/
 
-            /*nameUser=info.get(0);
-            userN=nameUser.getVoornaam();
-            System.out.println("DIt is nameUser: "+userN);*/
-            //lineReader.close();
-            //wordReader.close();
-
-            //ListIterator<InformationUser> gegevens = info.listIterator();
             ListIterator<String> gegevens = loginArray.listIterator();
             String current2;
             String currentUser=loginArray.get(0);
             System.out.println("Currentuser:"+currentUser);
-            //String gegevensCurrent=gegevens.next();
-            //System.out.println("gegevensCurrent: "+gegevensCurrent);
-            //if (gebruiker.equals(currentUser))//gebruiker.equals(current2.getVoornaam())
             FileWriter writer = new FileWriter("User.txt");
             Writer output = new BufferedWriter(writer);
                 //{

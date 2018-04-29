@@ -16,7 +16,8 @@ public class InformationUser {
         try {
             FileWriter fw = new FileWriter("list.txt",true);
             Writer Output = new BufferedWriter(fw);
-            Output.write(name+"\n");
+            Output.write(name);
+            Output.write("\n");
             Output.close();
             fw.close();
         } catch (IOException e) {
@@ -25,20 +26,25 @@ public class InformationUser {
     }
 
     public boolean checkName(String name){
-        if (namen.contains(name))
+        if (namen.contains(name)) {
+            System.out.println("Array contains: "+name);
             return true;
+        }
         else
             return false;
     }
 
-    public void fillList(String fileName) throws FileNotFoundException {
-        namen.clear();
-        File file = new File(fileName);
-        Scanner input = new Scanner(file);
-        while(input.hasNextLine()){
+    public void fillList(String fileName) throws IOException {
+        //namen.clear();
+        //File file = new File(fileName);
+        BufferedReader fileIn = new BufferedReader(new FileReader(fileName));
+        String line = fileIn.readLine();
+        namen.add(line);
+        //Scanner input = new Scanner(file);
+        /*while(input.hasNextLine()){
             namen.add(input.nextLine());
         }
-        input.close();
+        input.close();*/
         for(String str: namen){
             System.out.println(str);
         }

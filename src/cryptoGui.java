@@ -1,10 +1,32 @@
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
+import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartFrame;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.PiePlot;
+import org.jfree.chart.plot.PiePlot3D;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.general.DefaultPieDataset;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import static javafx.application.Application.launch;
 
 
 public class cryptoGui {
@@ -44,6 +66,7 @@ public class cryptoGui {
     private JList<String> list1;
     private JScrollPane contentPane;
     private JLabel textVeld;
+    private JButton plotGraphButton;
     public Accounts account;
     public static InformationUser user;
     public Portfolio port;
@@ -64,7 +87,10 @@ public class cryptoGui {
             //weet ni wa er mis is
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+        launch(args);
     }
 
     public cryptoGui() {
@@ -95,7 +121,7 @@ public class cryptoGui {
             public void actionPerformed(ActionEvent e) {
 
                 user = new InformationUser(); //de naam worden hier doorgegeven
-                if (!user.checkName(rName.getText())) {
+                if (!user.namen.contains(rName.getText())) {
                     user.addPerson(rName.getText());
                     registerScherm.setVisible(false);
                     loginScherm.setVisible(true);
@@ -323,6 +349,26 @@ public class cryptoGui {
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }
+            }
+        });
+
+        plotGraphButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+                dataset.addValue(200,"Crypto-BTC","Maandag");
+                dataset.addValue(100,"Crypto-BTC","Dinsdag");
+                dataset.addValue(300,"Crypto-BTC","Woensdag");
+                dataset.addValue(10,"Crypto-BTC","Donderdag");
+                dataset.addValue(600,"Crypto-BTC","Vrijdag");
+                dataset.addValue(452,"Crypto-BTC","Zaterdag");
+                dataset.addValue(635,"Crypto-BTC","Zondag");
+                JFreeChart chart = ChartFactory.createLineChart("CryptoChart","Days","Values",dataset, PlotOrientation.VERTICAL,true,true,false);
+                chart.setBackgroundPaint(Color.GREEN);
+                ChartFrame frame = new ChartFrame("CryptoChart",chart);
+                frame.setVisible(true);
+                frame.setSize(450,500);
+                //http://www.java2s.com/Code/Java/Chart/JFreeChartLineChartDemo1.htm
             }
         });
     };
