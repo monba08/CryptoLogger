@@ -55,7 +55,7 @@ public class Main {
                             user.removeCoin(); // Aanroep voor het verwijderen van een coin in de arraylist
                             break;
                         case 5:
-                            coin.setCurrentValueCoin();
+                            //coin.setCurrentValueCoin();
                             break;
                         case 6:
                             //user.newCoin();

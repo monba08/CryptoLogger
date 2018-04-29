@@ -3,6 +3,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class cryptoGui {
     private JPanel Verzameling;
@@ -37,11 +40,15 @@ public class cryptoGui {
     private JLabel quantityVeld;
     private JButton updatePortfolioButton;
     private JTextField nameCoin;
+    private JTextArea textArea1;
+    private JList<String> list1;
+    private JScrollPane contentPane;
     public Accounts account;
     public static InformationUser user;
     public Portfolio port;
     public ExistingUser eu;
     public Coin coin;
+    static DefaultListModel<String> model;
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("cryptoGui");
@@ -231,6 +238,57 @@ public class cryptoGui {
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }
+                int i=0;
+                model = new DefaultListModel<>();
+                String prefix="";
+
+                for (String str : port.Account) {
+
+                    switch (i) {
+                        case 0:
+                            prefix="Voornaam: ";
+                            break;
+                        case 2:
+                            prefix="Coin: ";
+                            //model.addElement("Coin: "+str);
+                            break;
+                        case 3:
+                            prefix="Value: ";
+                            //model.addElement("Value: "+str);
+                            break;
+                        case 4:
+                            prefix="Quantity: ";
+                           //model.addElement("Quantity: "+str);
+                            break;
+                        default:
+                            break;
+                }
+                    if(i!=1)
+                    {
+                        model.addElement(prefix+str);
+                    }
+
+                    i++;
+                    if(i>4)
+                    {
+                        i=2;
+                    }
+
+                }
+                list1.setModel(model);
+                //ArrayList<String> myArrayList = port.Account;
+                //model.clear();
+                //String[] myArray=myArrayList.toArray(new String[myArrayList.size()]);
+                //list1 = new JList<String>(myArray);
+                //list1.setVisibleRowCount(10);
+                //contentPane.add(list1);
+                //contentPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+                //contentPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+
+
+                //System.out.println("Fuck:"+myArrayList.get(3));
+               // (new JScrollPane((list1)));
+
                 if(port.Account.size() == 5)
                 {
                     naamVeld.setText("Naam: "+port.Account.get(0));

@@ -2,6 +2,8 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.*;
 
+//import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
+
 public class Portfolio {
     public static ArrayList<String> Account = new ArrayList<>();
 
@@ -41,7 +43,7 @@ public class Portfolio {
 //    }
 
     public void plotGraph(){
-
+        // Elke keer als er een nieuwe daily value is, de oude waarde wegschrijven naar de volgende lijnen.
     }
 
     public void readFromFile() throws IOException {
@@ -157,6 +159,7 @@ public class Portfolio {
     }
 
     public void getWeekValues(){
-
+    //date();
+       // https://stackoverflow.com/questions/8714779/is-there-a-shortcut-for-inserting-date-time-in-intellij-idea?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
     }
 }
