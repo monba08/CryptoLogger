@@ -43,6 +43,7 @@ public class cryptoGui {
     private JTextArea textArea1;
     private JList<String> list1;
     private JScrollPane contentPane;
+    private JLabel textVeld;
     public Accounts account;
     public static InformationUser user;
     public Portfolio port;
@@ -94,7 +95,7 @@ public class cryptoGui {
             public void actionPerformed(ActionEvent e) {
 
                 user = new InformationUser(); //de naam worden hier doorgegeven
-                if (user.checkName(rName.getText()) == false) {
+                if (!user.checkName(rName.getText())) {
                     user.addPerson(rName.getText());
                     registerScherm.setVisible(false);
                     loginScherm.setVisible(true);
@@ -106,9 +107,17 @@ public class cryptoGui {
                     } catch (IOException e1) {
                         e1.printStackTrace();
                     }
+                    textVeld.setText("Het is gelukt!");
+                }
+                else{
+                    textVeld.setText("Gebruiker bestaat al!");
+                    registerScherm.setVisible(true);
+                    loginScherm.setVisible(false);
+                    inlogScherm.setVisible(false);
+                    portfolio.setVisible(false);
+                    newCoin.setVisible(false);
+                }
 
-                } //else
-                //toon in een text area da het mislukt is gij ging da chekke
             }
         });
         loginButton1.addActionListener(new ActionListener() {
@@ -126,7 +135,7 @@ public class cryptoGui {
                 //hier moet dus een manier bestaan om alle data van deze gebruiker te extracten uit de juiste files.
                 //if persoon bestaat, laad juiste bestanden
                     try {
-                        if(account.logIn(naam,pass)==true) {
+                        if (account.logIn(naam, pass) == true) {
                             registerScherm.setVisible(false);
                             loginScherm.setVisible(false);
                             inlogScherm.setVisible(false);
@@ -137,32 +146,47 @@ public class cryptoGui {
                             } catch (IOException e1) {
                                 e1.printStackTrace();
                             }
-                            if(port.Account.size() == 5)
-                            {
-                                naamVeld.setText("Naam: "+port.Account.get(0));
-                                coinVeld.setText("Coin: "+port.Account.get(2));// haal dit uit de portfolio uit de arraylist doe dit ook voor quantity en waarde
-                                valueVeld.setText("Waarde: "+port.Account.get(3));
-                                quantityVeld.setText("Hoeveelheid: "+port.Account.get(4));
-                            }
-                            else if(port.Account.size()>=8) //Hier misschien nog zien of we meer dan twee coins zullen toevoegen
-                            {
-                                naamVeld.setText("Naam: "+port.Account.get(0));
-                                coinVeld.setText("Coin: "+port.Account.get(2));// haal dit uit de portfolio uit de arraylist doe dit ook voor quantity en waarde
-                                valueVeld.setText("Waarde: "+port.Account.get(3));
-                                quantityVeld.setText("Hoeveelheid: "+port.Account.get(4));
+                            int i = 0;
+                            model = new DefaultListModel<>();
+                            String prefix = "";
 
-                                for (int j=5;j<port.Account.size();j++)
-                                {
-                                    coinVeld.setText("Coin: "+port.Account.get(j));// haal dit uit de portfolio uit de arraylist doe dit ook voor quantity en waarde
-                                    valueVeld.setText("Waarde: "+port.Account.get(j));
-                                    quantityVeld.setText("Hoeveelheid: "+port.Account.get(j));
+                            for (String str : port.Account) {
+
+                                switch (i) {
+                                    case 0:
+                                        prefix = "Voornaam: ";
+                                        break;
+                                    case 2:
+                                        prefix = "Coin: ";
+                                        //model.addElement("Coin: "+str);
+                                        break;
+                                    case 3:
+                                        prefix = "Value: ";
+                                        //model.addElement("Value: "+str);
+                                        break;
+                                    case 4:
+                                        prefix = "Quantity: ";
+                                        //model.addElement("Quantity: "+str);
+                                        break;
+                                    default:
+                                        break;
                                 }
+                                if (i != 1) {
+                                    model.addElement(prefix + str);
+                                }
+
+                                i++;
+                                if (i > 4) {
+                                    i = 2;
+                                }
+
+                            }
+                            list1.setModel(model);
                         }
-                    }
                     } catch (IOException e1) {
                         e1.printStackTrace();
                     }
-                    //else
+                //else
                     //toon in een text area da het mislukt is
 
 
@@ -288,28 +312,6 @@ public class cryptoGui {
 
                 //System.out.println("Fuck:"+myArrayList.get(3));
                // (new JScrollPane((list1)));
-
-                if(port.Account.size() == 5)
-                {
-                    naamVeld.setText("Naam: "+port.Account.get(0));
-                    coinVeld.setText("Coin: "+port.Account.get(2));// haal dit uit de portfolio uit de arraylist doe dit ook voor quantity en waarde
-                    valueVeld.setText("Waarde: "+port.Account.get(3));
-                    quantityVeld.setText("Hoeveelheid: "+port.Account.get(4));
-                }
-                else if(port.Account.size()>=8) //Hier misschien nog zien of we meer dan twee coins zullen toevoegen
-                {
-                    naamVeld.setText("Naam: "+port.Account.get(0));
-                    coinVeld.setText("Coin: "+port.Account.get(2));// haal dit uit de portfolio uit de arraylist doe dit ook voor quantity en waarde
-                    valueVeld.setText("Waarde: "+port.Account.get(3));
-                    quantityVeld.setText("Hoeveelheid: "+port.Account.get(4));
-
-                    for (int j=5;j<port.Account.size();j++)
-                    {
-                        coinVeld.setText("Coin: "+port.Account.get(j));// haal dit uit de portfolio uit de arraylist doe dit ook voor quantity en waarde
-                        valueVeld.setText("Waarde: "+port.Account.get(j));
-                        quantityVeld.setText("Hoeveelheid: "+port.Account.get(j));
-                    }
-                }
             }
         });
         doneButton2.addActionListener(new ActionListener() {
