@@ -1,43 +1,42 @@
 import java.io.*;
 import java.util.ArrayList;
-import java.util.*;
 
 //import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
 
 public class Portfolio {
-    public static ArrayList<String> Account = new ArrayList<>();
+    public static ArrayList<String> UserInfoList = new ArrayList<>();
 
     public Portfolio() throws FileNotFoundException {
 
     }
     public String getQuantityCoin(){
 
-        return Account.get(4);
+        return UserInfoList.get(4);
     }
     public String getCoinName()
     {
-        String coinName=Account.get(2);
+        String coinName= UserInfoList.get(2);
         return coinName;
     }
 
     public String getCoinValue()
     {
-        String coinValue = Account.get(3);
+        String coinValue = UserInfoList.get(3);
         return coinValue;
     }
 
     public String getName()
     {
-        String name = Account.get(0);
-        String surename = Account.get(1);
+        String name = UserInfoList.get(0);
+        String surename = UserInfoList.get(1);
         String fullname= name+" "+surename;
         System.out.println("De volledige naam van de persoon is: "+fullname);
-        //Account.clear();
+        //UserInfoList.clear();
         return fullname;
     }
 
 //    public void printArrayList(){
-//        for(String str: Account){
+//        for(String str: UserInfoList){
 //            return str;
 //        }
 //    }
@@ -48,7 +47,7 @@ public class Portfolio {
 
     public void readFromFile() throws IOException {
         //File inputFile = new File("Accounts.txt");
-        Account.clear();
+        UserInfoList.clear();
         BufferedReader fileIn2 = new BufferedReader(new FileReader("User.txt"));
         String line=fileIn2.readLine();
         String parts[]=line.split(" ");
@@ -65,37 +64,37 @@ public class Portfolio {
         System.out.println("Dit is de lengte: "+lengte);
         if(parts2.length==2 && !(parts.length>=5))
         {
-            Account.add(parts2[0]);
-            Account.add(parts2[1]);
+            UserInfoList.add(parts2[0]);
+            UserInfoList.add(parts2[1]);
         }
         else if(parts2.length == 5)
         {
-            Account.add(parts2[0]);
-            Account.add(parts2[1]);
-            Account.add(parts2[2]);
-            Account.add(parts2[3]);
-            Account.add(parts2[4]);
+            UserInfoList.add(parts2[0]);
+            UserInfoList.add(parts2[1]);
+            UserInfoList.add(parts2[2]);
+            UserInfoList.add(parts2[3]);
+            UserInfoList.add(parts2[4]);
         }
         else if(parts2.length>=8) //Hier misschien nog zien of we meer dan twee coins zullen toevoegen
         {
             System.out.println("We zitten hier");
             for (int j=0;j<lengte;j++)
             {
-                Account.add(parts2[j]);
+                UserInfoList.add(parts2[j]);
             }
-            /*Account.add(parts2[0]);
-            Account.add(parts2[1]);
-            Account.add(parts2[2]);
-            Account.add(parts2[3]);
-            Account.add(parts2[4]);
-            Account.add(parts2[5]);
-            Account.add(parts2[6]);
-            Account.add(parts2[7]);*/
+            /*UserInfoList.add(parts2[0]);
+            UserInfoList.add(parts2[1]);
+            UserInfoList.add(parts2[2]);
+            UserInfoList.add(parts2[3]);
+            UserInfoList.add(parts2[4]);
+            UserInfoList.add(parts2[5]);
+            UserInfoList.add(parts2[6]);
+            UserInfoList.add(parts2[7]);*/
         }
 
 
 
-        System.out.println("Dit is accounts tot: " + Account);
+        System.out.println("Dit is accounts tot: " + UserInfoList);
         //fileIn3.close();
 
 
@@ -103,7 +102,7 @@ public class Portfolio {
         Scanner wordReader = null;
         String currentLine;
         String word;
-        Account.clear();
+        UserInfoList.clear();
         while (lineReader.hasNextLine()) {       //Checken op EOF.
             currentLine = lineReader.nextLine(); //Lezen van de volgende lijn in de textfile.
             wordReader = new Scanner(currentLine);
@@ -111,40 +110,40 @@ public class Portfolio {
                 word = wordReader.next();
                 i = i + 1;
                 if (i == 1) {
-                    Account.add(word);
+                    UserInfoList.add(word);
                     System.out.println("Voornaam van de persoonbruh: " + word);
-                    //System.out.println("Dit is accounts: " + Account);
+                    //System.out.println("Dit is accounts: " + UserInfoList);
 
                 }
                 if (i == 2) {
-                    Account.add(word);
+                    UserInfoList.add(word);
                     System.out.println("Achternaam van de persoon: " + word);
-                    //System.out.println("Dit is accounts: " + Account);
+                    //System.out.println("Dit is accounts: " + UserInfoList);
                 }
                 if (i == 3) {
-                    Account.add(word);
+                    UserInfoList.add(word);
                     System.out.println("Dit is woord 3: " + word);
-                    //System.out.println("Dit is accounts: " + Account);
+                    //System.out.println("Dit is accounts: " + UserInfoList);
                 }
                 if (i == 4) {
-                    Account.add(word);
+                    UserInfoList.add(word);
                     System.out.println("Dit is woord 4: " + word);
-                    //System.out.println("Dit is accounts: " + Account);
+                    //System.out.println("Dit is accounts: " + UserInfoList);
                 }
                 if (i == 5) {
-                    Account.add(word);
+                    UserInfoList.add(word);
                     System.out.println("Dit is woord 5: " + word);
-                    System.out.println("Dit is accounts tot index 5: " + Account);
+                    System.out.println("Dit is accounts tot index 5: " + UserInfoList);
                 }
                 if (i == 6) {
-                    Account.add(word);
+                    UserInfoList.add(word);
                 }
                 if (i == 7) {
-                    Account.add(word);
+                    UserInfoList.add(word);
                 }
                 if (i == 8) {
-                    Account.add(word);
-                    System.out.println("Dit is accounts tot index 8: " + Account);
+                    UserInfoList.add(word);
+                    System.out.println("Dit is accounts tot index 8: " + UserInfoList);
                 }
 
 

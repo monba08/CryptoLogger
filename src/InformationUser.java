@@ -27,6 +27,7 @@ public class InformationUser {
 
     public boolean checkName(String name){
         if (namen.contains(name)) {
+            //List.txt moet gecheckt worden a hoofd.
             System.out.println("Array contains: "+name);
             return true;
         }

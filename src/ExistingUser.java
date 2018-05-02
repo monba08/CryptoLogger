@@ -65,24 +65,24 @@ public class ExistingUser {
 
         //quantityCoin = Integer.parseInt(quantityString);
         coin.setQuantityCoin(quantity);
-        /*for(int i=0;i<portfolio.Account.size();i++)
+        /*for(int i=0;i<portfolio.UserInfoList.size();i++)
         {
 
         }*/
-        portfolio.Account.add(naamCoin);
-        portfolio.Account.add(Integer.toString(value));
-        portfolio.Account.add(Integer.toString(quantity));
+        portfolio.UserInfoList.add(naamCoin);
+        portfolio.UserInfoList.add(Integer.toString(value));
+        portfolio.UserInfoList.add(Integer.toString(quantity));
 
         /*File fout = new File("Accounts.txt");
         FileOutputStream fos = new FileOutputStream(fout,true); //Append parameter, zodat oude data niet verdwijnt. Boolean argument
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));*/
-        String currentUser = portfolio.Account.get(0);
+        String currentUser = portfolio.UserInfoList.get(0);
         FileWriter writer = new FileWriter(currentUser + ".txt");
         BufferedWriter output = new BufferedWriter(writer);
         FileWriter writer2 = new FileWriter("User.txt");
         BufferedWriter output2 = new BufferedWriter(writer2);
-        System.out.println("Size = " + portfolio.Account.size());
-        for (String str : portfolio.Account) {
+        System.out.println("Size = " + portfolio.UserInfoList.size());
+        for (String str : portfolio.UserInfoList) {
             output.write(str);
             output.write(" ");
             output2.write(str);
@@ -100,9 +100,9 @@ public class ExistingUser {
     }
 
     public void removeCoin() throws IOException {
-        //for (String s : portfolio.Account) {
+        //for (String s : portfolio.UserInfoList) {
         int i = 0;
-        String currentUser = Portfolio.Account.get(0);
+        String currentUser = Portfolio.UserInfoList.get(0);
         Scanner lineReader = new Scanner(currentUser + ".txt");
         Scanner wordReader = null;
         String currentLine;
@@ -110,19 +110,19 @@ public class ExistingUser {
         System.out.println("Which coin would you like to remove?");
         Scanner reader = new Scanner(System.in);
         String coinRemover = reader.nextLine();
-        int grootte=Portfolio.Account.size();
+        int grootte=Portfolio.UserInfoList.size();
         System.out.println("Dit is de grootte: "+grootte);
 
         int teVerwijderen = 0;
-        int grootteArrayList = portfolio.Account.size();
+        int grootteArrayList = portfolio.UserInfoList.size();
         for (int j = 2; j < grootteArrayList; j += 3) {
-            if (portfolio.Account.get(j).contains(coinRemover)) {
+            if (portfolio.UserInfoList.get(j).contains(coinRemover)) {
                 teVerwijderen = j;
             }
         }
         System.out.println("Verwijder is op "+teVerwijderen);
         for (int t = teVerwijderen+2; t >= teVerwijderen; t--) {
-                    portfolio.Account.remove(t);
+                    portfolio.UserInfoList.remove(t);
         }
 
 
@@ -135,50 +135,50 @@ public class ExistingUser {
                 //word = wordReader.next();
                 //i = i + 1;
                 /*int teVerwijderen = 0;
-                int grootteArrayList = portfolio.Account.size();
+                int grootteArrayList = portfolio.UserInfoList.size();
                 for (int j = 2; j < grootteArrayList; j += 3) {
-                    if (portfolio.Account.get(j).contains(coinRemover)) {
+                    if (portfolio.UserInfoList.get(j).contains(coinRemover)) {
                         teVerwijderen = j;
                     }
                 }
                 System.out.println("Verwijder is op "+teVerwijderen);*/
                 //hier na verwijderen.
                 /*for (int t = teVerwijderen; t < teVerwijderen; t++)
-                    portfolio.Account.remove(t);*/
+                    portfolio.UserInfoList.remove(t);*/
                 /*
-                if (portfolio.Account.get(2).contains(coinRemover)) {
+                if (portfolio.UserInfoList.get(2).contains(coinRemover)) {
                    // if (i == 3) {
-                        String woord3=portfolio.Account.get(2);
-                    portfolio.Account.remove(woord3);
+                        String woord3=portfolio.UserInfoList.get(2);
+                    portfolio.UserInfoList.remove(woord3);
 
                    // }
                    // if (i == 4) {
-                        String woord4=portfolio.Account.get(3);
-                    portfolio.Account.remove(woord4);
+                        String woord4=portfolio.UserInfoList.get(3);
+                    portfolio.UserInfoList.remove(woord4);
 
                    // }
                     //if (i == 5) {
-                        String woord5=portfolio.Account.get(4);
-                    portfolio.Account.remove(woord5);
+                        String woord5=portfolio.UserInfoList.get(4);
+                    portfolio.UserInfoList.remove(woord5);
 
 
                    // }
-                } else if (portfolio.Account.get(5).contains(coinRemover)) {
+                } else if (portfolio.UserInfoList.get(5).contains(coinRemover)) {
                    // if (i == 6) {
-                    String woord6=portfolio.Account.get(5);
-                    portfolio.Account.remove(woord6);
+                    String woord6=portfolio.UserInfoList.get(5);
+                    portfolio.UserInfoList.remove(woord6);
 
 
                    // }
                   //  if (i == 7) {
-                    String woord7=portfolio.Account.get(6);
-                    portfolio.Account.remove(woord7);
+                    String woord7=portfolio.UserInfoList.get(6);
+                    portfolio.UserInfoList.remove(woord7);
 
 
                     //}
                     //if (i == 8) {
-                    /*String woord8=portfolio.Account.get(7);
-                    portfolio.Account.remove(woord8);
+                    /*String woord8=portfolio.UserInfoList.get(7);
+                    portfolio.UserInfoList.remove(woord8);
 
                 // }
             }*/
@@ -187,12 +187,12 @@ public class ExistingUser {
 
                 //i = 0;
 
-            int size = portfolio.Account.size();
+            int size = portfolio.UserInfoList.size();
         System.out.println("Grootte arraylist is: " + size);
 
         //System.out.println("Dit is woord 5: " + word);
-        System.out.println("Dit is accounts: " + Portfolio.Account);
-        System.out.println("Dit is accountskleineP: " + portfolio.Account);
+        System.out.println("Dit is accounts: " + Portfolio.UserInfoList);
+        System.out.println("Dit is accountskleineP: " + portfolio.UserInfoList);
             //lineReader.close();
             //wordReader.close();
             //Pas dit aan m.b.v ListIterator
@@ -200,11 +200,11 @@ public class ExistingUser {
             FileWriter writer2 = new FileWriter("User.txt");
             Writer output = new BufferedWriter(writer);
             Writer output2 = new BufferedWriter(writer2);
-            //int size = portfolio.Account.size();
+            //int size = portfolio.UserInfoList.size();
             for (int j = 0; j < size; j++) {
-                output.write(portfolio.Account.get(j).toString());
+                output.write(portfolio.UserInfoList.get(j).toString());
                 output.write(" ");
-                output2.write(portfolio.Account.get(j).toString());
+                output2.write(portfolio.UserInfoList.get(j).toString());
                 output2.write(" ");
             }
             output.close();

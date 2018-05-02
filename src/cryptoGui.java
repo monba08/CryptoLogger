@@ -4,27 +4,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.LineChart;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
-import javafx.scene.layout.HBox;
-import javafx.stage.Stage;
+
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartFrame;
-import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.CategoryPlot;
-import org.jfree.chart.plot.PiePlot;
-import org.jfree.chart.plot.PiePlot3D;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.data.general.DefaultPieDataset;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static javafx.application.Application.launch;
 
@@ -90,7 +75,7 @@ public class cryptoGui {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        launch(args);
+
     }
 
     public cryptoGui() {
@@ -121,7 +106,7 @@ public class cryptoGui {
             public void actionPerformed(ActionEvent e) {
 
                 user = new InformationUser(); //de naam worden hier doorgegeven
-                if (!user.namen.contains(rName.getText())) {
+                if (user.checkName(rName.getText())) {
                     user.addPerson(rName.getText());
                     registerScherm.setVisible(false);
                     loginScherm.setVisible(true);
@@ -176,7 +161,7 @@ public class cryptoGui {
                             model = new DefaultListModel<>();
                             String prefix = "";
 
-                            for (String str : port.Account) {
+                            for (String str : port.UserInfoList) {
 
                                 switch (i) {
                                     case 0:
@@ -252,7 +237,7 @@ public class cryptoGui {
             }
         });
 
-        doneButton2.addActionListener(new ActionListener() {
+        /*doneButton2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 registerScherm.setVisible(false);
@@ -262,13 +247,14 @@ public class cryptoGui {
                 newCoin.setVisible(false);
                 setDailyValue.setVisible(false);
             }
-        });
-        dCurrentValue.addActionListener(new ActionListener() {
+        });*/
+        /*dCurrentValue.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int currentValue = Integer.parseInt(dCurrentValue.getText());
+
+                coin.setValueCoin(Integer.parseInt(dCurrentValue.getText()));
             }
-        });
+        });*/
         addDailyValueCoinButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -292,7 +278,7 @@ public class cryptoGui {
                 model = new DefaultListModel<>();
                 String prefix="";
 
-                for (String str : port.Account) {
+                for (String str : port.UserInfoList) {
 
                     switch (i) {
                         case 0:
@@ -326,18 +312,7 @@ public class cryptoGui {
 
                 }
                 list1.setModel(model);
-                //ArrayList<String> myArrayList = port.Account;
-                //model.clear();
-                //String[] myArray=myArrayList.toArray(new String[myArrayList.size()]);
-                //list1 = new JList<String>(myArray);
-                //list1.setVisibleRowCount(10);
-                //contentPane.add(list1);
-                //contentPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-                //contentPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
-
-                //System.out.println("Fuck:"+myArrayList.get(3));
-               // (new JScrollPane((list1)));
             }
         });
         doneButton2.addActionListener(new ActionListener() {
@@ -346,6 +321,7 @@ public class cryptoGui {
                 coin =new Coin(0,0,"");
                 try {
                     coin.setCurrentValueCoin(nameCoin.getText(),Integer.parseInt(dCurrentValue.getText()));
+                    System.out.println("Dcurrentvalue"+dCurrentValue.getText()+ "Second:" +Integer.parseInt(dCurrentValue.getText()));
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }
@@ -363,6 +339,7 @@ public class cryptoGui {
                 dataset.addValue(600,"Crypto-BTC","Vrijdag");
                 dataset.addValue(452,"Crypto-BTC","Zaterdag");
                 dataset.addValue(635,"Crypto-BTC","Zondag");
+
                 JFreeChart chart = ChartFactory.createLineChart("CryptoChart","Days","Values",dataset, PlotOrientation.VERTICAL,true,true,false);
                 chart.setBackgroundPaint(Color.GREEN);
                 ChartFrame frame = new ChartFrame("CryptoChart",chart);

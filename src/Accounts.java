@@ -20,44 +20,18 @@ public class Accounts {
 
     //Dit zal later geïmplementeerd worden in een GUI.
     public void createNewAccount(String registNaam,String registPass,String coinNaam, int valueC, int quantityCoin) throws IOException {
-        Scanner reader = new Scanner(System.in);
-       // System.out.println("Enter your name: ");
         String name = registNaam;
-        //String name = reader.next();
-        //System.out.println("Enter a password: ");
         String pass =registPass;
-        //String pass = reader.next();
 
         Coin coin = new Coin(valueCoin, quantityCoin, coinType);
-        //System.out.println("Which crypto-coin would you like to add? ");
-        /*if(reader.hasNext())
-            coinType=reader.next();*/
-        //coinType = reader.next();
-        //coin.setNameCoin(coinType);
+
         coin.setNameCoin(coinNaam);
 
-        //System.out.println("Type in the current value of this coin: ");
-        //String valueString = reader.next();
-        ;
-        /*if(reader.hasNext())
-            valueString=reader.next();*/
         valueCoin = valueC;
-        //coin.setValueCoin(valueCoin);
 
-        //System.out.println("How much do you want to own from " + coinType + "?");
-        //String quantityString = reader.next();
-        /*if(reader.hasNext())
-            quantityString=reader.next();*/
+
         coin.setQuantityCoin(quantityCoin);
 
-
-        //Parameters die we zullen doorgeven.
-        //nameUser = name;
-        /*coinType=coin.setNameCoin();
-        valueCoin=coin.setValueCoin();
-        quantityCoin=coin.setQuantityCoin();*/
-        /*reader.nextLine();
-        reader.close();*/
         String userFile = name + ".txt";
         File fout = new File(userFile);
         FileOutputStream fos = new FileOutputStream(fout, true); //Append parameter, zodat oude data niet verdwijnt. Boolean argument
@@ -72,65 +46,16 @@ public class Accounts {
         bw.write(Integer.toString(valueC));
         bw.write(" ");
         bw.write(Integer.toString(quantityCoin));
-        bw.newLine();
+
+        //Hiermee zullen de daily values van een coin worden weggeschreven.
+        bw.write(coinNaam);
+        bw.write(" ");
+        bw.write(Integer.toString(valueC));
         bw.close();
         fos.close();
     }
 
-    public void updateDatabase(String Username, String NewValue) throws IOException {
-        String line;
-        String userFile = Username + ".txt";
-        BufferedReader file = new BufferedReader(new FileReader(userFile));//User.txt
-        StringBuffer inputBuffer = new StringBuffer();
 
-        while ((line = file.readLine()) != null) {
-            inputBuffer.append(line);
-            System.out.println("Dit is line: " + line);
-            inputBuffer.append('\n');
-        }
-        String inputStr = inputBuffer.toString();
-        System.out.println("Dit is INPUTSTR: " + inputStr);
-        file.close();
-
-        BufferedReader file2 = new BufferedReader(new FileReader("Accounts.txt"));
-        StringBuffer inputBuffer2 = new StringBuffer();
-        String line2;
-        while ((line2 = file2.readLine()) != null) {
-            inputBuffer2.append(line2);
-            System.out.println("Dit is line: " + line2);
-            inputBuffer2.append('\n');
-        }
-        String inputStr2 = inputBuffer2.toString();
-        System.out.println("Dit is INPUTSTR2Man: " + inputStr2);
-        file2.close();
-
-        String currentLine2;
-        Scanner wordReader = null;
-        String word;
-        Scanner lineReader = new Scanner("Accounts.txt");
-        while (lineReader.hasNextLine()) {       //Checken op EOF.
-            currentLine2 = lineReader.nextLine();
-            wordReader = new Scanner(currentLine2);
-            while (wordReader.hasNext()) {
-                word = wordReader.next();
-                if (word.contains(Username)) {
-                    System.out.println("I'm here");
-                    System.out.println("Dit is currentLine2: " + currentLine2);
-                    inputStr2.replaceAll(currentLine2, inputStr);
-                }
-            }
-        }
-        lineReader.close();
-        wordReader.close();
-        System.out.println("InputSTR2MetReplacement: " + inputStr2);
-
-        System.out.println("----------------------------------\n" + inputStr2);
-        FileOutputStream fileOut = new FileOutputStream("Accounts.txt");
-        fileOut.write(inputStr2.getBytes());
-        fileOut.close();
-
-
-    }
 
     public boolean logIn(String gebruiker, String wachtwoord) throws IOException {
         boolean login = false;

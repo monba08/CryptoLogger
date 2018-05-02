@@ -1,1 +1,1 @@
-test anc bitcoin 2020 255 cdn 420 147 
+test anc bitcoin 5000 255 cdn 420 147 
