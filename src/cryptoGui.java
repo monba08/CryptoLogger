@@ -52,6 +52,11 @@ public class cryptoGui {
     private JScrollPane contentPane;
     private JLabel textVeld;
     private JButton plotGraphButton;
+    private JButton backButton;
+    private JButton backButton1;
+    private JButton logoutButton;
+    private JButton backButton2;
+    private JButton backButton3;
     public Accounts account;
     public static InformationUser user;
     public Portfolio port;
@@ -346,6 +351,61 @@ public class cryptoGui {
                 frame.setVisible(true);
                 frame.setSize(450,500);
                 //http://www.java2s.com/Code/Java/Chart/JFreeChartLineChartDemo1.htm
+            }
+        });
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                registerScherm.setVisible(false);
+                loginScherm.setVisible(false);
+                inlogScherm.setVisible(true);
+                portfolio.setVisible(false);
+                newCoin.setVisible(false);
+                setDailyValue.setVisible(false);
+            }
+        });
+        backButton1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                registerScherm.setVisible(false);
+                loginScherm.setVisible(false);
+                inlogScherm.setVisible(true);
+                portfolio.setVisible(false);
+                newCoin.setVisible(false);
+                setDailyValue.setVisible(false);
+            }
+        });
+        logoutButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                registerScherm.setVisible(false);
+                loginScherm.setVisible(false);
+                inlogScherm.setVisible(true);
+                portfolio.setVisible(false);
+                newCoin.setVisible(false);
+                setDailyValue.setVisible(false);
+            }
+        });
+        backButton2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                registerScherm.setVisible(false);
+                loginScherm.setVisible(false);
+                inlogScherm.setVisible(false);
+                portfolio.setVisible(true);
+                newCoin.setVisible(false);
+                setDailyValue.setVisible(false);
+            }
+        });
+        backButton3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                registerScherm.setVisible(false);
+                loginScherm.setVisible(false);
+                inlogScherm.setVisible(false);
+                portfolio.setVisible(true);
+                newCoin.setVisible(false);
+                setDailyValue.setVisible(false);
             }
         });
     };
