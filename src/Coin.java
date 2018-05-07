@@ -40,6 +40,10 @@ public class Coin {
             if (portfolio.UserInfoList.get(j).contains(name)) {
                 index = j;
             }
+            else
+            {
+                System.out.println("Coin doesn't exist.");
+            }
         }
         portfolio.UserInfoList.set(index+1,Integer.toString(newCoinValue));
         System.out.println("Dit is value " +newCoinValue);

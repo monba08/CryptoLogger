@@ -1,1 +1,1 @@
-momo momo btc 200 2 eth 50 2 icx 300 
+test anc 40000 200 bitcoin 5000 255 cdn 89 147 AZe 12 25 momo momo btc 200 2 eth 50 2 icx 300 
