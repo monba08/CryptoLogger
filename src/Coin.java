@@ -1,5 +1,8 @@
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.ListIterator;
+import java.util.Scanner;
 
 public class Coin {
     private String nameCoin;
@@ -8,6 +11,7 @@ public class Coin {
     private int quantityCoin;//Waarschijnlijk overbodig
    // private int currentValue;//Waarschijnlijk overbodig
     private int newValueCoin;//Waarschijnlijk overbodig
+    public static ArrayList<String> CoinValueList = new ArrayList<>();
 
     public Coin(int valueC, int quantityC, String nameC) {
         valueCoin = valueC;
@@ -45,29 +49,161 @@ public class Coin {
                 System.out.println("Coin doesn't exist.");
             }
         }
+        String oldValue=portfolio.UserInfoList.get(index+1);
         portfolio.UserInfoList.set(index+1,Integer.toString(newCoinValue));
         System.out.println("Dit is value " +newCoinValue);
 
         System.out.println("Aangepaste versie ArrayList: " + portfolio.UserInfoList);
+        //Read old value of the coin and store it in an arraylist
+        BufferedReader fileIn3= new BufferedReader(new FileReader(userName+".txt"));
+        fileIn3.readLine(); //Skip first line
+        String line2=""; //Get next line
+        CoinValueList.clear();
+        Scanner scanFile = new Scanner(new File(userName+".txt"));
+        scanFile.nextLine();
+
+        while(scanFile.hasNextLine())
+        {
+            CoinValueList.add(scanFile.next());
+            if(scanFile.hasNextInt())
+            {
+                CoinValueList.add(Integer.toString(scanFile.nextInt()));
+            }
+
+        }
+        scanFile.close();
+       /*
+        boolean coinOnLine=false;
+        while(!coinOnLine) {
+            line2=fileIn3.readLine();
+            if (line2.contains(name)) {
+                String parts2[]=line2.split(" ");
+                for (int i = 0; i < parts2.length; i++) {
+                    if (parts2.length >= 2) {
+                        CoinValueList.add(parts2[i]);
+                    }
+                }
+                coinOnLine=true;
+            } else {
+                coinOnLine=false;
+            }
+        }
+*/
+        for (String c : CoinValueList)
+        {
+            System.out.println("Coinlist: "+c);
+        }
+        fileIn3.close();
+
 
         FileWriter writer = new FileWriter(userName+".txt");
         FileWriter writer2=new FileWriter("User.txt");
         BufferedWriter output = new BufferedWriter(writer);
         BufferedWriter output2 = new BufferedWriter(writer2);
-        int j = 0;
+
         System.out.println("Size = " + portfolio.UserInfoList.size());
         for (String str : portfolio.UserInfoList) {
-                //out.println(str);
+
                 output.write(str);
                 output.write(" ");
                 output2.write(str);
                 output2.write(" ");
-                j++;
+
             }
-        output.close();
-        writer.close();
-        output2.close();
-        writer2.close();
+            output.write(" \n");
+
+        /*for(int i=0;i<CoinValueList.size();i++)
+        {
+            if(CoinValueList.get(i)=="EndOfLine")
+            {
+                output.newLine();
+            }
+            output.write(CoinValueList.get(i));
+            output.write(" ");
+
+
+        }*/
+
+        int last=CoinValueList.size()+1;//CoinValueList.get(Integer.toString(CoinValueList.size()-1));
+        System.out.println("Last number: "+last);
+        boolean onThisLine=false;
+        int i=0;
+
+            for(String s: CoinValueList)
+            {
+                if(s.contains(name))
+                {
+                    onThisLine=true;
+                    output.write(s);
+                    output.write(" ");
+
+                }
+                else if(!s.contains("EndOfLine")) { //Zolang je niet aan het einde van de lijn zit, write word to file.
+                    output.write(s);
+                    output.write(" ");
+                }
+
+                if(s.contains("EndOfLine") && onThisLine) //Als je nog steeds op dezelfde lijn zit en je zit aan het einde van de lijn.
+                {
+                    output.write(Integer.toString(newCoinValue)+" EndOfLine");
+                    output.write("\n");
+                    onThisLine=false;
+                }
+                else if(s.contains("EndOfLine")) {
+                    if( i==last)
+                    {
+                        s.replace("EndOfLine","");
+                        output.write(s);
+                    }
+                    else
+                    {
+                        s.replace("EndOfLine","");
+                        output.write(s);
+                        output.write("\n");
+                    }
+                    //onThisLine=false;
+                }
+                System.out.println("Dit is de waarde van i ervoor:" +i);
+            i++;
+                System.out.println("Dit is de waarde van i er na:" +i);
+
+            }
+            i=0;
+            /*output.write(" \n");
+            output.write(name);
+            output.write(" ");
+            output.write(oldValue);*/
+            output.close();
+            writer.close();
+            output2.close();
+            writer2.close();
+
+            //Nieuw deel
+            /*Scanner scanUser=new Scanner(userName+".txt");
+            scanUser.nextLine();*/
+
+
+
+            /*
+            String coinLine=scanUser.nextLine();
+            ListIterator<String> gegevens = portfolio.UserInfoList.listIterator();
+            String current2="";
+            FileWriter writer3 = new FileWriter("User.txt");
+            Writer output3 = new BufferedWriter(writer3);
+             while (gegevens.hasNext()) {
+                        current2 = gegevens.next();
+                        System.out.println("\nCurrent: " + current2);
+                        output3.write(String.valueOf(current2));
+                        output3.write(" ");
+
+                        //  }
+                    }
+            if(gegevens.hasNext())
+                current2
+
+*/
+
+
 
     }
 }

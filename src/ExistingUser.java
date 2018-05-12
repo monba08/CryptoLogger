@@ -1,4 +1,5 @@
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ExistingUser {
@@ -7,6 +8,7 @@ public class ExistingUser {
     private int valueCoin;
     private int quantityCoin;
     Portfolio portfolio;
+    public static ArrayList<String> newCoinList = new ArrayList<>();
 
     public ExistingUser() {
         try {
@@ -72,11 +74,52 @@ public class ExistingUser {
         portfolio.UserInfoList.add(naamCoin);
         portfolio.UserInfoList.add(Integer.toString(value));
         portfolio.UserInfoList.add(Integer.toString(quantity));
-
-        /*File fout = new File("Accounts.txt");
-        FileOutputStream fos = new FileOutputStream(fout,true); //Append parameter, zodat oude data niet verdwijnt. Boolean argument
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));*/
         String currentUser = portfolio.UserInfoList.get(0);
+        newCoinList.clear();
+        Scanner scanFile = new Scanner(new File(currentUser+".txt"));
+        scanFile.nextLine();
+
+        /*while(scanFile.hasNextLine())
+        {
+            //String line3=scanFile.nextLine();
+            //String parts3[]=line3.split(" ");
+            newCoinList.add(scanFile.next());
+            if(scanFile.hasNextInt())
+            {
+                newCoinList.add(Integer.toString(scanFile.nextInt()));
+            }
+            //newCoinList.add(" ");
+        }
+        scanFile.close();
+        */
+
+
+        BufferedReader fileIn3= new BufferedReader(new FileReader(currentUser+".txt"));
+        fileIn3.readLine(); //Skip first line
+        String line2=fileIn3.readLine(); //Get next line
+
+        //newCoinList.clear();
+        while(line2 !=null) {
+            String parts2[]=line2.split(" ");
+            for (int i = 0; i < parts2.length; i++) {
+                        newCoinList.add(parts2[i]);
+                                    }
+            line2=fileIn3.readLine();
+
+        }
+
+        fileIn3.close();
+/*
+        for (int i = 0; i < newCoinList.size(); i++) {
+
+            if (newCoinList.get(i) == portfolio.UserInfoList.get(i += 2) || newCoinList.get(i) == portfolio.UserInfoList.get(i += 3)) {
+                newCoinList.set(i += 8, portfolio.UserInfoList.get(5));
+            }
+        }*/
+
+        System.out.println("newCoinList: "+newCoinList);
+
+
         FileWriter writer = new FileWriter(currentUser + ".txt");
         BufferedWriter output = new BufferedWriter(writer);
         FileWriter writer2 = new FileWriter("User.txt");
@@ -87,10 +130,43 @@ public class ExistingUser {
             output.write(" ");
             output2.write(str);
             output2.write(" ");
-            /*if (j == 8) {
-                output.newLine();
-            }*/
+
         }
+        int i =0;
+        output.write("\n");
+        int lastObject = newCoinList.size()-1;
+        for (String st : newCoinList)
+        {
+            if (st.contains("EndOfLine"))
+            {
+                if(i==lastObject)
+                {
+                    output.write(st);
+
+                }
+                else
+                {
+                    output.write(st);
+                    output.write("\n");
+                }
+
+            }
+            else
+            {
+                output.write(st);
+                output.write(" ");
+            }
+
+            i++;
+
+
+        }
+        output.write("\n");
+        output.write(naamCoin);
+        output.write(" ");
+        output.write(Integer.toString(value));
+        output.write(" "+"EndOfLine");
+
         output.close();
         writer.close();
         output2.close();

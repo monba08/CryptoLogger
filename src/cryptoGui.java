@@ -2,8 +2,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartFrame;
@@ -59,12 +62,14 @@ public class cryptoGui {
     private JButton logoutButton;
     private JButton backButton2;
     private JButton backButton3;
+    private JLabel loginError;
     public Accounts account;
     public static InformationUser user;
     public Portfolio port;
     public ExistingUser eu;
     public Coin coin;
     static DefaultListModel<String> model;
+    public static ArrayList<String> coinList = new ArrayList<>();
 
     public static void main(String[] args) throws ClassNotFoundException, UnsupportedLookAndFeelException, InstantiationException, IllegalAccessException {
         UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
@@ -114,27 +119,31 @@ public class cryptoGui {
             public void actionPerformed(ActionEvent e) {
 
                 user = new InformationUser(); //de naam worden hier doorgegeven
-                if (user.checkName(rName.getText())) {
-                    user.addPerson(rName.getText());
-                    registerScherm.setVisible(false);
-                    loginScherm.setVisible(true);
-                    inlogScherm.setVisible(false);
-                    portfolio.setVisible(false);
-                    newCoin.setVisible(false);
-                    try {
-                        account.createNewAccount(rName.getText(),rPass.getText(),rCoin.getText(),Integer.parseInt(rValue.getText()),Integer.parseInt(rQuantity.getText()));
-                    } catch (IOException e1) {
-                        e1.printStackTrace();
+                try {
+                    if (!user.checkName(rName.getText())) {
+                        user.addPerson(rName.getText());
+                        registerScherm.setVisible(false);
+                        loginScherm.setVisible(true);
+                        inlogScherm.setVisible(false);
+                        portfolio.setVisible(false);
+                        newCoin.setVisible(false);
+                        try {
+                            account.createNewAccount(rName.getText(),rPass.getText(),rCoin.getText(),Integer.parseInt(rValue.getText()),Integer.parseInt(rQuantity.getText()));
+                        } catch (IOException e1) {
+                            e1.printStackTrace();
+                        }
+                        textVeld.setText("Het is gelukt!");
                     }
-                    textVeld.setText("Het is gelukt!");
-                }
-                else{
-                    textVeld.setText("Gebruiker bestaat al!");
-                    registerScherm.setVisible(true);
-                    loginScherm.setVisible(false);
-                    inlogScherm.setVisible(false);
-                    portfolio.setVisible(false);
-                    newCoin.setVisible(false);
+                    else{
+                        textVeld.setText("User already exists!");
+                        registerScherm.setVisible(true);
+                        loginScherm.setVisible(false);
+                        inlogScherm.setVisible(false);
+                        portfolio.setVisible(false);
+                        newCoin.setVisible(false);
+                    }
+                } catch (FileNotFoundException e1) {
+                    e1.printStackTrace();
                 }
 
             }
@@ -202,6 +211,10 @@ public class cryptoGui {
                             }
                             list1.setModel(model);
                         }
+                        else
+                            loginError.setText("User doesn't exist or password is incorrect. Please try again.");
+                            nameField.setText("");
+                            pasField.setText("");
                     } catch (IOException e1) {
                         e1.printStackTrace();
                     }
@@ -326,27 +339,77 @@ public class cryptoGui {
         doneButton2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                coin =new Coin(0,0,"");
+                coin =new Coin(0,0," ");
                 try {
                     coin.setCurrentValueCoin(nameCoin.getText(),Integer.parseInt(dCurrentValue.getText()));
-                    System.out.println("Dcurrentvalue"+dCurrentValue.getText()+ "Second:" +Integer.parseInt(dCurrentValue.getText()));
+                    System.out.println("currentvalue "+dCurrentValue.getText()+ " Second: " +Integer.parseInt(dCurrentValue.getText()));
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }
+                nameCoin.setText("");
+                dCurrentValue.setText("");
             }
         });
 
         plotGraphButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                coinList.clear();
+                Scanner scanFile = null;
+                System.out.println("fileName: "+port.UserInfoList.get(0)+".txt");
+                try {
+                    scanFile = new Scanner(new File(port.UserInfoList.get(0)+".txt"));
+                } catch (FileNotFoundException e1) {
+                    e1.printStackTrace();
+                }
+                scanFile.nextLine();
+
+                while(scanFile.hasNextLine())
+                {
+                    coinList.add(scanFile.next());
+                    if(scanFile.hasNextInt())
+                    {
+                        coinList.add(Integer.toString(scanFile.nextInt()));
+                    }
+                }
+                scanFile.close();
+                int mon = 0,tue=0,wen=0,thurs=0,fri=0,sat=0,sun=0;
+                Scanner scan = new Scanner(System.in);
+                /**
+                System.out.println("Which coin would you like to plot a graph of: ");
+                String inpUser = scan.next();
+                scan.close();
+                Dit moet verwerkt worden in de GUI waarbij er dan gevraagd wordt van welke munt er een plot moet komen. **/
+                int index=coinList.indexOf(inpUser);
+                System.out.println("Index is: "+index+". En in de list: "+coinList.get(index));
+
+                for(int i=index+1;i<i+7;i++)
+                {
+                    if(i==index+1)
+                        mon=Integer.parseInt(coinList.get(i));
+                    if(i==index+2)
+                        tue=Integer.parseInt(coinList.get(i));
+                    if(i==index+3)
+                        wen=Integer.parseInt(coinList.get(i));
+                    if(i==index+4)
+                        thurs=Integer.parseInt(coinList.get(i));
+                    if(i==index+5)
+                        fri=Integer.parseInt(coinList.get(i));
+                    if(i==index+6)
+                        sat=Integer.parseInt(coinList.get(i));
+                    if(i==index+7)
+                        sun=Integer.parseInt(coinList.get(i));
+
+                }
+
                 DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-                dataset.addValue(200,"Crypto-BTC","Maandag");
-                dataset.addValue(100,"Crypto-BTC","Dinsdag");
-                dataset.addValue(300,"Crypto-BTC","Woensdag");
-                dataset.addValue(10,"Crypto-BTC","Donderdag");
-                dataset.addValue(600,"Crypto-BTC","Vrijdag");
-                dataset.addValue(452,"Crypto-BTC","Zaterdag");
-                dataset.addValue(635,"Crypto-BTC","Zondag");
+                dataset.addValue(mon,"Crypto-BTC","Maandag");
+                dataset.addValue(tue,"Crypto-BTC","Dinsdag");
+                dataset.addValue(wen,"Crypto-BTC","Woensdag");
+                dataset.addValue(thurs,"Crypto-BTC","Donderdag");
+                dataset.addValue(fri,"Crypto-BTC","Vrijdag");
+                dataset.addValue(sat,"Crypto-BTC","Zaterdag");
+                dataset.addValue(sun,"Crypto-BTC","Zondag");
 
                 JFreeChart chart = ChartFactory.createLineChart("CryptoChart","Days","Values",dataset, PlotOrientation.VERTICAL,true,true,false);
                 chart.setBackgroundPaint(Color.GREEN);

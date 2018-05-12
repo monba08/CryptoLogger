@@ -25,18 +25,26 @@ public class InformationUser {
         }
     }
 
-    public boolean checkName(String name){
-        if (namen.contains(name)) {
-            //List.txt moet gecheckt worden a hoofd.
-            System.out.println("Array contains: "+name);
-            return true;
+    public boolean checkName(String name) throws FileNotFoundException {
+        File fileList= new File("list.txt");
+        Scanner scanFile = new Scanner(fileList);
+        String currentLine="";
+        boolean check=false;
+        while(scanFile.hasNextLine()) {
+            currentLine=scanFile.nextLine();
+            if (currentLine.contains(name)) {
+                //List.txt moet gecheckt worden a hoofd.
+                System.out.println("Array contains: " + name);
+                check = true;
+            } else
+                check = false;
         }
-        else
-            return false;
+        scanFile.close();
+        return check;
     }
 
     public void fillList(String fileName) throws IOException {
-        //namen.clear();
+        namen.clear();
         //File file = new File(fileName);
         BufferedReader fileIn = new BufferedReader(new FileReader(fileName));
         String line = fileIn.readLine();
@@ -46,8 +54,9 @@ public class InformationUser {
             namen.add(input.nextLine());
         }
         input.close();*/
+        fileIn.close();
         for(String str: namen){
-            System.out.println(str);
+            System.out.println("Filllist: "+str);
         }
     }
 }
