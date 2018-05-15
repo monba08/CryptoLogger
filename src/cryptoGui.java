@@ -69,6 +69,12 @@ public class cryptoGui {
     private JButton doneButton3;
     private JButton backButton4;
     private JLabel cryptoLabel;
+    private JLabel nameLabel;
+    private JLabel passLabel;
+    private JLabel portLabel;
+    private JLabel nCoinLabel;
+    private JLabel accLabel;
+    private JLabel dailyLabel;
     private ImageIcon image1;
     public Accounts account;
     public static InformationUser user;
@@ -100,7 +106,15 @@ public class cryptoGui {
     }
 
     public cryptoGui() {
+        //zetten van fotos
         cryptoLabel.setIcon(new ImageIcon("img/Crypto.png"));
+        dailyLabel.setIcon(new ImageIcon("img/daily.png"));
+
+        //zetten van font
+        portLabel.setFont(new Font("Setif",Font.PLAIN,25));
+        nCoinLabel.setFont(new Font("Setif",Font.PLAIN,25));
+        accLabel.setFont(new Font("Setif",Font.PLAIN,25));
+
 
         account = new Accounts();
         loginButton.addActionListener(new ActionListener() {
