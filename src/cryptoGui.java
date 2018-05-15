@@ -52,7 +52,6 @@ public class cryptoGui {
     private JLabel quantityVeld;
     private JButton updatePortfolioButton;
     private JTextField nameCoin;
-    private JTextArea textArea1;
     private JList<String> list1;
     private JScrollPane contentPane;
     private JLabel textVeld;
@@ -63,6 +62,14 @@ public class cryptoGui {
     private JButton backButton2;
     private JButton backButton3;
     private JLabel loginError;
+    private JTextField plotCoin;
+    private JButton removeCoinButton;
+    private JPanel removeCoin;
+    private JTextField delCoin;
+    private JButton doneButton3;
+    private JButton backButton4;
+    private JLabel cryptoLabel;
+    private ImageIcon image1;
     public Accounts account;
     public static InformationUser user;
     public Portfolio port;
@@ -80,6 +87,7 @@ public class cryptoGui {
         frame.pack();
         frame.setVisible(true);
         user = new InformationUser();
+
         try {
             user.fillList("list.txt"); //er is hier iets mis ma
             //weet ni wa er mis is
@@ -92,6 +100,8 @@ public class cryptoGui {
     }
 
     public cryptoGui() {
+        cryptoLabel.setIcon(new ImageIcon("img/Crypto.png"));
+
         account = new Accounts();
         loginButton.addActionListener(new ActionListener() {
             @Override
@@ -380,7 +390,7 @@ public class cryptoGui {
                 String inpUser = scan.next();
                 scan.close();
                 Dit moet verwerkt worden in de GUI waarbij er dan gevraagd wordt van welke munt er een plot moet komen. **/
-                int index=coinList.indexOf(inpUser);
+                int index=coinList.indexOf(plotCoin.getText());
                 System.out.println("Index is: "+index+". En in de list: "+coinList.get(index));
 
                 for(int i=index+1;i<i+7;i++)
@@ -466,6 +476,47 @@ public class cryptoGui {
         backButton3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                registerScherm.setVisible(false);
+                loginScherm.setVisible(false);
+                inlogScherm.setVisible(false);
+                portfolio.setVisible(true);
+                newCoin.setVisible(false);
+                setDailyValue.setVisible(false);
+            }
+        });
+        removeCoinButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                registerScherm.setVisible(false);
+                loginScherm.setVisible(false);
+                inlogScherm.setVisible(false);
+                portfolio.setVisible(false);
+                newCoin.setVisible(false);
+                setDailyValue.setVisible(false);
+                removeCoin.setVisible(true);
+
+            }
+        });
+        backButton4.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                registerScherm.setVisible(false);
+                loginScherm.setVisible(false);
+                inlogScherm.setVisible(false);
+                portfolio.setVisible(true);
+                newCoin.setVisible(false);
+                setDailyValue.setVisible(false);
+            }
+        });
+        doneButton3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String removeC=delCoin.getText();
+                try {
+                    eu.removeCoin(removeC);
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
                 registerScherm.setVisible(false);
                 loginScherm.setVisible(false);
                 inlogScherm.setVisible(false);

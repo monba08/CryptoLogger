@@ -175,7 +175,7 @@ public class ExistingUser {
         acc.updateDatabase("Mouhcine");*/
     }
 
-    public void removeCoin() throws IOException {
+    public void removeCoin(String coin) throws IOException {
         //for (String s : portfolio.UserInfoList) {
         int i = 0;
         String currentUser = Portfolio.UserInfoList.get(0);

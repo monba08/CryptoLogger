@@ -52,7 +52,7 @@ public class Main {
                             //portfolio.getName();
                             break;
                         case 4:
-                            user.removeCoin(); // Aanroep voor het verwijderen van een coin in de arraylist
+                            //user.removeCoin(); // Aanroep voor het verwijderen van een coin in de arraylist
                             break;
                         case 5:
                             //coin.setCurrentValueCoin();
