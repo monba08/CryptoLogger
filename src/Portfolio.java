@@ -1,14 +1,21 @@
+import javax.sound.sampled.Port;
 import java.io.*;
 import java.util.ArrayList;
 
 //import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
 
 public class Portfolio {
-    public static ArrayList<String> UserInfoList = new ArrayList<>();
+    public  ArrayList<String> UserInfoList =new ArrayList<>();
+    private static Portfolio portfolioInstance = null;
 
-    public Portfolio() throws FileNotFoundException {
-
+    public static Portfolio getPortfolioInstance(){
+        if(portfolioInstance == null)
+            portfolioInstance=new Portfolio();
+        return portfolioInstance;
     }
+
+    private Portfolio(){}
+
     public String getQuantityCoin(){
 
         return UserInfoList.get(4);
@@ -28,21 +35,8 @@ public class Portfolio {
     public String getName()
     {
         String name = UserInfoList.get(0);
-        String surename = UserInfoList.get(1);
-        String fullname= name+" "+surename;
-        System.out.println("De volledige naam van de persoon is: "+fullname);
-        //UserInfoList.clear();
-        return fullname;
-    }
-
-//    public void printArrayList(){
-//        for(String str: UserInfoList){
-//            return str;
-//        }
-//    }
-
-    public void plotGraph(){
-        // Elke keer als er een nieuwe daily value is, de oude waarde wegschrijven naar de volgende lijnen.
+        System.out.println("De  naam van de persoon is: "+name);
+        return name;
     }
 
     public void readFromFile() throws IOException {
@@ -82,79 +76,22 @@ public class Portfolio {
             {
                 UserInfoList.add(parts2[j]);
             }
-            /*UserInfoList.add(parts2[0]);
-            UserInfoList.add(parts2[1]);
-            UserInfoList.add(parts2[2]);
-            UserInfoList.add(parts2[3]);
-            UserInfoList.add(parts2[4]);
-            UserInfoList.add(parts2[5]);
-            UserInfoList.add(parts2[6]);
-            UserInfoList.add(parts2[7]);*/
         }
-
-
 
         System.out.println("Dit is accounts tot: " + UserInfoList);
-        //fileIn3.close();
 
 
-        /*Scanner lineReader = new Scanner(fileName);
-        Scanner wordReader = null;
-        String currentLine;
-        String word;
-        UserInfoList.clear();
-        while (lineReader.hasNextLine()) {       //Checken op EOF.
-            currentLine = lineReader.nextLine(); //Lezen van de volgende lijn in de textfile.
-            wordReader = new Scanner(currentLine);
-            while (wordReader.hasNext()) {
-                word = wordReader.next();
-                i = i + 1;
-                if (i == 1) {
-                    UserInfoList.add(word);
-                    System.out.println("Voornaam van de persoonbruh: " + word);
-                    //System.out.println("Dit is accounts: " + UserInfoList);
 
-                }
-                if (i == 2) {
-                    UserInfoList.add(word);
-                    System.out.println("Achternaam van de persoon: " + word);
-                    //System.out.println("Dit is accounts: " + UserInfoList);
-                }
-                if (i == 3) {
-                    UserInfoList.add(word);
-                    System.out.println("Dit is woord 3: " + word);
-                    //System.out.println("Dit is accounts: " + UserInfoList);
-                }
-                if (i == 4) {
-                    UserInfoList.add(word);
-                    System.out.println("Dit is woord 4: " + word);
-                    //System.out.println("Dit is accounts: " + UserInfoList);
-                }
-                if (i == 5) {
-                    UserInfoList.add(word);
-                    System.out.println("Dit is woord 5: " + word);
-                    System.out.println("Dit is accounts tot index 5: " + UserInfoList);
-                }
-                if (i == 6) {
-                    UserInfoList.add(word);
-                }
-                if (i == 7) {
-                    UserInfoList.add(word);
-                }
-                if (i == 8) {
-                    UserInfoList.add(word);
-                    System.out.println("Dit is accounts tot index 8: " + UserInfoList);
-                }
-
-
-            }
-            i = 0;
-
+    }
+    public int calculateTotalValue()
+    {
+        int totalValue=0;
+        for(int i=3;i<UserInfoList.size();i+=3)
+        {
+            totalValue=totalValue + (Integer.parseInt(UserInfoList.get(i))*Integer.parseInt(UserInfoList.get(i+1)));
         }
-        lineReader.close();
-        wordReader.close();*/
-
-
+        System.out.println("De totale waarde van de portfolio is: "+totalValue);
+        return totalValue;
     }
 
     public void getWeekValues(){

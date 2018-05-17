@@ -4,9 +4,16 @@ import java.util.Scanner;
 
 public class InformationUser {
     public ArrayList<String> namen = new ArrayList<>();
+    //Singleton
+    public static InformationUser iUserInstance=null;
+    public static InformationUser getiUserInstance() {
+        if(iUserInstance == null)
+            iUserInstance=new InformationUser();
+        return iUserInstance;
+    }
 
 
-    public InformationUser(){
+    private InformationUser(){
         //this.namen = new ArrayList();
 
     }

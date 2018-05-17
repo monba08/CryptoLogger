@@ -9,7 +9,7 @@ public class Main {
         String coinType="";
         int valueCoin=0;
         int quantityCoin=0;
-        try {
+        /*try {
             System.out.println("Welcome to CryptoLogger!");
             Accounts account = new Accounts();
             Portfolio portfolio = new Portfolio();
@@ -72,7 +72,7 @@ public class Main {
             }catch (IOException e) {
             e.printStackTrace();
         }
-
+*/
     }
 }
 

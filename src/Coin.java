@@ -1,4 +1,5 @@
 
+import javax.sound.sampled.Port;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.ListIterator;
@@ -6,14 +7,20 @@ import java.util.Scanner;
 
 public class Coin {
     private String nameCoin;
-    Portfolio portfolio;
     private int valueCoin;   //Waarschijnlijk overbodig
     private int quantityCoin;//Waarschijnlijk overbodig
    // private int currentValue;//Waarschijnlijk overbodig
     private int newValueCoin;//Waarschijnlijk overbodig
-    public static ArrayList<String> CoinValueList = new ArrayList<>();
+    public ArrayList<String> CoinValueList = new ArrayList<>();
 
-    public Coin(int valueC, int quantityC, String nameC) {
+    private static Coin coinInstance = null;
+    public static Coin getCoinInstance() {
+        if(coinInstance == null)
+            coinInstance=new Coin(0,0,"");
+        return coinInstance;
+    }
+
+    private Coin(int valueC, int quantityC, String nameC) { //Private constructor
         valueCoin = valueC;
         quantityCoin = quantityC;
         nameCoin = nameC;
@@ -43,7 +50,6 @@ public class Coin {
         fileIn4.readLine(); //Skip first line
         String line2=fileIn4.readLine(); //Get next line
 
-        //newCoinList.clear();
         while(line2 !=null) {
             String parts2[]=line2.split(" ");
             for (int i = 0; i < parts2.length; i++) {
@@ -59,7 +65,8 @@ public class Coin {
         }
     }
     public void setCurrentValueCoin(String name,int newCoinValue) throws IOException {
-        String userName=portfolio.UserInfoList.get(0);
+        Portfolio portfolio = Portfolio.getPortfolioInstance();
+        String userName= portfolio.UserInfoList.get(0);
         int index = 0;
         int grootteArrayList = portfolio.UserInfoList.size();
         for (int j = 2; j < grootteArrayList; j += 3) {
@@ -254,30 +261,7 @@ public class Coin {
             output2.close();
             writer2.close();
 
-            //Nieuw deel
-            /*Scanner scanUser=new Scanner(userName+".txt");
-            scanUser.nextLine();*/
 
-
-
-            /*
-            String coinLine=scanUser.nextLine();
-            ListIterator<String> gegevens = portfolio.UserInfoList.listIterator();
-            String current2="";
-            FileWriter writer3 = new FileWriter("User.txt");
-            Writer output3 = new BufferedWriter(writer3);
-             while (gegevens.hasNext()) {
-                        current2 = gegevens.next();
-                        System.out.println("\nCurrent: " + current2);
-                        output3.write(String.valueOf(current2));
-                        output3.write(" ");
-
-                        //  }
-                    }
-            if(gegevens.hasNext())
-                current2
-
-*/
 
 
 

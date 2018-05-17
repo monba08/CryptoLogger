@@ -12,26 +12,27 @@ public class Accounts {
     private int valueCoin;
     private int quantityCoin;
     private int date;
-    Portfolio portfolio;
-    InformationUser userF;
     private static ArrayList<InformationUser> info = new ArrayList<>();
     public String userN;
     public static ArrayList<String> loginArray = new ArrayList<>();
+
+    private static Accounts accountInstance = null;
+    public static Accounts getAccountInstance() {
+        if(accountInstance == null)
+            accountInstance=new Accounts();
+        return accountInstance;
+    }
+    private Accounts(){} //Private constructor
 
 
     //Dit zal later geïmplementeerd worden in een GUI.
     public void createNewAccount(String registNaam,String registPass,String coinNaam, int valueC, int quantityCoin) throws IOException {
         String name = registNaam;
         String pass =registPass;
-
-        Coin coin = new Coin(valueCoin, quantityCoin, coinType);
-
-        coin.setNameCoin(coinNaam);
-
         valueCoin = valueC;
-
-
-        coin.setQuantityCoin(quantityCoin);
+        //Coin coin = new Coin(valueCoin, quantityCoin, coinType);
+        Coin.getCoinInstance().setNameCoin(coinNaam);
+        Coin.getCoinInstance().setQuantityCoin(quantityCoin);
 
         String userFile = name + ".txt";
         File fout = new File(userFile);
@@ -70,12 +71,10 @@ public class Accounts {
         while(scanFile.hasNextLine() && !check) {
             currentLine=scanFile.nextLine();
             if (currentLine.contains(gebruiker)) {
-                //List.txt moet gecheckt worden a hoofd.
+                //List.txt moet gecheckt worden.
                 System.out.println("User exists: " + gebruiker);
                 check = true;
-            } /*else
-                System.out.println("User bestaat niet!");
-                check = false;*/
+            }
         }
         scanFile.close();
 
@@ -94,24 +93,6 @@ public class Accounts {
                     login = true;
                 }
 
-            /*try {
-
-                if (gebruiker.equals(user)) {
-                    String pass = parts[1];
-                    if (wachtwoord.equals(pass)) {
-                        login = true;
-                    }
-                } else {
-                    System.out.println("User doesn't exist");
-                    login = false;
-                }
-
-            } catch (Exception e) {
-                System.out.println("Name not found");
-            }
-*/
-                //scan2.close();
-                //keyboard.close();
                 if (login) {
                     System.out.print("Wilkommen\n");
                     loginArray.clear();
@@ -137,8 +118,6 @@ public class Accounts {
                         System.out.println("LoginArray: " + st);
                     }
 
-                    ListIterator<String> gegevens = loginArray.listIterator();
-                    String current2;
                     String currentUser = loginArray.get(0);
                     System.out.println("Currentuser:" + currentUser);
                     FileWriter writer = new FileWriter("User.txt");
@@ -150,14 +129,7 @@ public class Accounts {
                         output.write(" ");
                     }
 
-                    /*while (gegevens.hasNext()) {
-                        current2 = gegevens.next();
-                        System.out.println("\nCurrent: " + current2);
-                        output.write(String.valueOf(current2));
-                        output.write(" ");
 
-                        //  }
-                    }*/
                     output.close();
                     login= true;
                 } else {

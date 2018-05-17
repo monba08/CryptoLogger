@@ -1,3 +1,4 @@
+import javax.sound.sampled.Port;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -76,13 +77,14 @@ public class cryptoGui {
     private JLabel accLabel;
     private JLabel dailyLabel;
     private ImageIcon image1;
-    public Accounts account;
-    public static InformationUser user;
-    public Portfolio port;
-    public ExistingUser eu;
-    public Coin coin;
+    //public Accounts account;
+    //public static InformationUser user;
+    //public Portfolio port;
+    //public ExistingUser eu;
+    //public ExistingUser eu2;
+    //public Coin coin;
+    //public Coin coin2;
     static DefaultListModel<String> model;
-    public static ArrayList<String> coinList = new ArrayList<>();
 
     public static void main(String[] args) throws ClassNotFoundException, UnsupportedLookAndFeelException, InstantiationException, IllegalAccessException {
         UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
@@ -92,11 +94,10 @@ public class cryptoGui {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
-        user = new InformationUser();
+        InformationUser user = InformationUser.getiUserInstance();
 
         try {
-            user.fillList("list.txt"); //er is hier iets mis ma
-            //weet ni wa er mis is
+            user.fillList("list.txt");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -116,7 +117,7 @@ public class cryptoGui {
         accLabel.setFont(new Font("Setif",Font.PLAIN,25));
 
 
-        account = new Accounts();
+        //account = new Accounts();
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -142,7 +143,9 @@ public class cryptoGui {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                user = new InformationUser(); //de naam worden hier doorgegeven
+                //user = new InformationUser(); //de naam worden hier doorgegeven
+                InformationUser user = InformationUser.getiUserInstance();
+                Accounts account = Accounts.getAccountInstance();
                 try {
                     if (!user.checkName(rName.getText())) {
                         user.addPerson(rName.getText());
@@ -175,19 +178,21 @@ public class cryptoGui {
         loginButton1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
+                /*try {
                     port = new Portfolio();
                 } catch (FileNotFoundException e1) {
                     e1.printStackTrace();
-                }
+                }*/
                 //als er op newCoin wordt gedrukt ----> zie hier onder
                 String naam = nameField.getText(); //dit is waar de naam wordt opgeslagen
                 String pass = pasField.getText(); //dit is waar de passwoord wordt opgeslagen.
                 System.out.println(naam);
                 //hier moet dus een manier bestaan om alle data van deze gebruiker te extracten uit de juiste files.
                 //if persoon bestaat, laad juiste bestanden
+                Accounts account = Accounts.getAccountInstance();
+                Portfolio port = Portfolio.getPortfolioInstance();
                     try {
-                        if (account.logIn(naam, pass) == true) {
+                        if (account.logIn(naam, pass)) {
                             registerScherm.setVisible(false);
                             loginScherm.setVisible(false);
                             inlogScherm.setVisible(false);
@@ -202,6 +207,7 @@ public class cryptoGui {
                             model = new DefaultListModel<>();
                             String prefix = "";
 
+                            //Portfolio.getPortfolioInstance();
                             for (String str : port.UserInfoList) {
 
                                 switch (i) {
@@ -210,15 +216,12 @@ public class cryptoGui {
                                         break;
                                     case 2:
                                         prefix = "Coin: ";
-                                        //model.addElement("Coin: "+str);
                                         break;
                                     case 3:
                                         prefix = "Value: ";
-                                        //model.addElement("Value: "+str);
-                                        break;
+                                       break;
                                     case 4:
                                         prefix = "Quantity: ";
-                                        //model.addElement("Quantity: "+str);
                                         break;
                                     default:
                                         break;
@@ -261,7 +264,7 @@ public class cryptoGui {
         doneButton1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                eu = new ExistingUser();
+                //eu = new ExistingUser();
                 registerScherm.setVisible(false);
                 loginScherm.setVisible(false);
                 inlogScherm.setVisible(false);
@@ -274,32 +277,15 @@ public class cryptoGui {
                 String nameCoin = nName.getText();
                 int newValue = Integer.parseInt(nValue.getText());
                 int newQuantity= Integer.parseInt(nQuantity.getText());
+                ExistingUser eUser = ExistingUser.getUserInstance();
                 try {
-                    eu.newCoin(nameCoin,newValue,newQuantity);
+                    eUser.newCoin(nameCoin,newValue,newQuantity);
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }
             }
         });
 
-        /*doneButton2.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                registerScherm.setVisible(false);
-                loginScherm.setVisible(false);
-                inlogScherm.setVisible(false);
-                portfolio.setVisible(true);
-                newCoin.setVisible(false);
-                setDailyValue.setVisible(false);
-            }
-        });*/
-        /*dCurrentValue.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-                coin.setValueCoin(Integer.parseInt(dCurrentValue.getText()));
-            }
-        });*/
         addDailyValueCoinButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -314,6 +300,7 @@ public class cryptoGui {
         updatePortfolioButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                Portfolio port = Portfolio.getPortfolioInstance();
                 try {
                     port.readFromFile();
                 } catch (IOException e1) {
@@ -323,47 +310,57 @@ public class cryptoGui {
                 model = new DefaultListModel<>();
                 String prefix="";
 
-                for (String str : port.UserInfoList) {
+                //try {
+                    //Portfolio.getPortfolioInstance();
+                    for (String str : port.UserInfoList) {
 
-                    switch (i) {
-                        case 0:
-                            prefix="Voornaam: ";
-                            break;
-                        case 2:
-                            prefix="Coin: ";
-                            //model.addElement("Coin: "+str);
-                            break;
-                        case 3:
-                            prefix="Value: ";
-                            //model.addElement("Value: "+str);
-                            break;
-                        case 4:
-                            prefix="Quantity: ";
-                           //model.addElement("Quantity: "+str);
-                            break;
-                        default:
-                            break;
-                }
-                    if(i!=1)
-                    {
-                        model.addElement(prefix+str);
+                        switch (i) {
+                            case 0:
+                                prefix="Voornaam: ";
+                                break;
+                            case 2:
+                                prefix="Coin: ";
+                                //model.addElement("Coin: "+str);
+                                break;
+                            case 3:
+                                prefix="Value: ";
+                                //model.addElement("Value: "+str);
+                                break;
+                            case 4:
+                                prefix="Quantity: ";
+                               //model.addElement("Quantity: "+str);
+                                break;
+                            default:
+                                break;
                     }
+                        if(i!=1)
+                        {
+                            model.addElement(prefix+str);
+                        }
 
-                    i++;
-                    if(i>4)
-                    {
-                        i=2;
+                        i++;
+                        if(i>4)
+                        {
+                            i=2;
+                        }
+
                     }
-
-                }
+               /* } catch (FileNotFoundException e1) {
+                    e1.printStackTrace();
+                }*/
                 list1.setModel(model);
-
+                //try {
+                port.calculateTotalValue();
+              //  } catch (FileNotFoundException e1) {
+               //     e1.printStackTrace();
+                //}
             }
         });
         doneButton2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                coin =new Coin(0,0," ");
+                //coin =new Coin(0,0," ");
+                Coin coin = Coin.getCoinInstance();
                 try {
                     coin.setCurrentValueCoin(nameCoin.getText(),Integer.parseInt(dCurrentValue.getText()));
                     System.out.println("currentvalue "+dCurrentValue.getText()+ " Second: " +Integer.parseInt(dCurrentValue.getText()));
@@ -378,62 +375,46 @@ public class cryptoGui {
         plotGraphButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                coinList.clear();
-                Scanner scanFile = null;
-                System.out.println("fileName: "+port.UserInfoList.get(0)+".txt");
+
+                int mon = 0,tue=0,wen=0,thurs=0,fri=0,sat=0,sun=0;
+                int index= 0;
+                Coin coin = Coin.getCoinInstance();
+                Portfolio port = Portfolio.getPortfolioInstance();
                 try {
-                    scanFile = new Scanner(new File(port.UserInfoList.get(0)+".txt"));
-                } catch (FileNotFoundException e1) {
+                    coin.createSecondArraylist(port.UserInfoList.get(0));
+                } catch (IOException e1) {
                     e1.printStackTrace();
                 }
-                scanFile.nextLine();
-
-                while(scanFile.hasNextLine())
-                {
-                    coinList.add(scanFile.next());
-                    if(scanFile.hasNextInt())
-                    {
-                        coinList.add(Integer.toString(scanFile.nextInt()));
-                    }
-                }
-                scanFile.close();
-                int mon = 0,tue=0,wen=0,thurs=0,fri=0,sat=0,sun=0;
-                Scanner scan = new Scanner(System.in);
-                /**
-                System.out.println("Which coin would you like to plot a graph of: ");
-                String inpUser = scan.next();
-                scan.close();
-                Dit moet verwerkt worden in de GUI waarbij er dan gevraagd wordt van welke munt er een plot moet komen. **/
-                int index=coinList.indexOf(plotCoin.getText());
-                System.out.println("Index is: "+index+". En in de list: "+coinList.get(index));
+                index = coin.CoinValueList.indexOf(plotCoin.getText());
+                //System.out.println("Index is: "+index+". En in de list: "+Coin.CoinValueList.get(index));
 
                 for(int i=index+1;i<i+7;i++)
                 {
                     if(i==index+1)
-                        mon=Integer.parseInt(coinList.get(i));
+                        mon=Integer.parseInt(coin.CoinValueList.get(i));
                     if(i==index+2)
-                        tue=Integer.parseInt(coinList.get(i));
+                        tue=Integer.parseInt(coin.CoinValueList.get(i));
                     if(i==index+3)
-                        wen=Integer.parseInt(coinList.get(i));
+                        wen=Integer.parseInt(coin.CoinValueList.get(i));
                     if(i==index+4)
-                        thurs=Integer.parseInt(coinList.get(i));
+                        thurs=Integer.parseInt(coin.CoinValueList.get(i));
                     if(i==index+5)
-                        fri=Integer.parseInt(coinList.get(i));
+                        fri=Integer.parseInt(coin.CoinValueList.get(i));
                     if(i==index+6)
-                        sat=Integer.parseInt(coinList.get(i));
+                        sat=Integer.parseInt(coin.CoinValueList.get(i));
                     if(i==index+7)
-                        sun=Integer.parseInt(coinList.get(i));
+                        sun=Integer.parseInt(coin.CoinValueList.get(i));
 
                 }
 
                 DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-                dataset.addValue(mon,"Crypto-BTC","Maandag");
-                dataset.addValue(tue,"Crypto-BTC","Dinsdag");
-                dataset.addValue(wen,"Crypto-BTC","Woensdag");
-                dataset.addValue(thurs,"Crypto-BTC","Donderdag");
-                dataset.addValue(fri,"Crypto-BTC","Vrijdag");
-                dataset.addValue(sat,"Crypto-BTC","Zaterdag");
-                dataset.addValue(sun,"Crypto-BTC","Zondag");
+                dataset.addValue(mon,"Crypto-"+plotCoin.getText(),"Monday");
+                dataset.addValue(tue,"Crypto-"+plotCoin.getText(),"Tuesday");
+                dataset.addValue(wen,"Crypto-"+plotCoin.getText(),"Wednesday");
+                dataset.addValue(thurs,"Crypto-"+plotCoin.getText(),"Thursday");
+                dataset.addValue(fri,"Crypto-"+plotCoin.getText(),"Friday");
+                dataset.addValue(sat,"Crypto-"+plotCoin.getText(),"Saturday");
+                dataset.addValue(sun,"Crypto-"+plotCoin.getText(),"Sunday");
 
                 JFreeChart chart = ChartFactory.createLineChart("CryptoChart","Days","Values",dataset, PlotOrientation.VERTICAL,true,true,false);
                 chart.setBackgroundPaint(Color.GREEN);
@@ -525,12 +506,13 @@ public class cryptoGui {
         doneButton3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String removeC=delCoin.getText();
+                //eu2=new ExistingUser();
                 try {
-                    eu.removeCoin(removeC);
+                    ExistingUser.getUserInstance().removeCoin(delCoin.getText());
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }
+
                 registerScherm.setVisible(false);
                 loginScherm.setVisible(false);
                 inlogScherm.setVisible(false);
