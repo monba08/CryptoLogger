@@ -16,8 +16,8 @@ public class InformationUser {
         try {
             FileWriter fw = new FileWriter("list.txt",true);
             Writer Output = new BufferedWriter(fw);
-            Output.write(name);
-            Output.write("\n");
+            Output.write("\n"+name);
+            //Output.write();
             Output.close();
             fw.close();
         } catch (IOException e) {

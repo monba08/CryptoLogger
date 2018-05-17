@@ -142,14 +142,12 @@ public class ExistingUser {
                 if(i==lastObject)
                 {
                     output.write(st);
-
                 }
                 else
                 {
                     output.write(st);
                     output.write("\n");
                 }
-
             }
             else
             {

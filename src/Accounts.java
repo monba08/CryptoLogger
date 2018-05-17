@@ -53,7 +53,7 @@ public class Accounts {
         bw.write("\n");
         bw.write(coinNaam);
         bw.write(" ");
-        bw.write(Integer.toString(valueC));
+        bw.write(Integer.toString(valueC)+" EndOfLine");
         bw.close();
         fos.close();
     }
