@@ -59,73 +59,34 @@ public class Coin {
             System.out.println("Coinlist: "+c);
         }
     }
-    public void setCurrentValueCoin(String coin,int newCoinValue) throws IOException {
+    public int setCurrentValueCoin(String coin,int newCoinValue) throws IOException {
         Portfolio portfolio = Portfolio.getPortfolioInstance();
         String userName= portfolio.UserInfoList.get(0);
         int index = 0;
         int grootteArrayList = portfolio.UserInfoList.size();
+        int exists=0;
+        boolean coinExists=false;
         for (int j = 2; j < grootteArrayList; j += 3) {
             if (portfolio.UserInfoList.get(j).contains(coin)) {
                 index = j;
+                coinExists=true;
+                exists=1;
             }
             else
             {
                 System.out.println("Coin doesn't exist.");
             }
         }
+        if(coinExists)
+        {
         String oldValue=portfolio.UserInfoList.get(index+1);
         portfolio.UserInfoList.set(index+1,Integer.toString(newCoinValue));
         System.out.println("Dit is value " +newCoinValue);
 
         System.out.println("Aangepaste versie ArrayList: " + portfolio.UserInfoList);
-        //Read old value of the coin and store it in an arraylist
-        /*BufferedReader fileIn3= new BufferedReader(new FileReader(userName+".txt"));
-        fileIn3.readLine(); //Skip first line*/
-         //Get next line
 
-        /*
-        Scanner scanFile = new Scanner(new File(userName+".txt"));
-        String line2= "";
-        boolean lastEmptyLine=false;
-        while(scanFile.hasNextLine() && !lastEmptyLine)
-        {
-            line2= scanFile.nextLine();
-            if(!line2.isEmpty())
-            {
-                coinValueList.add(scanFile.next());
-                if(scanFile.hasNextInt())
-                {
-                    coinValueList.add(Integer.toString(scanFile.nextInt()));
-                }
-            }
-            else {
-                lastEmptyLine = true;
-            }
-
-
-        }
-        scanFile.close();*/
         createSecondArraylist(userName);
 
-
-
-       /*
-        boolean coinOnLine=false;
-        while(!coinOnLine) {
-            line2=fileIn3.readLine();
-            if (line2.contains(coin)) {
-                String parts2[]=line2.split(" ");
-                for (int i = 0; i < parts2.length; i++) {
-                    if (parts2.length >= 2) {
-                        coinValueList.add(parts2[i]);
-                    }
-                }
-                coinOnLine=true;
-            } else {
-                coinOnLine=false;
-            }
-        }
-*/
         for (String c : coinValueList)
         {
             System.out.println("Coinlist: "+c);
@@ -146,18 +107,6 @@ public class Coin {
 
             }
             output.write(" \n");
-
-        /*for(int i=0;i<coinValueList.size();i++)
-        {
-            if(coinValueList.get(i)=="EndOfLine")
-            {
-                output.newLine();
-            }
-            output.write(coinValueList.get(i));
-            output.write(" ");
-
-
-        }*/
 
         int last= coinValueList.size()+1;//coinValueList.get(Integer.toString(coinValueList.size()-1));
         System.out.println("Last number: "+last);
@@ -202,64 +151,12 @@ public class Coin {
             System.out.println("Dit is de waarde van i er na:" +i);
 
         }
-            /*for(String s: coinValueList)
-            {
-                if(s.contains(coin))
-                {
-                    onThisLine=true;
-                    output.write(s+" ");
-
-                }
-                else if(!s.contains(coin) && !s.contains("EndOfLine"))
-                    output.write(s+" ");
-                if(s.contains("EndOfLine") && onThisLine)
-                {
-                    if(i==last)
-                    {
-                        //output.write(s);
-                        output.write(Integer.toString(newCoinValue)+" EndOfLine");
-                        onThisLine=false;
-                    }
-                    else
-                    {
-                        output.write(s+"\n");
-                    }
-
-                }
-                else if(s.contains("EndOfLine"))
-                {
-                    if(i==last)
-                    {
-                        //s.replace("EndOfLine","");
-                        output.write(s);
-                    }
-                    else
-                    {
-                        //s.replace("EndOfLine","");
-                        output.write(s+"\n");
-                    }
-
-                }
-
-                System.out.println("Dit is de waarde van i ervoor:" +i);
-            i++;
-                System.out.println("Dit is de waarde van i er na:" +i);
-
-            }*/
-
-            /*output.write(" \n");
-            output.write(coin);
-            output.write(" ");
-            output.write(oldValue);*/
             output.close();
             writer.close();
             output2.close();
             writer2.close();
-
-
-
-
-
+        }
+       return exists;
     }
 }
 

@@ -73,6 +73,7 @@ public class cryptoGui {
     private JLabel dailyLabel;
     private JLabel totalValueLabel;
     private JLabel loginLabel;
+    private JLabel existsLabel;
     private ImageIcon image1;
     //public Accounts account;
     //public static InformationUser user;
@@ -163,7 +164,7 @@ public class cryptoGui {
                         rCoin.setText("");
                         rValue.setText("");
                         rQuantity.setText("");
-                        registerLabel.setText("Het is gelukt!");
+                        //registerLabel.setText("Het is gelukt!");
                     }
                     else{
                         registerLabel.setText("User already exists!");
@@ -372,7 +373,11 @@ public class cryptoGui {
                 //coin =new Coin(0,0," ");
                 Coin coin = Coin.getCoinInstance();
                 try {
-                    coin.setCurrentValueCoin(nameCoin.getText(),Integer.parseInt(dCurrentValue.getText()));
+                    if(coin.setCurrentValueCoin(nameCoin.getText(),Integer.parseInt(dCurrentValue.getText()))!=1)
+                    {
+                        existsLabel.setText("Coin doesn't exist");
+                    }
+
                     System.out.println("currentvalue "+dCurrentValue.getText()+ " Second: " +Integer.parseInt(dCurrentValue.getText()));
                 } catch (IOException e1) {
                     e1.printStackTrace();
@@ -484,6 +489,7 @@ public class cryptoGui {
                 portfolio.setVisible(true);
                 newCoin.setVisible(false);
                 setDailyValue.setVisible(false);
+                existsLabel.setText("");
             }
         });
         backButton3.addActionListener(new ActionListener() {

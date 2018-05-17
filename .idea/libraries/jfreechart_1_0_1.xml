@@ -2,7 +2,6 @@
   <library name="jfreechart-1.0.1">
     <CLASSES>
       <root url="jar://C:/JFreeChart/jfreechart-1.0.1/lib/jfreechart-1.0.1.jar!/" />
-      <root url="jar://D:/Semester 4/Software/jfree/jfreechart-1.0.1/lib/jfreechart-1.0.1.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

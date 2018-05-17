@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Main {
     //private Accounts UserInfoList;
-
+/*
     public static void  main(String[] args) {
         String coinType="";
         int valueCoin=0;
@@ -74,7 +74,7 @@ public class Main {
         }
 */
     }
-}
+
 
   /*String filename = "C:\\Users\\mouhc\\Google Drive\\Desktop\\School\\Uni3\\Semester 6\\Software Design\\CryptoTrack\\Test.xls";
         File inputWorkBook = new File(filename);
