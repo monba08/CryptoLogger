@@ -6,6 +6,7 @@ public class InformationUser {
     public ArrayList<String> names;
     //Singleton
     public static InformationUser iUserInstance=null;
+
     public static InformationUser getiUserInstance() {
         if(iUserInstance == null)
             iUserInstance=new InformationUser();
