@@ -446,6 +446,7 @@ public class cryptoGui {
                 portfolio.setVisible(false);
                 newCoin.setVisible(false);
                 setDailyValue.setVisible(false);
+                loginError.setText("");
             }
         });
         logoutButton.addActionListener(new ActionListener() {

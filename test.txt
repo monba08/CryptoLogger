@@ -1,1 +1,0 @@
-test anc 40000 200 bitcoin 5000 255 cdn 89 147 AZe 12 25
