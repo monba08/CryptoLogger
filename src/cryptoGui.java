@@ -50,7 +50,7 @@ public class cryptoGui {
     private JTextField nameCoin;
     private JList<String> list1;
     private JScrollPane contentPane;
-    private JLabel textVeld;
+    private JLabel registerLabel;
     private JButton plotGraphButton;
     private JButton backButton;
     private JButton backButton1;
@@ -72,6 +72,7 @@ public class cryptoGui {
     private JLabel accLabel;
     private JLabel dailyLabel;
     private JLabel totalValueLabel;
+    private JLabel loginLabel;
     private ImageIcon image1;
     //public Accounts account;
     //public static InformationUser user;
@@ -122,6 +123,7 @@ public class cryptoGui {
                 inlogScherm.setVisible(false);
                 portfolio.setVisible(false);
                 newCoin.setVisible(false);
+                loginLabel.setText("");
             }
         });
         registerButton.addActionListener(new ActionListener() {
@@ -155,10 +157,16 @@ public class cryptoGui {
                         } catch (IOException e1) {
                             e1.printStackTrace();
                         }
-                        textVeld.setText("Het is gelukt!");
+                        registerLabel.setText("");
+                        rName.setText("");
+                        rPass.setText("");
+                        rCoin.setText("");
+                        rValue.setText("");
+                        rQuantity.setText("");
+                        registerLabel.setText("Het is gelukt!");
                     }
                     else{
-                        textVeld.setText("User already exists!");
+                        registerLabel.setText("User already exists!");
                         registerScherm.setVisible(true);
                         loginScherm.setVisible(false);
                         inlogScherm.setVisible(false);
@@ -238,7 +246,7 @@ public class cryptoGui {
                             list1.setModel(model);
                         }
                         else
-                            loginError.setText("User doesn't exist or password is incorrect. Please try again.");
+                            loginLabel.setText("User doesn't exist or password is incorrect. Please try again.");
                             nameField.setText("");
                             pasField.setText("");
                     } catch (IOException e1) {
@@ -435,6 +443,12 @@ public class cryptoGui {
                 portfolio.setVisible(false);
                 newCoin.setVisible(false);
                 setDailyValue.setVisible(false);
+                registerLabel.setText("");
+                rName.setText("");
+                rPass.setText("");
+                rCoin.setText("");
+                rValue.setText("");
+                rQuantity.setText("");
             }
         });
         backButton1.addActionListener(new ActionListener() {
@@ -446,7 +460,7 @@ public class cryptoGui {
                 portfolio.setVisible(false);
                 newCoin.setVisible(false);
                 setDailyValue.setVisible(false);
-                loginError.setText("");
+                loginLabel.setText("");
             }
         });
         logoutButton.addActionListener(new ActionListener() {
@@ -458,6 +472,7 @@ public class cryptoGui {
                 portfolio.setVisible(false);
                 newCoin.setVisible(false);
                 setDailyValue.setVisible(false);
+                //////
             }
         });
         backButton2.addActionListener(new ActionListener() {
