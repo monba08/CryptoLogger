@@ -1,17 +1,12 @@
 
-import javax.sound.sampled.Port;
 import java.io.*;
 import java.util.ArrayList;
-import java.util.ListIterator;
-import java.util.Scanner;
 
 public class Coin {
-    private String nameCoin;
-    private int valueCoin;   //Waarschijnlijk overbodig
-    private int quantityCoin;//Waarschijnlijk overbodig
-   // private int currentValue;//Waarschijnlijk overbodig
-    private int newValueCoin;//Waarschijnlijk overbodig
-    public ArrayList<String> CoinValueList = new ArrayList<>();
+    public String nameCoin;
+    public int valueCoin;
+    public int quantityCoin;
+    public ArrayList<String> coinValueList = new ArrayList<>();
 
     private static Coin coinInstance = null;
     public static Coin getCoinInstance() {
@@ -21,9 +16,9 @@ public class Coin {
     }
 
     private Coin(int valueC, int quantityC, String nameC) { //Private constructor
-        valueCoin = valueC;
-        quantityCoin = quantityC;
-        nameCoin = nameC;
+        this.valueCoin = valueC;
+        this.quantityCoin = quantityC;
+        this.nameCoin = nameC;
     }
 
     public void setNameCoin(String coin) {
@@ -45,7 +40,7 @@ public class Coin {
 
     public void createSecondArraylist(String filename) throws IOException {
 
-        CoinValueList.clear();
+        coinValueList.clear();
         BufferedReader fileIn4= new BufferedReader(new FileReader(filename+".txt"));
         fileIn4.readLine(); //Skip first line
         String line2=fileIn4.readLine(); //Get next line
@@ -53,24 +48,24 @@ public class Coin {
         while(line2 !=null) {
             String parts2[]=line2.split(" ");
             for (int i = 0; i < parts2.length; i++) {
-                CoinValueList.add(parts2[i]);
+                coinValueList.add(parts2[i]);
             }
             line2=fileIn4.readLine();
 
         }
         fileIn4.close();
-        for (String c : CoinValueList)
+        for (String c : coinValueList)
         {
             System.out.println("Coinlist: "+c);
         }
     }
-    public void setCurrentValueCoin(String name,int newCoinValue) throws IOException {
+    public void setCurrentValueCoin(String coin,int newCoinValue) throws IOException {
         Portfolio portfolio = Portfolio.getPortfolioInstance();
         String userName= portfolio.UserInfoList.get(0);
         int index = 0;
         int grootteArrayList = portfolio.UserInfoList.size();
         for (int j = 2; j < grootteArrayList; j += 3) {
-            if (portfolio.UserInfoList.get(j).contains(name)) {
+            if (portfolio.UserInfoList.get(j).contains(coin)) {
                 index = j;
             }
             else
@@ -97,10 +92,10 @@ public class Coin {
             line2= scanFile.nextLine();
             if(!line2.isEmpty())
             {
-                CoinValueList.add(scanFile.next());
+                coinValueList.add(scanFile.next());
                 if(scanFile.hasNextInt())
                 {
-                    CoinValueList.add(Integer.toString(scanFile.nextInt()));
+                    coinValueList.add(Integer.toString(scanFile.nextInt()));
                 }
             }
             else {
@@ -118,11 +113,11 @@ public class Coin {
         boolean coinOnLine=false;
         while(!coinOnLine) {
             line2=fileIn3.readLine();
-            if (line2.contains(name)) {
+            if (line2.contains(coin)) {
                 String parts2[]=line2.split(" ");
                 for (int i = 0; i < parts2.length; i++) {
                     if (parts2.length >= 2) {
-                        CoinValueList.add(parts2[i]);
+                        coinValueList.add(parts2[i]);
                     }
                 }
                 coinOnLine=true;
@@ -131,7 +126,7 @@ public class Coin {
             }
         }
 */
-        for (String c : CoinValueList)
+        for (String c : coinValueList)
         {
             System.out.println("Coinlist: "+c);
         }
@@ -152,25 +147,25 @@ public class Coin {
             }
             output.write(" \n");
 
-        /*for(int i=0;i<CoinValueList.size();i++)
+        /*for(int i=0;i<coinValueList.size();i++)
         {
-            if(CoinValueList.get(i)=="EndOfLine")
+            if(coinValueList.get(i)=="EndOfLine")
             {
                 output.newLine();
             }
-            output.write(CoinValueList.get(i));
+            output.write(coinValueList.get(i));
             output.write(" ");
 
 
         }*/
 
-        int last=CoinValueList.size()+1;//CoinValueList.get(Integer.toString(CoinValueList.size()-1));
+        int last= coinValueList.size()+1;//coinValueList.get(Integer.toString(coinValueList.size()-1));
         System.out.println("Last number: "+last);
         boolean onThisLine=false;
         int i=0;
-        for(String s: CoinValueList)
+        for(String s: coinValueList)
         {
-            if(s.contains(name))
+            if(s.contains(coin))
             {
                 onThisLine=true;
                 output.write(s);
@@ -207,15 +202,15 @@ public class Coin {
             System.out.println("Dit is de waarde van i er na:" +i);
 
         }
-            /*for(String s: CoinValueList)
+            /*for(String s: coinValueList)
             {
-                if(s.contains(name))
+                if(s.contains(coin))
                 {
                     onThisLine=true;
                     output.write(s+" ");
 
                 }
-                else if(!s.contains(name) && !s.contains("EndOfLine"))
+                else if(!s.contains(coin) && !s.contains("EndOfLine"))
                     output.write(s+" ");
                 if(s.contains("EndOfLine") && onThisLine)
                 {
@@ -253,7 +248,7 @@ public class Coin {
             }*/
 
             /*output.write(" \n");
-            output.write(name);
+            output.write(coin);
             output.write(" ");
             output.write(oldValue);*/
             output.close();

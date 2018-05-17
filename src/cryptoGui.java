@@ -1,20 +1,15 @@
-import javax.sound.sampled.Port;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Scanner;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartFrame;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
-import javax.swing.UIManager.*;
 
 
 import static javafx.application.Application.launch;
@@ -76,6 +71,7 @@ public class cryptoGui {
     private JLabel nCoinLabel;
     private JLabel accLabel;
     private JLabel dailyLabel;
+    private JLabel totalValueLabel;
     private ImageIcon image1;
     //public Accounts account;
     //public static InformationUser user;
@@ -97,7 +93,7 @@ public class cryptoGui {
         InformationUser user = InformationUser.getiUserInstance();
 
         try {
-            user.fillList("list.txt");
+            user.readFromFile("list.txt");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -148,7 +144,7 @@ public class cryptoGui {
                 Accounts account = Accounts.getAccountInstance();
                 try {
                     if (!user.checkName(rName.getText())) {
-                        user.addPerson(rName.getText());
+                        user.writeToFile(rName.getText());
                         registerScherm.setVisible(false);
                         loginScherm.setVisible(true);
                         inlogScherm.setVisible(false);
@@ -191,7 +187,7 @@ public class cryptoGui {
                 //if persoon bestaat, laad juiste bestanden
                 Accounts account = Accounts.getAccountInstance();
                 Portfolio port = Portfolio.getPortfolioInstance();
-                    try {
+                                    try {
                         if (account.logIn(naam, pass)) {
                             registerScherm.setVisible(false);
                             loginScherm.setVisible(false);
@@ -206,6 +202,9 @@ public class cryptoGui {
                             int i = 0;
                             model = new DefaultListModel<>();
                             String prefix = "";
+
+                            //Total value
+                            totalValueLabel.setText("Total Value of portfolio: "+port.calculateTotalValue());
 
                             //Portfolio.getPortfolioInstance();
                             for (String str : port.UserInfoList) {
@@ -310,6 +309,9 @@ public class cryptoGui {
                 model = new DefaultListModel<>();
                 String prefix="";
 
+                //update total value
+                totalValueLabel.setText("Total Value of portfolio: "+port.calculateTotalValue());
+
                 //try {
                     //Portfolio.getPortfolioInstance();
                     for (String str : port.UserInfoList) {
@@ -385,25 +387,25 @@ public class cryptoGui {
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }
-                index = coin.CoinValueList.indexOf(plotCoin.getText());
-                //System.out.println("Index is: "+index+". En in de list: "+Coin.CoinValueList.get(index));
+                index = coin.coinValueList.indexOf(plotCoin.getText());
+                //System.out.println("Index is: "+index+". En in de list: "+Coin.coinValueList.get(index));
 
                 for(int i=index+1;i<i+7;i++)
                 {
                     if(i==index+1)
-                        mon=Integer.parseInt(coin.CoinValueList.get(i));
+                        mon=Integer.parseInt(coin.coinValueList.get(i));
                     if(i==index+2)
-                        tue=Integer.parseInt(coin.CoinValueList.get(i));
+                        tue=Integer.parseInt(coin.coinValueList.get(i));
                     if(i==index+3)
-                        wen=Integer.parseInt(coin.CoinValueList.get(i));
+                        wen=Integer.parseInt(coin.coinValueList.get(i));
                     if(i==index+4)
-                        thurs=Integer.parseInt(coin.CoinValueList.get(i));
+                        thurs=Integer.parseInt(coin.coinValueList.get(i));
                     if(i==index+5)
-                        fri=Integer.parseInt(coin.CoinValueList.get(i));
+                        fri=Integer.parseInt(coin.coinValueList.get(i));
                     if(i==index+6)
-                        sat=Integer.parseInt(coin.CoinValueList.get(i));
+                        sat=Integer.parseInt(coin.coinValueList.get(i));
                     if(i==index+7)
-                        sun=Integer.parseInt(coin.CoinValueList.get(i));
+                        sun=Integer.parseInt(coin.coinValueList.get(i));
 
                 }
 
@@ -501,6 +503,7 @@ public class cryptoGui {
                 portfolio.setVisible(true);
                 newCoin.setVisible(false);
                 setDailyValue.setVisible(false);
+                removeCoin.setVisible(false);
             }
         });
         doneButton3.addActionListener(new ActionListener() {
@@ -519,6 +522,8 @@ public class cryptoGui {
                 portfolio.setVisible(true);
                 newCoin.setVisible(false);
                 setDailyValue.setVisible(false);
+                removeCoin.setVisible(false);
+
             }
         });
     };

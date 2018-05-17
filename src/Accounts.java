@@ -7,13 +7,6 @@ import java.util.Scanner;
 
 public class Accounts {
 
-    private String coinType;
-    InformationUser nameUser;
-    private int valueCoin;
-    private int quantityCoin;
-    private int date;
-    private static ArrayList<InformationUser> info = new ArrayList<>();
-    public String userN;
     public static ArrayList<String> loginArray = new ArrayList<>();
 
     private static Accounts accountInstance = null;
@@ -29,7 +22,7 @@ public class Accounts {
     public void createNewAccount(String registNaam,String registPass,String coinNaam, int valueC, int quantityCoin) throws IOException {
         String name = registNaam;
         String pass =registPass;
-        valueCoin = valueC;
+       // valueCoin = valueC;
         //Coin coin = new Coin(valueCoin, quantityCoin, coinType);
         Coin.getCoinInstance().setNameCoin(coinNaam);
         Coin.getCoinInstance().setQuantityCoin(quantityCoin);
@@ -61,7 +54,7 @@ public class Accounts {
 
 
 
-    public boolean logIn(String gebruiker, String wachtwoord) throws IOException {
+    public boolean logIn(String userName, String password) throws IOException {
         boolean login = false;
 
         File fileList= new File("list.txt");
@@ -70,16 +63,16 @@ public class Accounts {
         boolean check=false;
         while(scanFile.hasNextLine() && !check) {
             currentLine=scanFile.nextLine();
-            if (currentLine.contains(gebruiker)) {
+            if (currentLine.contains(userName)) {
                 //List.txt moet gecheckt worden.
-                System.out.println("User exists: " + gebruiker);
+                System.out.println("User exists: " + userName);
                 check = true;
             }
         }
         scanFile.close();
 
         if (check) {
-            String userFile1 = gebruiker + ".txt";
+            String userFile1 = userName + ".txt";
 
             BufferedReader fileIn = new BufferedReader(new FileReader(userFile1));
             String line = fileIn.readLine();
@@ -87,9 +80,9 @@ public class Accounts {
             String user = parts[0];
             int gr = parts.length;
             System.out.println("Grootte is: " + gr);
-            if (gebruiker.equals(user)) {
+            if (userName.equals(user)) {
                 String pass = parts[1];
-                if (wachtwoord.equals(pass)) {
+                if (password.equals(pass)) {
                     login = true;
                 }
 
@@ -144,10 +137,5 @@ public class Accounts {
             System.out.println("User not found");
         }
         return login;
-    }
-    public String checkUser()
-    {
-        System.out.println("Dit is de user: "+userN);
-        return userN;
     }
 }

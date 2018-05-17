@@ -1,1 +1,3 @@
-popo popo btc 20 3
+popo popo ICX 50 3 pepe 10 2 
+ ICX 50 EndOfLine
+pepe 10 EndOfLine

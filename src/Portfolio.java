@@ -16,7 +16,7 @@ public class Portfolio {
 
     private Portfolio(){}
 
-    public String getQuantityCoin(){
+    /*public String getQuantityCoin(){
 
         return UserInfoList.get(4);
     }
@@ -37,7 +37,7 @@ public class Portfolio {
         String name = UserInfoList.get(0);
         System.out.println("De  naam van de persoon is: "+name);
         return name;
-    }
+    }*/
 
     public void readFromFile() throws IOException {
         //File inputFile = new File("Accounts.txt");
@@ -83,7 +83,7 @@ public class Portfolio {
 
 
     }
-    public int calculateTotalValue()
+    public String calculateTotalValue()
     {
         int totalValue=0;
         for(int i=3;i<UserInfoList.size();i+=3)
@@ -91,11 +91,6 @@ public class Portfolio {
             totalValue=totalValue + (Integer.parseInt(UserInfoList.get(i))*Integer.parseInt(UserInfoList.get(i+1)));
         }
         System.out.println("De totale waarde van de portfolio is: "+totalValue);
-        return totalValue;
-    }
-
-    public void getWeekValues(){
-    //date();
-       // https://stackoverflow.com/questions/8714779/is-there-a-shortcut-for-inserting-date-time-in-intellij-idea?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
+        return Integer.toString(totalValue);
     }
 }

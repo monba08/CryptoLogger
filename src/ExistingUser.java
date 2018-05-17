@@ -1,12 +1,7 @@
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class ExistingUser {
-    private int currentValue;
-    private String coinName;
-    private int valueCoin;
-    private int quantityCoin;
     public static ArrayList<String> newCoinList = new ArrayList<>();
 
     private static ExistingUser existingUserInstance = null;
@@ -26,16 +21,16 @@ public class ExistingUser {
     }
 
 
-    public void newCoin(String naamCoin, int value, int quantity) throws IOException {
+    public void newCoin(String nameCoin, int value, int quantity) throws IOException {
 
         //Coin coin = new Coin(value,quantity,naamCoin);
         Coin coin = Coin.getCoinInstance();
-        coin.setNameCoin(naamCoin);
+        coin.setNameCoin(nameCoin);
         coin.setValueCoin(value);
         coin.setQuantityCoin(quantity);
 
         Portfolio port = Portfolio.getPortfolioInstance();
-        port.UserInfoList.add(naamCoin);
+        port.UserInfoList.add(nameCoin);
         port.UserInfoList.add(Integer.toString(value));
         port.UserInfoList.add(Integer.toString(quantity));
         String currentUser = port.UserInfoList.get(0);
@@ -96,7 +91,7 @@ public class ExistingUser {
             i++;
         }
         output.write("\n");
-        output.write(naamCoin);
+        output.write(nameCoin);
         output.write(" ");
         output.write(Integer.toString(value));
         output.write(" "+"EndOfLine");
@@ -107,7 +102,7 @@ public class ExistingUser {
         writer2.close();
     }
 
-    public void removeCoin(String coinRemover) throws IOException {
+    public void removeCoin(String coinRemove) throws IOException {
 
         Portfolio port = Portfolio.getPortfolioInstance();
         String currentUser = port.UserInfoList.get(0);
@@ -118,7 +113,7 @@ public class ExistingUser {
         int teVerwijderen = 0;
         int grootteArrayList = port.UserInfoList.size();
         for (int j = 2; j < grootteArrayList; j += 3) {
-            if (port.UserInfoList.get(j).contains(coinRemover)) {
+            if (port.UserInfoList.get(j).contains(coinRemove)) {
                 teVerwijderen = j;
             }
         }
@@ -129,20 +124,20 @@ public class ExistingUser {
         //coinLijst = new Coin(0,0,"");
         Coin coin = Coin.getCoinInstance();
         coin.createSecondArraylist(currentUser);
-        int index = coin.CoinValueList.indexOf(coinRemover)-1;
+        int index = coin.coinValueList.indexOf(coinRemove)-1;
 
-        for(int i=index;i<=index+7;i++)
+        /*for(int i=index;i<=index+7;i++)
         {
-            //coinLijst.CoinValueList.remove(i);
-            if(coin.CoinValueList.get(index)=="EndOfLine" && i<=index+7)
+            //coinLijst.coinValueList.remove(i);
+            if(coin.coinValueList.get(index)=="EndOfLine" && i<=index+7)
             {
-                coin.CoinValueList.remove(i);
+                coin.coinValueList.remove(i);
                 i=index+8; //Om uit de for-loop te gaan
             }
             else
-                coin.CoinValueList.remove(i);
+                coin.coinValueList.remove(i);
 
-        }
+        }*/
 
         int size = port.UserInfoList.size();
         System.out.println("Grootte arraylist is: " + size);
@@ -163,8 +158,8 @@ public class ExistingUser {
             }
         int i =0;
         output.write("\n");
-        int lastObject = coin.CoinValueList.size()-1;
-        for (String st : coin.CoinValueList)
+        int lastObject = coin.coinValueList.size()-1;
+        for (String st : coin.coinValueList)
         {
             if (st.contains("EndOfLine"))
             {

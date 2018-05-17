@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class InformationUser {
-    public ArrayList<String> namen = new ArrayList<>();
+    public ArrayList<String> names;
     //Singleton
     public static InformationUser iUserInstance=null;
     public static InformationUser getiUserInstance() {
@@ -14,12 +14,12 @@ public class InformationUser {
 
 
     private InformationUser(){
-        //this.namen = new ArrayList();
+        this.names = new ArrayList();
 
     }
 
-    public void addPerson(String name){
-        namen.add(name);
+    public void writeToFile(String name){
+        names.add(name);
         try {
             FileWriter fw = new FileWriter("list.txt",true);
             Writer Output = new BufferedWriter(fw);
@@ -50,19 +50,19 @@ public class InformationUser {
         return check;
     }
 
-    public void fillList(String fileName) throws IOException {
-        namen.clear();
+    public void readFromFile(String fileName) throws IOException {
+        names.clear();
         //File file = new File(fileName);
         BufferedReader fileIn = new BufferedReader(new FileReader(fileName));
         String line = fileIn.readLine();
-        namen.add(line);
+        names.add(line);
         //Scanner input = new Scanner(file);
         /*while(input.hasNextLine()){
-            namen.add(input.nextLine());
+            names.add(input.nextLine());
         }
         input.close();*/
         fileIn.close();
-        for(String str: namen){
+        for(String str: names){
             System.out.println("Filllist: "+str);
         }
     }
