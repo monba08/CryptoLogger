@@ -74,6 +74,7 @@ public class cryptoGui {
     private JLabel totalValueLabel;
     private JLabel loginLabel;
     private JLabel existsLabel;
+    private JLabel removingCoin;
     private ImageIcon image1;
     //public Accounts account;
     //public static InformationUser user;
@@ -526,6 +527,7 @@ public class cryptoGui {
                 newCoin.setVisible(false);
                 setDailyValue.setVisible(false);
                 removeCoin.setVisible(false);
+                removingCoin.setText("");
             }
         });
         doneButton3.addActionListener(new ActionListener() {
@@ -533,7 +535,14 @@ public class cryptoGui {
             public void actionPerformed(ActionEvent e) {
                 //eu2=new ExistingUser();
                 try {
-                    ExistingUser.getUserInstance().removeCoin(delCoin.getText());
+                    if(ExistingUser.getUserInstance().removeCoin(delCoin.getText()))
+                    {
+                        removingCoin.setText("Coin removed");
+                    }
+                    else
+                    {
+                        removingCoin.setText("Coin doesn't exist.");
+                    }
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }
@@ -541,10 +550,11 @@ public class cryptoGui {
                 registerScherm.setVisible(false);
                 loginScherm.setVisible(false);
                 inlogScherm.setVisible(false);
-                portfolio.setVisible(true);
+                portfolio.setVisible(false);
                 newCoin.setVisible(false);
                 setDailyValue.setVisible(false);
-                removeCoin.setVisible(false);
+                removeCoin.setVisible(true);
+                delCoin.setText("");
 
             }
         });

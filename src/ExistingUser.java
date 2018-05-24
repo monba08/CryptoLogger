@@ -5,19 +5,14 @@ public class ExistingUser {
     public static ArrayList<String> newCoinList = new ArrayList<>();
 
     private static ExistingUser existingUserInstance = null;
+
     public static ExistingUser getUserInstance() {
-        if(existingUserInstance == null)
-            existingUserInstance=new ExistingUser();
+        if (existingUserInstance == null)
+            existingUserInstance = new ExistingUser();
         return existingUserInstance;
     }
 
     private ExistingUser() {
-        /*try {
-            portfolio = new Portfolio();
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found");
-            e.printStackTrace();
-        }*/
     }
 
 
@@ -36,21 +31,21 @@ public class ExistingUser {
         String currentUser = port.UserInfoList.get(0);
         newCoinList.clear();
 
-        BufferedReader fileIn3= new BufferedReader(new FileReader(currentUser+".txt"));
+        BufferedReader fileIn3 = new BufferedReader(new FileReader(currentUser + ".txt"));
         fileIn3.readLine(); //Skip first line
-        String line2=fileIn3.readLine(); //Get next line
+        String line2 = fileIn3.readLine(); //Get next line
 
-        while(line2 !=null) {
-            String parts2[]=line2.split(" ");
+        while (line2 != null) {
+            String parts2[] = line2.split(" ");
             for (int i = 0; i < parts2.length; i++) {
-                        newCoinList.add(parts2[i]);
-                                    }
-            line2=fileIn3.readLine();
+                newCoinList.add(parts2[i]);
+            }
+            line2 = fileIn3.readLine();
 
         }
         fileIn3.close();
 
-        System.out.println("newCoinList: "+newCoinList);
+        System.out.println("newCoinList: " + newCoinList);
 
 
         FileWriter writer = new FileWriter(currentUser + ".txt");
@@ -65,25 +60,18 @@ public class ExistingUser {
             output2.write(" ");
 
         }
-        int i =0;
+        int i = 0;
         output.write("\n");
-        int lastObject = newCoinList.size()-1;
-        for (String st : newCoinList)
-        {
-            if (st.contains("EndOfLine"))
-            {
-                if(i==lastObject)
-                {
+        int lastObject = newCoinList.size() - 1;
+        for (String st : newCoinList) {
+            if (st.contains("EndOfLine")) {
+                if (i == lastObject) {
                     output.write(st);
-                }
-                else
-                {
+                } else {
                     output.write(st);
                     output.write("\n");
                 }
-            }
-            else
-            {
+            } else {
                 output.write(st);
                 output.write(" ");
             }
@@ -94,7 +82,7 @@ public class ExistingUser {
         output.write(nameCoin);
         output.write(" ");
         output.write(Integer.toString(value));
-        output.write(" "+"EndOfLine");
+        output.write(" " + "EndOfLine");
 
         output.close();
         writer.close();
@@ -102,48 +90,50 @@ public class ExistingUser {
         writer2.close();
     }
 
-    public void removeCoin(String coinRemove) throws IOException {
+    public boolean removeCoin(String coinRemove) throws IOException {
 
         Portfolio port = Portfolio.getPortfolioInstance();
         String currentUser = port.UserInfoList.get(0);
-
-        int grootte=port.UserInfoList.size();
-        System.out.println("Dit is de grootte: "+grootte);
+        boolean coinExists = false;
+        int grootte = port.UserInfoList.size();
+        System.out.println("Dit is de grootte: " + grootte);
 
         int teVerwijderen = 0;
         int grootteArrayList = port.UserInfoList.size();
         for (int j = 2; j < grootteArrayList; j += 3) {
             if (port.UserInfoList.get(j).contains(coinRemove)) {
                 teVerwijderen = j;
+                coinExists = true;
             }
         }
-        System.out.println("Verwijder is op "+teVerwijderen);
-        for (int t = teVerwijderen+2; t >= teVerwijderen; t--) {
-            port.UserInfoList.remove(t);
-        }
-        //coinLijst = new Coin(0,0,"");
-        Coin coin = Coin.getCoinInstance();
-        coin.createSecondArraylist(currentUser);
-        int index = coin.coinValueList.indexOf(coinRemove)-1;
+        System.out.println("Verwijder is op " + teVerwijderen);
+        if (coinExists) {
+            for (int t = teVerwijderen + 2; t >= teVerwijderen; t--) {
+                port.UserInfoList.remove(t);
+            }
+            //coinLijst = new Coin(0,0,"");
+            Coin coin = Coin.getCoinInstance();
+            coin.createSecondArraylist(currentUser);
+            int index = coin.coinValueList.indexOf(coinRemove);
 
-        /*for(int i=index;i<=index+7;i++)
+        /*for(int i=index;i<=index+6;i++)
         {
-            //coinLijst.coinValueList.remove(i);
-            if(coin.coinValueList.get(index)=="EndOfLine" && i<=index+7)
+            coin.coinValueList.remove(i);
+            if(coin.coinValueList.get(index)=="EndOfLine")
             {
                 coin.coinValueList.remove(i);
-                i=index+8; //Om uit de for-loop te gaan
+                //i=index+8; //Om uit de for-loop te gaan
             }
-            else
+            /*else
                 coin.coinValueList.remove(i);
 
         }*/
 
-        int size = port.UserInfoList.size();
-        System.out.println("Grootte arraylist is: " + size);
+            int size = port.UserInfoList.size();
+            System.out.println("Grootte arraylist is: " + size);
 
-        System.out.println("Dit is accounts: " + port.UserInfoList);
-        System.out.println("Dit is accountskleineP: " + port.UserInfoList);
+            System.out.println("Dit is accounts: " + port.UserInfoList);
+            System.out.println("Dit is accountskleineP: " + port.UserInfoList);
 
             FileWriter writer = new FileWriter(currentUser + ".txt");
             FileWriter writer2 = new FileWriter("User.txt");
@@ -156,37 +146,33 @@ public class ExistingUser {
                 output2.write(port.UserInfoList.get(j));
                 output2.write(" ");
             }
-        int i =0;
-        output.write("\n");
-        int lastObject = coin.coinValueList.size()-1;
-        for (String st : coin.coinValueList)
-        {
-            if (st.contains("EndOfLine"))
-            {
-                if(i==lastObject)
-                {
+            int i = 0;
+            output.write("\n");
+            int lastObject = coin.coinValueList.size() - 1;
+            for (String st : coin.coinValueList) {
+                if (st.contains("EndOfLine")) {
+                    if (i == lastObject) {
+                        output.write(st);
+                    } else {
+                        output.write(st);
+                        output.write("\n");
+                    }
+                } else {
                     output.write(st);
+                    output.write(" ");
                 }
-                else
-                {
-                    output.write(st);
-                    output.write("\n");
-                }
-            }
-            else
-            {
-                output.write(st);
-                output.write(" ");
-            }
 
-            i++;
-        }
+                i++;
+            }
             output.close();
             output2.close();
 
 
         }
+
+        return coinExists;
     }
+}
 
 
 

@@ -23,7 +23,7 @@ public class Coin {
 
     public void setNameCoin(String coin) {
 
-        nameCoin = coin; //Waarschijnlijk overbodig
+        nameCoin = coin;
 
     }
 
@@ -146,9 +146,9 @@ public class Coin {
                 }
                 //onThisLine=false;
             }
-            System.out.println("Dit is de waarde van i ervoor:" +i);
+            //System.out.println("Dit is de waarde van i ervoor:" +i);
             i++;
-            System.out.println("Dit is de waarde van i er na:" +i);
+            //System.out.println("Dit is de waarde van i er na:" +i);
 
         }
             output.close();

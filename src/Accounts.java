@@ -18,20 +18,17 @@ public class Accounts {
     private Accounts(){} //Private constructor
 
 
-    //Dit zal later geïmplementeerd worden in een GUI.
     public void createNewAccount(String registNaam,String registPass,String coinNaam, int valueC, int quantityCoin) throws IOException {
         String name = registNaam;
         String pass =registPass;
-       // valueCoin = valueC;
-        //Coin coin = new Coin(valueCoin, quantityCoin, coinType);
         Coin.getCoinInstance().setNameCoin(coinNaam);
         Coin.getCoinInstance().setQuantityCoin(quantityCoin);
 
-        String userFile = name + ".txt";
+        String userFile = name + ".txt"; //Tekstbestand aanmaken met als 'naam' de naam van de gebruiker.
         File fout = new File(userFile);
         FileOutputStream fos = new FileOutputStream(fout, true); //Append parameter, zodat oude data niet verdwijnt. Boolean argument
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
-
+        //Info wegschrijven naar bestand van de gebruiker.
         bw.write(name);
         bw.write(" ");
         bw.write(pass);
@@ -57,7 +54,7 @@ public class Accounts {
     public boolean logIn(String userName, String password) throws IOException {
         boolean login = false;
 
-        File fileList= new File("list.txt");
+        File fileList= new File("list.txt"); //List.txt checken of dat de ingegeven naam bestaat of niet.
         Scanner scanFile = new Scanner(fileList);
         String currentLine="";
         boolean check=false;
@@ -89,7 +86,7 @@ public class Accounts {
                 if (login) {
                     System.out.print("Wilkommen\n");
                     loginArray.clear();
-
+                    //Gegevens gebruiker in een arraylist steken.
                     if (parts.length == 2 && !(parts.length >= 5)) {
                         loginArray.add(parts[0]);
                         loginArray.add(parts[1]);
@@ -102,38 +99,32 @@ public class Accounts {
                     } else if (parts.length >= 8) {
                         for (int j = 0; j < parts.length; j++) {
                             loginArray.add(parts[j]);
-                            //loginArray.add(parts[j+1]);
-                            //loginArray.add(parts[j+2]);
+
                         }
                     }
-
                     for (String st : loginArray) {
                         System.out.println("LoginArray: " + st);
                     }
-
+                    //User.txt wordt beschouwd als de huidige gebruiker die is ingelogd. Dus we schrijven de gegevens opnieuw weg maar deze keer naar User.txt
                     String currentUser = loginArray.get(0);
                     System.out.println("Currentuser:" + currentUser);
                     FileWriter writer = new FileWriter("User.txt");
                     Writer output = new BufferedWriter(writer);
-                    //{
+
 
                     for (String stringuser : loginArray) {
                         output.write(stringuser);
                         output.write(" ");
                     }
-
-
                     output.close();
                     login= true;
                 } else {
-                    //scan2.nextLine();
                     System.out.print("User doesn't exist");
                     login= false;
                 }
             }
         }
-        else
-        {
+        else {
             System.out.println("User not found");
         }
         return login;
